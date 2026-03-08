@@ -8,7 +8,7 @@ const IS_PREVIEW = env.VERCEL_ENV === 'preview'
 export function proxy(request: NextRequest) {
   const csp = `
     default-src 'none';
-    script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.nelsonlai.dev https://*.posthog.com https://va.vercel-scripts.com ${IS_PREVIEW ? 'https://vercel.live' : ''};
+    script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.bravía.com https://*.posthog.com https://va.vercel-scripts.com ${IS_PREVIEW ? 'https://vercel.live' : ''};
     style-src 'self' 'unsafe-inline' https://*.posthog.com ${IS_PREVIEW ? 'https://vercel.live' : ''};
     img-src 'self' data: https://avatars.githubusercontent.com https://*.googleusercontent.com https://*.posthog.com https://github.com https://images.unsplash.com ${env.CLOUDFLARE_R2_PUBLIC_URL} ${IS_PREVIEW ? 'https://vercel.live https://vercel.com blob:' : ''};
     font-src 'self' https://*.posthog.com ${IS_PREVIEW ? 'https://vercel.live https://assets.vercel.com' : ''};
@@ -16,7 +16,7 @@ export function proxy(request: NextRequest) {
     object-src 'none';
     base-uri 'none';
     form-action 'none';
-    connect-src 'self' https://*.nelsonlai.dev https://*.posthog.com ${env.CLOUDFLARE_R2_ENDPOINT} ${IS_PREVIEW ? 'https://vercel.live wss://ws-us3.pusher.com' : ''};
+    connect-src 'self' https://*.bravía.com https://*.posthog.com ${env.CLOUDFLARE_R2_ENDPOINT} ${IS_PREVIEW ? 'https://vercel.live wss://ws-us3.pusher.com' : ''};
     media-src 'self' https://*.posthog.com;
     manifest-src 'self';
     frame-ancestors 'self' https://*.posthog.com;
