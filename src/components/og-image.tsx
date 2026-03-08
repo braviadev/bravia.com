@@ -38,7 +38,7 @@ function OGImage(props: OGImageProps) {
       <Logo width={50} style={{ position: 'absolute', left: 50, top: 50 }} />
       <div style={{ fontSize, maxWidth: 740, fontWeight: 600 }}>{title}</div>
       <div style={{ display: 'flex', fontSize: 30, position: 'absolute', right: 50, bottom: 50, fontWeight: 500 }}>
-        nelsonlai.dev{url}
+        bravía.com{url}
       </div>
     </div>
   )
