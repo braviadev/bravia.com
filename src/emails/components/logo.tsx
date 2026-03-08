@@ -6,8 +6,8 @@ function Logo() {
       <Img
         src='bravía.com/images/avatar.png'
         alt="Bravia Dper's Logo"
-        width='70'
-        height='70'
+        width='96'
+        height='96'
         className='rounded-full'
       />
     </Section>
