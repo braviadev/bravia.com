@@ -40,7 +40,7 @@ function Stats() {
   const data: Card[] = [
     {
       title: t('dashboard.stat.coding-hours'),
-      link: 'https://wakatime.com/@braviadev',
+      link: 'https://wakatime.com/@Braviadev',
       value: wakatimeQuery.data?.hours,
       icon: <SiWakatime className='text-[#0061ff]' />,
       linkText: 'WakaTime',
