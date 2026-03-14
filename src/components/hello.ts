@@ -13,7 +13,7 @@ function Hello() {
 
 If you're digging this code, check out my GitHub repo:
 
-https://github.com/braviadev/bravía.com
+https://github.com/braviadev/bravia.dev
 
 and give it a star ⭐
 `,
