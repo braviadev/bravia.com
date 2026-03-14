@@ -1,11 +1,13 @@
+import type { SocialProviders } from 'better-auth'
 import type { NextRequest } from 'next/server'
 
-import { betterAuth, type SocialProviders } from 'better-auth'
+import { betterAuth } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import { headers } from 'next/headers'
 
 import { db } from '@/db'
-import { env } from '@/lib/env'
+import { env } from '@/env'
+import { getBaseUrl } from '@/utils/get-base-url'
 
 function getSocialProviders(): SocialProviders {
   const providers: SocialProviders = {}
@@ -28,29 +30,16 @@ function getSocialProviders(): SocialProviders {
 }
 
 export const auth = betterAuth({
-  baseURL: process.env.NEXT_PUBLIC_SITE_URL,
-
+  baseURL: getBaseUrl(),
   database: drizzleAdapter(db, {
     provider: 'pg',
     usePlural: true,
   }),
-
-  trustedOrigins: [
-    process.env.NEXT_PUBLIC_SITE_URL!,
-    "https://xn--brava-2sa.com",
-    "https://www.xn--brava-2sa.com"
-  ],
-
+  trustedOrigins: [getBaseUrl()],
   socialProviders: getSocialProviders(),
-
   user: {
     additionalFields: {
-      role: {
-        type: 'string',
-        required: true,
-        input: false,
-        defaultValue: 'user',
-      },
+      role: { type: 'string', required: true, input: false, defaultValue: 'user' },
     },
   },
 })
