@@ -126,7 +126,7 @@ function CommandMenu() {
       title: t('command-menu.actions.source-code'),
       icon: <CodeIcon />,
       onSelect: () => {
-        openExternalLink('https://github.com/braviadev/bravía.com')
+        openExternalLink('https://github.com/braviadev/bravia.dev')
       },
     },
   ]
