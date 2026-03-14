@@ -95,7 +95,7 @@ export const FOOTER_LINKS: FooterLinks = [
       // i18n-check t('common.labels.projects')
       { href: '/projects', labelKey: 'common.labels.projects' },
       // i18n-check t('common.labels.links')
-      { href: 'https://link.bravía.com', labelKey: 'common.labels.links' },
+      { href: 'https://links.bravía.com', labelKey: 'common.labels.links' },
     ],
   },
   {
