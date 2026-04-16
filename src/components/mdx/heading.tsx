@@ -2,7 +2,7 @@
 // Copyright (c) fuma-nama
 // Source: https://github.com/fuma-nama/fumadocs/blob/82c273917280f63da95687852135f89a08593e71/packages/ui/src/components/heading.tsx
 //
-// Modified by: Olanrewaju Toyyib
+// Modified by: Nelson Lai
 import { LinkIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
@@ -10,18 +10,18 @@ import { Link } from '@/components/ui/link'
 import { cn } from '@/utils/cn'
 
 type Types = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
-type HeadingProps<T extends Types> = Omit<React.ComponentProps<T>, 'as'> & {
-  as?: T
+type HeadingProps<TTag extends Types> = Omit<React.ComponentProps<TTag>, 'as'> & {
+  as?: TTag
 }
 
-function Heading<T extends Types = 'h1'>(props: HeadingProps<T>) {
+export function Heading<TTag extends Types = 'h1'>(props: HeadingProps<TTag>) {
   const { as, className, children, id, ...rest } = props
   const Component = as ?? 'h1'
   const t = useTranslations()
 
   return (
     <Component className={cn('scroll-m-32', className)} id={id} {...rest}>
-      <Link href={`#${id}`} className='group'>
+      <Link href={{ hash: id }} className='group'>
         {children}
         <LinkIcon
           aria-label={t('mdx.link-to-section')}
@@ -31,5 +31,3 @@ function Heading<T extends Types = 'h1'>(props: HeadingProps<T>) {
     </Component>
   )
 }
-
-export default Heading
