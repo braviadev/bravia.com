@@ -6,14 +6,14 @@ import { SearchIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 
-import PostCards from './post-cards'
+import { PostCard } from './post-card'
 import { InputGroup, InputGroupAddon, InputGroupInput } from './ui/input-group'
 
 type FilteredPostsProps = {
   posts: Post[]
 }
 
-function FilteredPosts(props: FilteredPostsProps) {
+export function FilteredPosts(props: FilteredPostsProps) {
   const { posts } = props
   const [searchValue, setSearchValue] = useState('')
   const t = useTranslations()
@@ -41,9 +41,11 @@ function FilteredPosts(props: FilteredPostsProps) {
       {filteredPosts.length === 0 && (
         <div className='my-24 text-center text-xl'>{t('components.filtered-posts.no-posts-found')}</div>
       )}
-      <PostCards posts={filteredPosts} />
+      <div className='grid gap-4 md:grid-cols-2'>
+        {filteredPosts.map((post) => (
+          <PostCard key={post.slug} post={post} />
+        ))}
+      </div>
     </>
   )
 }
-
-export default FilteredPosts

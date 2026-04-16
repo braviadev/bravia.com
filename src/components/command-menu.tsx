@@ -1,6 +1,6 @@
 'use client'
 
-import { CodeIcon, CommandIcon, LinkIcon, LogInIcon, LogOutIcon, UserCircleIcon } from 'lucide-react'
+import { CodeIcon, CommandIcon, LinkIcon, LogInIcon, LogOutIcon, ShieldIcon, UserCircleIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Fragment, useEffect, useState } from 'react'
 
@@ -15,7 +15,7 @@ import {
   CommandList,
   CommandSeparator,
 } from '@/components/ui/command'
-import { SOCIAL_LINKS } from '@/config/links'
+import { SOCIAL_LINKS } from '@/constants/navigation'
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard'
 import { useSignInDialog } from '@/hooks/use-sign-in-dialog'
 import { useSignOut } from '@/hooks/use-sign-out'
@@ -25,7 +25,7 @@ import { useSession } from '@/lib/auth-client'
 type CommandAction = {
   title: string
   icon: React.ReactNode
-  onSelect: () => void | Promise<void>
+  handleSelect: () => void | Promise<void>
 }
 
 type CommandGroup = {
@@ -33,7 +33,7 @@ type CommandGroup = {
   actions: CommandAction[]
 }
 
-function CommandMenu() {
+export function CommandMenu() {
   const [isOpen, setIsOpen] = useState(false)
   const [copy] = useCopyToClipboard()
   const { data: session } = useSession()
@@ -69,6 +69,11 @@ function CommandMenu() {
     router.push('/account')
   }
 
+  function handleAdminNavigate() {
+    closeMenu()
+    router.push('/admin')
+  }
+
   function handleSignIn() {
     closeMenu()
     openDialog()
@@ -100,19 +105,28 @@ function CommandMenu() {
         {
           title: t('common.labels.account'),
           icon: <UserCircleIcon />,
-          onSelect: handleAccountNavigate,
+          handleSelect: handleAccountNavigate,
         },
+        ...(session.user.role === 'admin'
+          ? [
+              {
+                title: 'Admin',
+                icon: <ShieldIcon />,
+                handleSelect: handleAdminNavigate,
+              },
+            ]
+          : []),
         {
           title: t('common.sign-out'),
           icon: <LogOutIcon />,
-          onSelect: handleSignOut,
+          handleSelect: handleSignOut,
         },
       ]
     : [
         {
           title: t('common.sign-in'),
           icon: <LogInIcon />,
-          onSelect: handleSignIn,
+          handleSelect: handleSignIn,
         },
       ]
 
@@ -120,13 +134,13 @@ function CommandMenu() {
     {
       title: t('command-menu.actions.copy-link'),
       icon: <LinkIcon />,
-      onSelect: copyCurrentUrl,
+      handleSelect: copyCurrentUrl,
     },
     {
       title: t('command-menu.actions.source-code'),
       icon: <CodeIcon />,
-      onSelect: () => {
-        openExternalLink('https://github.com/braviadev/bravia.dev')
+      handleSelect: () => {
+        openExternalLink('https://github.com/nelsonlaidev/nelsonlai.dev')
       },
     },
   ]
@@ -134,7 +148,7 @@ function CommandMenu() {
   const socialActions: CommandAction[] = SOCIAL_LINKS.map((link) => ({
     title: link.title,
     icon: link.icon,
-    onSelect: () => {
+    handleSelect: () => {
       openExternalLink(link.href)
     },
   }))
@@ -165,7 +179,7 @@ function CommandMenu() {
               <Fragment key={group.name}>
                 <CommandGroup heading={group.name}>
                   {group.actions.map((action) => (
-                    <CommandItem key={action.title} onSelect={action.onSelect}>
+                    <CommandItem key={action.title} onSelect={action.handleSelect}>
                       {action.icon}
                       {action.title}
                     </CommandItem>
@@ -180,5 +194,3 @@ function CommandMenu() {
     </>
   )
 }
-
-export default CommandMenu

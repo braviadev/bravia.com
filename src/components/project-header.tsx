@@ -8,23 +8,17 @@ import { useTranslations } from 'next-intl'
 
 import { buttonVariants } from '@/components/ui/button'
 import { Link } from '@/components/ui/link'
-import { GITHUB_USERNAME } from '@/lib/constants'
+import { GITHUB_USERNAME } from '@/constants/site'
 import { cn } from '@/utils/cn'
 
 const animation = {
-  hide: {
-    x: -30,
-    opacity: 0,
-  },
-  show: {
-    x: 0,
-    opacity: 1,
-  },
+  hide: { x: -30, opacity: 0 },
+  show: { x: 0, opacity: 1 },
 }
 
 type ProjectHeaderProps = Project
 
-function ProjectHeader(props: ProjectHeaderProps) {
+export function ProjectHeader(props: ProjectHeaderProps) {
   const { name, description, homepage, github } = props
   const t = useTranslations()
 
@@ -58,4 +52,3 @@ function ProjectHeader(props: ProjectHeaderProps) {
     </div>
   )
 }
-export default ProjectHeader

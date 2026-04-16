@@ -5,10 +5,10 @@ import { SiGithub, SiWakatime, SiYoutube } from '@icons-pack/react-simple-icons'
 import { ArrowRightIcon, PencilIcon, StarIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
-import Counter from '@/components/counter'
+import { Counter } from '@/components/counter'
 import { Link } from '@/components/ui/link'
 import {
-  useGitHubStats,
+  useGithubStats,
   useLikeStats,
   useViewStats,
   useWakatimeStats,
@@ -28,9 +28,9 @@ type Card = {
   suffix?: string
 }
 
-function Stats() {
+export function Stats() {
   const youtubeQuery = useYoutubeStats()
-  const githubQuery = useGitHubStats()
+  const githubQuery = useGithubStats()
   const likesQuery = useLikeStats()
   const viewsQuery = useViewStats()
   const wakatimeQuery = useWakatimeStats()
@@ -40,7 +40,7 @@ function Stats() {
   const data: Card[] = [
     {
       title: t('dashboard.stat.coding-hours'),
-      link: 'https://wakatime.com/@Braviadev',
+      link: 'https://wakatime.com/@nelsonlaidev',
       value: wakatimeQuery.data?.hours,
       icon: <SiWakatime className='text-[#0061ff]' />,
       linkText: 'WakaTime',
@@ -52,7 +52,7 @@ function Stats() {
     },
     {
       title: t('dashboard.stat.youtube-subscribers'),
-      link: 'https://www.youtube.com/@braviadev',
+      link: 'https://www.youtube.com/@nelsonlaidev',
       value: youtubeQuery.data?.subscribers,
       icon: <SiYoutube className='text-[#ff0000]' />,
       linkText: 'YouTube',
@@ -63,7 +63,7 @@ function Stats() {
     },
     {
       title: t('dashboard.stat.youtube-views'),
-      link: 'https://www.youtube.com/@braviadev',
+      link: 'https://www.youtube.com/@nelsonlaidev',
       value: youtubeQuery.data?.views,
       icon: <SiYoutube className='text-[#ff0000]' />,
       linkText: 'YouTube',
@@ -74,7 +74,7 @@ function Stats() {
     },
     {
       title: t('dashboard.stat.github-followers'),
-      link: 'https://github.com/braviadev',
+      link: 'https://github.com/nelsonlaidev',
       value: githubQuery.data?.followers,
       icon: <SiGithub className='text-[#fee000]' />,
       linkText: 'GitHub',
@@ -85,7 +85,7 @@ function Stats() {
     },
     {
       title: t('dashboard.stat.github-stars'),
-      link: 'https://github.com/braviadev',
+      link: 'https://github.com/nelsonlaidev',
       value: githubQuery.data?.stars,
       icon: <StarIcon className='size-6 text-[#fee000]' />,
       linkText: 'GitHub',
@@ -96,7 +96,7 @@ function Stats() {
     },
     {
       title: t('dashboard.stat.blog-total-views'),
-      link: 'https://bravía.com',
+      link: 'https://nelsonlai.dev',
       value: viewsQuery.data?.views,
       icon: <PencilIcon className='size-6 text-[#ff0f7b]' />,
       linkText: 'Blog',
@@ -107,7 +107,7 @@ function Stats() {
     },
     {
       title: t('dashboard.stat.blog-total-likes'),
-      link: 'https://bravía.com',
+      link: 'https://nelsonlai.dev',
       value: likesQuery.data?.likes,
       icon: <PencilIcon className='size-6 text-[#ff0f7b]' />,
       linkText: 'Blog',
@@ -171,5 +171,3 @@ function Stats() {
     </div>
   )
 }
-
-export default Stats

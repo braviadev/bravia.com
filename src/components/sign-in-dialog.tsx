@@ -12,6 +12,8 @@ import { Link } from '@/components/ui/link'
 import { useSignInDialog } from '@/hooks/use-sign-in-dialog'
 import { usePathname } from '@/i18n/routing'
 import { authClient } from '@/lib/auth-client'
+import { captureClientEvent } from '@/lib/posthog-client'
+import { POSTHOG_EVENTS } from '@/lib/posthog-events'
 
 import { Spinner } from './ui/spinner'
 
@@ -41,7 +43,7 @@ function GoogleIcon() {
   )
 }
 
-function SignInDialog() {
+export function SignInDialog() {
   const { open, setOpen, closeDialog: closeSignInDialog } = useSignInDialog()
   const [isPending, setIsPending] = useState(false)
   const [lastUsedProvider, setLastUsedProvider] = useState<Provider | null>(null)
@@ -51,11 +53,20 @@ function SignInDialog() {
 
   useEffect(() => {
     const provider = localStorage.getItem('last-used-provider') as Provider | null
+    // eslint-disable-next-line @eslint-react/set-state-in-effect
     setLastUsedProvider(provider)
   }, [])
 
+  useEffect(() => {
+    if (!open) return
+
+    captureClientEvent(POSTHOG_EVENTS.uiSignInDialogOpened, {}, { locale, pathname })
+  }, [locale, open, pathname])
+
   async function handleSignIn(provider: Provider) {
     localStorage.setItem('last-used-provider', provider)
+    captureClientEvent(POSTHOG_EVENTS.authSignInStarted, { provider }, { locale, pathname })
+
     await authClient.signIn.social({
       provider,
       callbackURL: `/${locale}${pathname}`,
@@ -65,6 +76,14 @@ function SignInDialog() {
         },
         onError: () => {
           setIsPending(false)
+          captureClientEvent(
+            POSTHOG_EVENTS.authSignInFailed,
+            {
+              provider,
+              error_kind: 'social_sign_in_failed',
+            },
+            { locale, pathname },
+          )
           toast.error(t('error.sign-in-error'))
         },
         onRequest: () => {
@@ -89,7 +108,8 @@ function SignInDialog() {
         </DialogHeader>
         <div className='my-6 flex flex-col gap-4'>
           <Button
-            className='relative h-10 gap-3 rounded-xl font-semibold'
+            className='relative'
+            size='lg'
             onClick={async () => handleSignIn('github')}
             disabled={isPending}
             data-testid='github-sign-in-button'
@@ -99,7 +119,8 @@ function SignInDialog() {
             {lastUsedProvider === 'github' && <LastUsed />}
           </Button>
           <Button
-            className='relative h-10 gap-3 rounded-xl border font-semibold'
+            className='relative border-border'
+            size='lg'
             variant='ghost'
             onClick={async () => handleSignIn('google')}
             disabled={isPending}
@@ -137,5 +158,3 @@ function LastUsed() {
     </Badge>
   )
 }
-
-export default SignInDialog

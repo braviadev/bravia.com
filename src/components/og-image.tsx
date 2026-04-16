@@ -18,7 +18,7 @@ type OGImageProps = {
   url?: string
 }
 
-function OGImage(props: OGImageProps) {
+export function OGImage(props: OGImageProps) {
   const { title, url } = props
   const fontSize = getFontSize(title)
 
@@ -38,10 +38,8 @@ function OGImage(props: OGImageProps) {
       <Logo width={50} style={{ position: 'absolute', left: 50, top: 50 }} />
       <div style={{ fontSize, maxWidth: 740, fontWeight: 600 }}>{title}</div>
       <div style={{ display: 'flex', fontSize: 30, position: 'absolute', right: 50, bottom: 50, fontWeight: 500 }}>
-        bravía.com{url}
+        nelsonlai.dev{url}
       </div>
     </div>
   )
 }
-
-export default OGImage

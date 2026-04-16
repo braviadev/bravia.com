@@ -2,7 +2,7 @@
 // Copyright (c) Delba de Oliveira
 // Source: https://github.com/delbaoliveira/website/blob/59e6f181ad75751342ceaa8931db4cbcef86b018/ui/BlurImage.tsx
 //
-// Modified by: Olanrewaju Toyyib
+// Modified by: Nelson Lai
 'use client'
 
 import NextImage from 'next/image'
@@ -15,14 +15,17 @@ type ImageProps = {
   lazy?: boolean
 } & React.ComponentProps<typeof NextImage>
 
-function BlurImage(props: ImageProps) {
+export function BlurImage(props: ImageProps) {
   const { alt, src, className, imageClassName, lazy = true, ...rest } = props
   const [isLoading, setIsLoading] = useState(true)
 
   return (
-    <div className={cn('overflow-hidden', isLoading && 'animate-pulse', className)}>
+    <div data-loading={isLoading} className={cn('group overflow-hidden data-[loading=true]:animate-pulse', className)}>
       <NextImage
-        className={cn(isLoading && 'scale-[1.02] blur-xl grayscale', imageClassName)}
+        className={cn(
+          'group-data-[loading=true]:scale-[1.02] group-data-[loading=true]:blur-xl group-data-[loading=true]:grayscale',
+          imageClassName,
+        )}
         style={{
           transition: 'filter 700ms ease, scale 150ms ease',
         }}
@@ -39,5 +42,3 @@ function BlurImage(props: ImageProps) {
     </div>
   )
 }
-
-export default BlurImage
