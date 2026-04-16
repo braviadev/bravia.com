@@ -7,21 +7,27 @@ import { Button } from '@/components/ui/button'
 import { useCommentContext } from '@/contexts/comment.context'
 import { useCommentsContext } from '@/contexts/comments.context'
 import { useCreateVote } from '@/hooks/queries/vote.query'
+import { useCommentParams } from '@/hooks/use-comment-params'
 import { useSession } from '@/lib/auth-client'
 
-function CommentActions() {
-  const { slug } = useCommentsContext()
+export function CommentActions() {
+  const { slug, sort } = useCommentsContext()
+  const [params] = useCommentParams()
   const { comment, setIsReplying, isOpenReplies, setIsOpenReplies } = useCommentContext()
   const { data: session } = useSession()
   const t = useTranslations()
 
-  const { mutate: voteComment, isPending: isVoting } = useCreateVote({ slug })
+  const { mutate: voteComment } = useCreateVote({
+    slug,
+    sort: comment.parentId === null ? sort : 'oldest',
+    type: comment.parentId === null ? 'comments' : 'replies',
+    parentId: comment.parentId ?? undefined,
+    highlightedCommentId: params.comment ?? undefined,
+  })
 
   const isAuthenticated = session !== null
 
   function handleVoteComment(like: boolean) {
-    if (isVoting) return
-
     if (!isAuthenticated) {
       toast.error(t('error.need-logged-in-to-vote'))
       return
@@ -43,7 +49,6 @@ function CommentActions() {
           size='sm'
           className='font-mono text-xs text-muted-foreground data-active:bg-accent data-active:text-accent-foreground'
           aria-label={t('common.like')}
-          disabled={isVoting}
         >
           <ThumbsUpIcon />
           <NumberFlow value={comment.likeCount} />
@@ -57,7 +62,6 @@ function CommentActions() {
           size='sm'
           className='font-mono text-xs text-muted-foreground data-active:bg-accent data-active:text-accent-foreground'
           aria-label={t('blog.comments.dislike')}
-          disabled={isVoting}
         >
           <ThumbsDownIcon />
           <NumberFlow value={comment.dislikeCount} />
@@ -96,5 +100,3 @@ function CommentActions() {
     </>
   )
 }
-
-export default CommentActions

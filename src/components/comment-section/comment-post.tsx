@@ -8,23 +8,24 @@ import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { useCommentsContext } from '@/contexts/comments.context'
 import { useCreatePostComment } from '@/hooks/queries/comment.query'
-import { useIsMounted } from '@/hooks/use-is-mounted'
+import { useIsHydrated } from '@/hooks/use-is-hydrated'
 import { useSession } from '@/lib/auth-client'
 
-import CommentEditor from './comment-editor'
-import UnauthenticatedOverlay from './unauthenticated-overlay'
+import { Spinner } from '../ui/spinner'
+import { CommentEditor } from './comment-editor'
+import { UnauthenticatedOverlay } from './unauthenticated-overlay'
 
-function CommentPost() {
+export function CommentPost() {
   const { slug } = useCommentsContext()
   const [content, setContent] = useState('')
   const [tabsValue, setTabsValue] = useState<'write' | 'preview'>('write')
-  const isMounted = useIsMounted()
+  const isHydrated = useIsHydrated()
   const { data: session, isPending: isSessionLoading } = useSession()
   const t = useTranslations()
 
   const { mutate: createComment, isPending: isCreating } = useCreatePostComment({ slug }, () => {
     setContent('')
-    toast.success(t('success.comment-posted'))
+    toast.success(t('success.comment-posted'), { testId: 'comment-posted-toast' })
     setTabsValue('write')
   })
 
@@ -33,24 +34,23 @@ function CommentPost() {
 
     if (isCreating) return
 
-    if (!content) {
+    if (!content.trim()) {
       toast.error(t('error.comment-cannot-be-empty'))
       return
     }
 
     createComment({
       slug,
-      content,
-      date: new Date().toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-      }),
+      content: content.trim(),
     })
   }
 
-  if (!isMounted) {
-    return null
+  if (!isHydrated) {
+    return (
+      <div className='flex h-32.5 items-center justify-center'>
+        <Spinner />
+      </div>
+    )
   }
 
   const isAuthenticated = session !== null && !isSessionLoading
@@ -75,20 +75,18 @@ function CommentPost() {
         />
         <Button
           variant='ghost'
-          size='icon-sm'
-          className='absolute right-2 bottom-1.5'
+          size='icon-xs'
+          className='absolute right-3 bottom-3'
           type='submit'
-          disabled={disabled || !content}
+          disabled={disabled || !content.trim()}
           aria-label={t('blog.comments.send-comment')}
-          aria-disabled={disabled || !content}
+          aria-disabled={disabled || !content.trim()}
           data-testid='comment-submit-button'
         >
-          <SendIcon />
+          <SendIcon className='size-4' />
         </Button>
         {isAuthenticated ? null : <UnauthenticatedOverlay />}
       </div>
     </form>
   )
 }
-
-export default CommentPost

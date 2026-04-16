@@ -10,10 +10,10 @@ import { useCommentsContext } from '@/contexts/comments.context'
 import { useCreatePostComment } from '@/hooks/queries/comment.query'
 import { useSession } from '@/lib/auth-client'
 
-import CommentEditor from './comment-editor'
-import UnauthenticatedOverlay from './unauthenticated-overlay'
+import { CommentEditor } from './comment-editor'
+import { UnauthenticatedOverlay } from './unauthenticated-overlay'
 
-function CommentReply() {
+export function CommentReply() {
   const [content, setContent] = useState('')
   const { data: session } = useSession()
   const { comment, setIsReplying } = useCommentContext()
@@ -22,7 +22,7 @@ function CommentReply() {
 
   const { mutate: createReply, isPending: isCreating } = useCreatePostComment({ slug }, () => {
     setIsReplying(false)
-    toast.success(t('success.reply-posted'))
+    toast.success(t('success.reply-posted'), { testId: 'comment-reply-posted-toast' })
   })
 
   function submitCommentReply(e?: React.SubmitEvent<HTMLFormElement>) {
@@ -30,20 +30,15 @@ function CommentReply() {
 
     if (isCreating) return
 
-    if (!content) {
+    if (!content.trim()) {
       toast.error(t('error.reply-cannot-be-empty'))
       return
     }
 
     createReply({
       slug,
-      content,
+      content: content.trim(),
       parentId: comment.id,
-      date: new Date().toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-      }),
     })
   }
 
@@ -64,7 +59,8 @@ function CommentReply() {
           }}
           placeholder={t('blog.comments.reply-to-comment')}
           disabled={disabled}
-          // eslint-disable-next-line jsx-a11y/no-autofocus -- autofocus is necessary because user is replying to a comment
+          // autoFocus is necessary because user is replying to a comment
+          // eslint-disable-next-line jsx-a11y/no-autofocus
           autoFocus
           data-testid='comment-textarea-reply'
         />
@@ -75,8 +71,8 @@ function CommentReply() {
           variant='secondary'
           size='sm'
           type='submit'
-          disabled={disabled || !content}
-          aria-disabled={disabled || !content}
+          disabled={disabled || !content.trim()}
+          aria-disabled={disabled || !content.trim()}
           data-testid='comment-submit-reply-button'
         >
           {t('blog.comments.reply')}
@@ -94,5 +90,3 @@ function CommentReply() {
     </form>
   )
 }
-
-export default CommentReply

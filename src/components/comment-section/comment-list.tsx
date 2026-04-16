@@ -3,25 +3,19 @@
 import { useTranslations } from 'next-intl'
 import { useEffect } from 'react'
 import { useInView } from 'react-intersection-observer'
-import { getSingletonHighlighterCore } from 'shiki'
-import { createJavaScriptRegexEngine } from 'shiki/engine/javascript'
-import githubDarkDefault from 'shiki/themes/github-dark-default.mjs'
-import githubLightDefault from 'shiki/themes/github-light-default.mjs'
 
 import { useCommentsContext } from '@/contexts/comments.context'
 import { useListComments } from '@/hooks/queries/comment.query'
 import { useCommentParams } from '@/hooks/use-comment-params'
-import { useHighlighter } from '@/hooks/use-highlighter'
 
-import Comment from './comment'
-import CommentHeader from './comment-header'
-import CommentLoader from './comment-loader'
+import { Comment } from './comment'
+import { CommentHeader } from './comment-header'
+import { CommentLoader } from './comment-loader'
 
-function CommentList() {
+export function CommentList() {
   const { slug, sort } = useCommentsContext()
   const [params] = useCommentParams()
   const t = useTranslations()
-  const { highlighter, initHighlighter: setHighlighter } = useHighlighter()
 
   const { data, isSuccess, isLoading, isError, fetchNextPage, hasNextPage, isFetchingNextPage } = useListComments(
     (pageParam) => ({
@@ -36,20 +30,8 @@ function CommentList() {
   const { ref, inView } = useInView()
 
   useEffect(() => {
-    if (inView && hasNextPage) fetchNextPage()
+    if (inView && hasNextPage) void fetchNextPage()
   }, [fetchNextPage, hasNextPage, inView])
-
-  useEffect(() => {
-    if (highlighter) return
-
-    getSingletonHighlighterCore({
-      themes: [githubLightDefault, githubDarkDefault],
-      engine: createJavaScriptRegexEngine(),
-    }).then((instance) => {
-      setHighlighter(instance)
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- only run once
-  }, [])
 
   const noComments = isSuccess && data.pages[0]?.comments.length === 0
 
@@ -75,5 +57,3 @@ function CommentList() {
     </>
   )
 }
-
-export default CommentList

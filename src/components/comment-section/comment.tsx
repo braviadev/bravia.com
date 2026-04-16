@@ -1,5 +1,6 @@
 'use client'
 
+import type { CommentContextValue } from '@/contexts/comment.context'
 import type { CommentListOutput } from '@/orpc/client'
 
 import Image from 'next/image'
@@ -9,24 +10,23 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
-import { type CommentContextValue, CommentProvider } from '@/contexts/comment.context'
+import { CommentProvider } from '@/contexts/comment.context'
 import { useCommentsContext } from '@/contexts/comments.context'
 import { useCommentParams } from '@/hooks/use-comment-params'
 import { useFormattedDate } from '@/hooks/use-formatted-date'
 import { getDefaultImage } from '@/utils/get-default-image'
 
-import Markdown from '../mdx/markdown'
-
-import CommentActions from './comment-actions'
-import CommentMenu from './comment-menu'
-import CommentReplies from './comment-replies'
-import CommentReply from './comment-reply'
+import { Markdown } from '../mdx/markdown'
+import { CommentActions } from './comment-actions'
+import { CommentMenu } from './comment-menu'
+import { CommentReplies } from './comment-replies'
+import { CommentReply } from './comment-reply'
 
 type CommentProps = {
   comment: CommentListOutput['comments'][number]
 }
 
-function Comment(props: CommentProps) {
+export function Comment(props: CommentProps) {
   const { comment } = props
 
   const [isEditing, setIsEditing] = useState(false)
@@ -85,7 +85,7 @@ function Comment(props: CommentProps) {
         {isHighlighted && <Badge className='mb-4'>{t('blog.comments.highlighted-comment')}</Badge>}
         <div className='flex gap-4'>
           <Image src={image ?? defaultImage} alt={name} width={32} height={32} className='z-10 size-8 rounded-full' />
-          <div className='flex-1 overflow-hidden'>
+          <div className='min-w-0 flex-1'>
             <div className='ml-0.5 flex h-8 items-center justify-between'>
               <div className='flex items-center gap-2 text-sm'>
                 <div className='max-w-35 truncate font-semibold sm:max-w-none'>{name}</div>
@@ -95,6 +95,7 @@ function Comment(props: CommentProps) {
                       <TooltipTrigger>
                         <span>{formattedDate}</span>
                       </TooltipTrigger>
+                      {/* eslint-disable-next-line @eslint-react/purity */}
                       <TooltipContent>{new Date(createdAt).toLocaleString()}</TooltipContent>
                     </Tooltip>
                   ) : (
@@ -115,7 +116,9 @@ function Comment(props: CommentProps) {
                 {t('blog.comments.this-comment-has-been-deleted')}
               </p>
             ) : (
-              <Markdown>{body}</Markdown>
+              <div data-posthog-mask>
+                <Markdown>{body}</Markdown>
+              </div>
             )}
 
             {isReplying ? <CommentReply /> : <CommentActions />}
@@ -126,5 +129,3 @@ function Comment(props: CommentProps) {
     </CommentProvider>
   )
 }
-
-export default Comment

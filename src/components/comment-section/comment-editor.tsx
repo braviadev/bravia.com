@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { useCommentEditor } from '@/hooks/use-comment-editor'
 
-import Markdown from '../mdx/markdown'
+import { Markdown } from '../mdx/markdown'
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupTextarea } from '../ui/input-group'
 
 type CommentEditorProps = {
@@ -16,7 +16,7 @@ type CommentEditorProps = {
   onEscape?: () => void
 } & React.ComponentProps<typeof Textarea>
 
-function CommentEditor(props: CommentEditorProps) {
+export function CommentEditor(props: CommentEditorProps) {
   const { value, tabsValue, onTabsValueChange, onModEnter, onEscape, ...rest } = props
   const t = useTranslations()
   const { textareaRef, handleKeyDown, handleInput, handleCompositionStart, handleCompositionEnd, decorateText } =
@@ -84,10 +84,10 @@ function CommentEditor(props: CommentEditorProps) {
         </InputGroup>
       </TabsContent>
       <TabsContent value='preview' className='rounded-md border border-input px-2.5 dark:bg-input/30'>
-        <Markdown>{typeof value === 'string' && value.trim() !== '' ? value : 'Nothing to preview'}</Markdown>
+        <Markdown>
+          {typeof value === 'string' && value.trim() !== '' ? value : t('blog.comments.nothing-to-preview')}
+        </Markdown>
       </TabsContent>
     </Tabs>
   )
 }
-
-export default CommentEditor
