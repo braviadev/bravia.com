@@ -8,7 +8,7 @@ import { UnsubscribeCommentReplyForm } from './unsubscribe-comment-reply-form'
 const baseData = {
   type: 'comment_reply' as const,
   comment: 'This is a great post! I really enjoyed reading it and learned a lot from the examples.',
-  userEmail: getMaskedEmail('me@nelsonlai.dev'),
+  userEmail: getMaskedEmail('me@bravía.com'),
   token: 'mock-token',
   userId: 'mock-user-id',
   commentId: 'mock-comment-id',
