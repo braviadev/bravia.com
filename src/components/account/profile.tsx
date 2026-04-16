@@ -1,5 +1,8 @@
 'use client'
 
+import type { AvatarMimeType } from '@/constants/site'
+import type { User } from '@/lib/auth-client'
+
 import { useForm } from '@tanstack/react-form'
 import { useTranslations } from 'next-intl'
 import { useRef, useState } from 'react'
@@ -16,23 +19,21 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import { Field, FieldError, FieldGroup } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
+import { UserAvatar } from '@/components/ui/user-avatar'
+import { AVATAR_MAX_FILE_SIZE, SUPPORTED_AVATAR_MIME_TYPES } from '@/constants/site'
 import { useUpdateUser } from '@/hooks/queries/auth.query'
-import { useGetAvatarUploadUrl } from '@/hooks/queries/r2.query'
+import { useAvatarUploadUrl } from '@/hooks/queries/r2.query'
 import { useFormattedDate } from '@/hooks/use-formatted-date'
-import { type User, useSession } from '@/lib/auth-client'
-import { AVATAR_MAX_FILE_SIZE, type AvatarMimeType, SUPPORTED_AVATAR_MIME_TYPES } from '@/lib/constants'
-import { getAbbreviation } from '@/utils/get-abbreviation'
+import { useSession } from '@/lib/auth-client'
 
 import { Spinner } from '../ui/spinner'
+import { ProfileSkeleton } from './profile-skeleton'
 
-import ProfileSkeleton from './profile-skeleton'
-
-function Profile() {
+export function Profile() {
   const { data, isPending: isSessionLoading } = useSession()
   const t = useTranslations()
 
@@ -55,40 +56,35 @@ function ProfileInfo(props: ProfileInfoProps) {
   const t = useTranslations()
 
   return (
-    <Card className='p-4 sm:p-6'>
-      <div className='flex items-center justify-between'>
-        <div className='flex flex-col gap-2'>
-          <span className='text-muted-foreground'>{t('account.avatar')}</span>
-          <Avatar className='size-24'>
-            <AvatarImage
-              src={user.image ?? undefined}
-              alt={t('common.avatar-alt', { name: user.name })}
-              className='size-full'
-            />
-            <AvatarFallback>{getAbbreviation(user.name)}</AvatarFallback>
-          </Avatar>
+    <Card>
+      <CardContent className='space-y-6'>
+        <div className='flex items-center justify-between'>
+          <div className='flex flex-col gap-2'>
+            <span className='text-muted-foreground'>{t('account.avatar')}</span>
+            <UserAvatar id={user.id} name={user.name} image={user.image} className='size-24' />
+          </div>
+          <UpdateAvatar />
         </div>
-        <UpdateAvatar />
-      </div>
-      <div className='flex items-center justify-between'>
-        <div className='flex flex-col gap-2'>
-          <span className='text-muted-foreground'>{t('account.display-name')}</span>
-          <span>{user.name}</span>
+        <div className='flex items-center justify-between'>
+          <div className='flex flex-col gap-2'>
+            <span className='text-muted-foreground'>{t('account.display-name')}</span>
+            <span>{user.name}</span>
+          </div>
+          <EditName name={user.name} />
         </div>
-        <EditName name={user.name} />
-      </div>
-      <div>
-        <div className='flex flex-col gap-2'>
-          <span className='text-muted-foreground'>{t('account.email')}</span>
-          <span>{user.email}</span>
+        <div>
+          <div className='flex flex-col gap-2'>
+            <span className='text-muted-foreground'>{t('account.email')}</span>
+            <span>{user.email}</span>
+          </div>
         </div>
-      </div>
-      <div>
-        <div className='flex flex-col gap-2'>
-          <span className='text-muted-foreground'>{t('account.account-created')}</span>
-          <span>{createdAt ?? '--'}</span>
+        <div>
+          <div className='flex flex-col gap-2'>
+            <span className='text-muted-foreground'>{t('account.account-created')}</span>
+            <span>{createdAt ?? '--'}</span>
+          </div>
         </div>
-      </div>
+      </CardContent>
     </Card>
   )
 }
@@ -123,12 +119,12 @@ function EditName(props: EditNameProps) {
   const { mutate: updateUser, isPending: isUpdating } = useUpdateUser(() => {
     setOpen(false)
     toast.success(t('success.name-updated'))
-    refetchSession()
+    void refetchSession()
   })
 
   function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault()
-    form.handleSubmit()
+    void form.handleSubmit()
   }
 
   return (
@@ -184,10 +180,10 @@ function UpdateAvatar() {
   const [isUploading, setIsUploading] = useState(false)
   const { refetch: refetchSession } = useSession()
 
-  const { mutateAsync: getAvatarUploadUrl } = useGetAvatarUploadUrl()
+  const { mutateAsync: getAvatarUploadUrl } = useAvatarUploadUrl()
   const { mutateAsync: updateUser } = useUpdateUser(() => {
     toast.success(t('success.avatar-updated'))
-    refetchSession()
+    void refetchSession()
   })
 
   function handleSelectFile() {
@@ -257,5 +253,3 @@ function UpdateAvatar() {
     </div>
   )
 }
-
-export default Profile
