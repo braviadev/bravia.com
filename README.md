@@ -268,5 +268,5 @@ This project is open source and available under the [MIT License](LICENSE).
 ---
 
 <p align="center">
-Made with ❤️ in Hong Kong
+Made with ❤️ and passion in Nigeria
 </p>
