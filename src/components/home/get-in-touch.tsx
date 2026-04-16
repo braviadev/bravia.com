@@ -108,8 +108,8 @@ export function GetInTouch() {
         <p className='mb-2 text-3xl font-semibold'>{t('homepage.get-in-touch.title')}</p>
         <p className='text-muted-foreground'>{t('homepage.get-in-touch.description')}</p>
         <div className='my-8'>
-          <a href='mailto:me@nelsonlai.dev' className={cn(buttonVariants(), 'bg-email-button text-white')}>
-            me@nelsonlai.dev
+          <a href='mailto:me@bravía.com' className={cn(buttonVariants(), 'bg-email-button text-white')}>
+            me@bravía.com
           </a>
         </div>
       </div>
