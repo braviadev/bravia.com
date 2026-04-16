@@ -1,5 +1,5 @@
 <div align="center">
-  <a href="https://bravía.com">
+  <a href="https://nelsonlai.dev">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="public/images/dark-header.png">
       <img alt="Project Cover" src="public/images/light-header.png">
@@ -7,12 +7,12 @@
   </a>
 
   <h1 align="center">
-    bravia.dev
+    nelsonlai.dev
   </h1>
 
   <img src="https://img.shields.io/badge/Next.js-000000.svg?style=for-the-badge&logo=Next.js&labelColor=000" alt="Framework" />
-  <img src="https://img.shields.io/github/languages/top/braviadev/bravia.dev?style=for-the-badge&labelColor=000" alt="Language" />
-  <img src="https://img.shields.io/github/license/braviadev/bravia.dev?style=for-the-badge&labelColor=000" alt="License" />
+  <img src="https://img.shields.io/github/languages/top/nelsonlaidev/nelsonlai.dev?style=for-the-badge&labelColor=000" alt="Language" />
+  <img src="https://img.shields.io/github/license/nelsonlaidev/nelsonlai.dev?style=for-the-badge&labelColor=000" alt="License" />
 </div>
 
 Welcome to my personal blog and portfolio website! This repository contains a modern Next.js application where I share my thoughts, projects, and insights.
@@ -30,7 +30,7 @@ Welcome to my personal blog and portfolio website! This repository contains a mo
 
 ### UI/UX
 
-- Radix UI for accessible UI components
+- Base UI for accessible UI components
 - Responsive design
 - Light/Dark mode
 - Image zoom in blog posts
@@ -60,7 +60,7 @@ Welcome to my personal blog and portfolio website! This repository contains a mo
 - ESLint configuration
 - Prettier code formatting
 - Lefthook
-- Conventional commit lint
+- Conventional commit
 
 ### Authentication & Data
 
@@ -89,7 +89,7 @@ Welcome to my personal blog and portfolio website! This repository contains a mo
 ### Prerequisites
 
 - Node.js >= 24
-- pnpm >= 10
+- bun >= 1
 - Docker
 - [Visual Studio Code](https://code.visualstudio.com/) with [recommended extensions](.vscode/extensions.json)
 - Optionally [React Developer Tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en)
@@ -97,20 +97,23 @@ Welcome to my personal blog and portfolio website! This repository contains a mo
 ## Project Structure
 
 ```
-bravia.dev/
+nelsonlai.dev/
 ├── public/           # Static assets (images, fonts, videos)
 ├── src/
 │   ├── app/          # Next.js app router pages
 │   ├── components/   # React components
-│   ├── config/       # Configuration files
+│   ├── constants/    # Application constants
 │   ├── content/      # MDX blog posts and content
+│   ├── contexts/     # React contexts
 │   ├── db/           # Database schema and migrations
 │   ├── emails/       # Email templates
 │   ├── hooks/        # Custom React hooks
 │   ├── i18n/         # Internationalization
 │   ├── lib/          # Utility libraries
+│   ├── mdx-plugins   # Custom Rehype and Remark plugins
 │   ├── orpc/         # oRPC API routes
 │   ├── styles/       # Global styles
+│   ├── tests/        # Unit and E2E tests
 │   └── utils/        # Utility functions
 ├── docker-compose.yml
 └── package.json
@@ -125,19 +128,19 @@ To run this project locally, you need to set up the development environment.
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/braviadev/bravia.dev
+git clone https://github.com/nelsonlaidev/nelsonlai.dev
 ```
 
 2. Navigate to the project directory:
 
 ```bash
-cd bravia.dev
+cd nelsonlai.dev
 ```
 
-3. Install dependencies using pnpm:
+3. Install dependencies using bun:
 
 ```bash
-pnpm install
+bun install
 ```
 
 ### Environment Setup
@@ -157,21 +160,21 @@ docker compose up -d
 3. Run the database migrations:
 
 ```bash
-pnpm db:migrate
+bun db:migrate
 ```
 
 4. Seed the database:
 
 ```bash
-pnpm db:seed
+bun db:seed
 ```
 
 5. Run the app:
 
 ```bash
-pnpm dev          # Run the development server
+bun dev          # Run the development server
 # or
-pnpm email:dev    # Run the email preview server separately
+bun email:dev    # Run the email preview server separately
 ```
 
 The services will be available at the following URLs:
@@ -180,6 +183,7 @@ The services will be available at the following URLs:
 | ---------------- | ---------------- |
 | App              | `localhost:3000` |
 | React Email      | `localhost:3001` |
+| Cosmos           | `localhost:3002` |
 | Database         | `localhost:5432` |
 | Redis            | `localhost:6379` |
 | Redis serverless | `localhost:8079` |
@@ -187,17 +191,31 @@ The services will be available at the following URLs:
 ### Available Scripts
 
 ```bash
-pnpm dev              # Start development server
-pnpm build            # Build for production
-pnpm start            # Start production server
-pnpm lint             # Run ESLint
-pnpm typecheck        # Run TypeScript type checking
-pnpm format           # Format code with Prettier
-pnpm test:unit        # Run unit tests
-pnpm test:e2e         # Run E2E tests
-pnpm db:migrate       # Run database migrations
-pnpm db:seed          # Seed the database
-pnpm db:studio        # Open Drizzle Studio
+# Development
+bun dev               # Start development server
+bun email:dev         # Run email preview server
+bun cosmos            # Start Cosmos component playground
+
+# Build & Production
+bun run build         # Build for production (includes cosmos:export)
+bun start             # Start production server
+bun analyze           # Analyze bundle size
+
+# Quality & Testing
+bun check             # Run all quality checks (lint, typecheck, format, etc.)
+bun lint              # Run ESLint
+bun typecheck         # Run TypeScript type checking
+bun format            # Format code with Prettier
+bun knip              # Find unused dependencies/exports
+bun test:unit         # Run unit tests
+bun test:e2e          # Run Playwright E2E tests
+
+# Database
+bun db:migrate        # Run database migrations
+bun db:seed           # Seed the database
+bun db:push           # Push schema changes directly to DB
+bun db:reset          # Reset database
+bun db:studio         # Open Drizzle Studio
 ```
 
 ## Credits
@@ -237,11 +255,11 @@ The following projects were referenced for inspiration:
 
 ## Author
 
-- [@braviadev](https://github.com/braviadev)
+- [@nelsonlaidev](https://github.com/nelsonlaidev)
 
 ## Donation
 
-If you find this project helpful, consider supporting me by [sponsoring the project](https://github.com/sponsors/braviadev).
+If you find this project helpful, consider supporting me by [sponsoring the project](https://github.com/sponsors/nelsonlaidev).
 
 ## License
 
@@ -250,5 +268,5 @@ This project is open source and available under the [MIT License](LICENSE).
 ---
 
 <p align="center">
-Made with Passion and Love from Nigeria
+Made with ❤️ in Hong Kong
 </p>

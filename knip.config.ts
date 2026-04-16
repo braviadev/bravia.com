@@ -6,8 +6,10 @@ const config: KnipConfig = {
     'postcss',
     // Required by react-email
     '@react-email/preview-server',
+    // Knip can't detect it since we added "bun with-env" before the scripts
+    'tsx',
   ],
-  ignore: ['src/components/ui/*.tsx'],
+  ignore: ['src/components/ui/*.{ts,tsx}'],
   entry: ['content-collections.ts', 'src/db/reset.ts', 'src/db/seed.ts'],
 }
 

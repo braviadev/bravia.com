@@ -1,44 +1,37 @@
-import { defineConfig, GLOB_SRC_EXT } from '@braviadev/eslint-config'
+import { defineConfig } from '@nelsonlaidev/eslint-config'
 
 export default defineConfig(
   {
     tailwindcss: {
-      entryPoint: './src/styles/globals.css',
+      entryPoint: 'src/styles/globals.css',
       rootFontSize: 16,
-      noUnknownClasses: {
-        ignore: ['not-prose', 'shiki', 'toaster'],
-      },
+      ignore: ['not-prose', 'shiki', 'toaster'],
     },
     playwright: {
-      files: [`src/tests/e2e/**/*.test.${GLOB_SRC_EXT}`],
-      expectExpect: {
-        assertFunctionNames: ['a11y', 'checkAppliedTheme', 'checkStoredTheme'],
-      },
+      files: [`src/tests/e2e/**/*.test.{ts,tsx}`],
+      assertFunctionNames: ['a11y', 'checkAppliedTheme', 'checkStoredTheme'],
     },
     vitest: {
-      files: [`src/tests/unit/**/*.test.${GLOB_SRC_EXT}`],
-    },
-    importX: {
-      noNamespace: {
-        ignore: ['./schemas'],
-      },
+      files: [`src/tests/unit/**/*.test.{ts,tsx}`],
     },
   },
   {
+    files: ['src/components/ui/*.fixture.tsx'],
+    rules: {
+      '@next/next/no-html-link-for-pages': 'off',
+    },
+  },
+  {
+    files: ['**/*.{ts,tsx}'],
     rules: {
       'no-restricted-imports': [
         'error',
         {
           paths: [
             {
-              name: 'next/navigation',
-              importNames: ['usePathname', 'useRouter', 'redirect', 'permanentRedirect'],
-              message: 'Please use `@/i18n/routing` instead.',
-            },
-            {
-              name: 'next/link',
-              importNames: ['default'],
-              message: 'Please use `@/components/ui/link` instead.',
+              name: '@tanstack/react-table',
+              importNames: ['useReactTable'],
+              message: 'Please use the custom hook from `@/hooks/use-react-table` instead.',
             },
           ],
         },

@@ -1,4 +1,6 @@
-import { type Context, defineCollection, defineConfig, type Meta } from '@content-collections/core'
+import type { Context, Meta } from '@content-collections/core'
+
+import { defineCollection, defineConfig } from '@content-collections/core'
 import { compileMDX } from '@content-collections/mdx'
 import * as z from 'zod'
 
@@ -9,7 +11,7 @@ type BaseDoc = {
   content: string
 }
 
-async function transform<D extends BaseDoc>(document: D, context: Context) {
+async function transform<TDoc extends BaseDoc>(document: TDoc, context: Context) {
   const code = await compileMDX(context, document, {
     remarkPlugins,
     rehypePlugins,
@@ -38,6 +40,7 @@ const posts = defineCollection({
     date: z.string(),
     modifiedTime: z.string(),
     summary: z.string(),
+    test: z.boolean().optional().default(false),
     content: z.string(),
   }),
   transform,
@@ -71,5 +74,5 @@ const pages = defineCollection({
 })
 
 export default defineConfig({
-  collections: [posts, projects, pages],
+  content: [posts, projects, pages],
 })

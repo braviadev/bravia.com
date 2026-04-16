@@ -3,9 +3,11 @@ import type { NextConfig } from 'next'
 import { withContentCollections } from '@content-collections/next'
 import createNextIntlPlugin from 'next-intl/plugin'
 
-import { IS_PRODUCTION } from '@/lib/constants'
-import { env } from '@/lib/env'
-import { withPostHog } from '@/lib/posthog'
+import { env } from '@/env'
+import { getPostHogProxyRewrites } from '@/lib/posthog-config'
+import { withPostHog } from '@/lib/posthog-next'
+
+import { IS_PRODUCTION } from './src/constants/common'
 
 const withNextIntl = createNextIntlPlugin()
 
@@ -45,6 +47,8 @@ if (env.CLOUDFLARE_R2_PUBLIC_URL) {
 }
 
 const config: NextConfig = {
+  reactCompiler: true,
+
   productionBrowserSourceMaps: true,
 
   typescript: {
@@ -59,16 +63,7 @@ const config: NextConfig = {
   skipTrailingSlashRedirect: true,
 
   rewrites() {
-    return [
-      {
-        source: '/_ph/static/:path*',
-        destination: 'https://us-assets.i.posthog.com/static/:path*',
-      },
-      {
-        source: '/_ph/:path*',
-        destination: 'https://us.i.posthog.com/:path*',
-      },
-    ]
+    return getPostHogProxyRewrites()
   },
 
   redirects() {
@@ -114,20 +109,8 @@ const config: NextConfig = {
             value: 'max-age=31536000; includeSubDomains; preload',
           },
           {
-            key: 'X-Frame-Options',
-            value: 'SAMEORIGIN',
-          },
-          {
             key: 'X-Content-Type-Options',
             value: 'nosniff',
-          },
-          {
-            key: 'X-DNS-Prefetch-Control',
-            value: 'on',
-          },
-          {
-            key: 'X-XSS-Protection',
-            value: '1; mode=block',
           },
         ],
       },
