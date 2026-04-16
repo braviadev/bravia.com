@@ -11,14 +11,15 @@ type BlogFooterProps = {
   post: Post
 }
 
-function BlogFooter(props: BlogFooterProps) {
+export function BlogFooter(props: BlogFooterProps) {
   const { post } = props
   const t = useTranslations()
   const locale = useLocale()
 
+
   const editURL = `https://github.com/braviadev/bravia.dev/tree/main/src/content/blog/${locale}/${post.slug}.mdx?plain=1`
 
-  const formattedDate = useFormattedDate(post.modifiedTime)
+const formattedDate = useFormattedDate(post.modifiedTime)
 
   return (
     <div className='my-8 flex w-full items-center justify-between py-4 text-sm'>
@@ -29,5 +30,3 @@ function BlogFooter(props: BlogFooterProps) {
     </div>
   )
 }
-
-export default BlogFooter
