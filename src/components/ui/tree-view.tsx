@@ -1,5 +1,6 @@
 import { TreeView as TreeViewPrimitive } from '@ark-ui/react/tree-view'
 import { ChevronRightIcon, FileIcon, FolderIcon } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 import { cn } from '@/utils/cn'
 
@@ -13,8 +14,11 @@ type TreeViewProps = {
   label?: string
 } & React.ComponentProps<typeof TreeViewPrimitive.Root<Node>>
 
-function TreeView(props: TreeViewProps) {
-  const { collection, className, label = 'Tree View', ...rest } = props
+export function TreeView(props: TreeViewProps) {
+  const t = useTranslations()
+  const { collection, className, label: labelProp, ...rest } = props
+
+  const label = labelProp ?? t('common.aria-labels.tree-view')
 
   return (
     <TreeViewPrimitive.Root
@@ -35,7 +39,7 @@ function TreeView(props: TreeViewProps) {
 
 type TreeViewNodeProps = TreeViewPrimitive.NodeProviderProps<Node>
 
-function TreeViewNode(props: TreeViewNodeProps) {
+export function TreeViewNode(props: TreeViewNodeProps) {
   const { node, indexPath } = props
 
   return (
@@ -69,5 +73,5 @@ function TreeViewNode(props: TreeViewNodeProps) {
   )
 }
 
-export { type Node, TreeView, TreeViewNode }
+export type { Node }
 export { createTreeCollection } from '@ark-ui/react/tree-view'

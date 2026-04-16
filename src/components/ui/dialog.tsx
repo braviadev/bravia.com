@@ -2,37 +2,38 @@
 
 import { Dialog as DialogPrimitive } from '@base-ui/react/dialog'
 import { XIcon } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 import { Button } from '@/components/ui/button'
 import { cn } from '@/utils/cn'
 
 type DialogProps = DialogPrimitive.Root.Props
 
-function Dialog(props: DialogProps) {
+export function Dialog(props: DialogProps) {
   return <DialogPrimitive.Root data-slot='dialog' {...props} />
 }
 
 type DialogTriggerProps = DialogPrimitive.Trigger.Props
 
-function DialogTrigger(props: DialogTriggerProps) {
+export function DialogTrigger(props: DialogTriggerProps) {
   return <DialogPrimitive.Trigger data-slot='dialog-trigger' {...props} />
 }
 
 type DialogPortalProps = DialogPrimitive.Portal.Props
 
-function DialogPortal(props: DialogPortalProps) {
+export function DialogPortal(props: DialogPortalProps) {
   return <DialogPrimitive.Portal data-slot='dialog-portal' {...props} />
 }
 
 type DialogCloseProps = DialogPrimitive.Close.Props
 
-function DialogClose(props: DialogCloseProps) {
+export function DialogClose(props: DialogCloseProps) {
   return <DialogPrimitive.Close data-slot='dialog-close' {...props} />
 }
 
 type DialogOverlayProps = DialogPrimitive.Backdrop.Props
 
-function DialogOverlay(props: DialogOverlayProps) {
+export function DialogOverlay(props: DialogOverlayProps) {
   const { className, ...rest } = props
 
   return (
@@ -51,8 +52,9 @@ type DialogContentProps = DialogPrimitive.Popup.Props & {
   showCloseButton?: boolean
 }
 
-function DialogContent(props: DialogContentProps) {
+export function DialogContent(props: DialogContentProps) {
   const { className, children, showCloseButton = true, ...rest } = props
+  const t = useTranslations()
 
   return (
     <DialogPortal>
@@ -72,7 +74,7 @@ function DialogContent(props: DialogContentProps) {
             render={
               <Button variant='ghost' className='absolute top-4 right-4' size='icon-sm'>
                 <XIcon />
-                <span className='sr-only'>Close</span>
+                <span className='sr-only'>{t('common.labels.close')}</span>
               </Button>
             }
           />
@@ -84,7 +86,7 @@ function DialogContent(props: DialogContentProps) {
 
 type DialogHeaderProps = React.ComponentProps<'div'>
 
-function DialogHeader(props: DialogHeaderProps) {
+export function DialogHeader(props: DialogHeaderProps) {
   const { className, ...rest } = props
 
   return <div data-slot='dialog-header' className={cn('flex flex-col gap-2', className)} {...rest} />
@@ -94,8 +96,9 @@ type DialogFooterProps = React.ComponentProps<'div'> & {
   showCloseButton?: boolean
 }
 
-function DialogFooter(props: DialogFooterProps) {
+export function DialogFooter(props: DialogFooterProps) {
   const { className, showCloseButton = false, children, ...rest } = props
+  const t = useTranslations()
 
   return (
     <div
@@ -104,14 +107,16 @@ function DialogFooter(props: DialogFooterProps) {
       {...rest}
     >
       {children}
-      {showCloseButton && <DialogPrimitive.Close render={<Button variant='outline' />}>Close</DialogPrimitive.Close>}
+      {showCloseButton && (
+        <DialogPrimitive.Close render={<Button variant='outline' />}>{t('common.labels.close')}</DialogPrimitive.Close>
+      )}
     </div>
   )
 }
 
 type DialogTitleProps = DialogPrimitive.Title.Props
 
-function DialogTitle(props: DialogTitleProps) {
+export function DialogTitle(props: DialogTitleProps) {
   const { className, ...rest } = props
 
   return (
@@ -125,7 +130,7 @@ function DialogTitle(props: DialogTitleProps) {
 
 type DialogDescriptionProps = DialogPrimitive.Description.Props
 
-function DialogDescription(props: DialogDescriptionProps) {
+export function DialogDescription(props: DialogDescriptionProps) {
   const { className, ...rest } = props
 
   return (
@@ -138,17 +143,4 @@ function DialogDescription(props: DialogDescriptionProps) {
       {...rest}
     />
   )
-}
-
-export {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogOverlay,
-  DialogPortal,
-  DialogTitle,
-  DialogTrigger,
 }

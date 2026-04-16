@@ -1,9 +1,12 @@
 'use client'
 
+import type { VariantProps } from 'class-variance-authority'
+
 import { mergeProps } from '@base-ui/react/merge-props'
 import { useRender } from '@base-ui/react/use-render'
-import { cva, type VariantProps } from 'class-variance-authority'
+import { cva } from 'class-variance-authority'
 import { PanelLeftIcon } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { createContext, use, useCallback, useEffect, useMemo, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
@@ -35,7 +38,7 @@ type SidebarContextProps = {
 const SidebarContext = createContext<SidebarContextProps | null>(null)
 SidebarContext.displayName = 'SidebarContext'
 
-function useSidebar() {
+export function useSidebar() {
   const context = use(SidebarContext)
   if (!context) {
     throw new Error('useSidebar must be used within a SidebarProvider.')
@@ -50,7 +53,7 @@ type SidebarProviderProps = React.ComponentProps<'div'> & {
   onOpenChange?: (open: boolean) => void
 }
 
-function SidebarProvider(props: SidebarProviderProps) {
+export function SidebarProvider(props: SidebarProviderProps) {
   const { defaultOpen = true, open: openProp, onOpenChange: setOpenProp, className, style, children, ...rest } = props
 
   const isMobile = useIsMobile()
@@ -58,6 +61,7 @@ function SidebarProvider(props: SidebarProviderProps) {
 
   // This is the internal state of the sidebar.
   // We use openProp and setOpenProp for control from outside the component.
+  // eslint-disable-next-line @eslint-react/use-state
   const [_open, _setOpen] = useState(defaultOpen)
   const open = openProp ?? _open
   const setOpen = useCallback(
@@ -140,10 +144,11 @@ type SidebarProps = React.ComponentProps<'div'> & {
   collapsible?: 'offcanvas' | 'icon' | 'none'
 }
 
-function Sidebar(props: SidebarProps) {
+export function Sidebar(props: SidebarProps) {
   const { side = 'left', variant = 'sidebar', collapsible = 'offcanvas', className, children, ...rest } = props
 
   const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
+  const t = useTranslations()
 
   if (collapsible === 'none') {
     return (
@@ -171,8 +176,8 @@ function Sidebar(props: SidebarProps) {
           side={side}
         >
           <SheetHeader className='sr-only'>
-            <SheetTitle>Sidebar</SheetTitle>
-            <SheetDescription>Displays the mobile sidebar.</SheetDescription>
+            <SheetTitle>{t('layout.sidebar.title')}</SheetTitle>
+            <SheetDescription>{t('layout.sidebar.description')}</SheetDescription>
           </SheetHeader>
           <div className='flex size-full flex-col'>{children}</div>
         </SheetContent>
@@ -230,8 +235,9 @@ function Sidebar(props: SidebarProps) {
 
 type SidebarTriggerProps = React.ComponentProps<typeof Button>
 
-function SidebarTrigger(props: SidebarTriggerProps) {
+export function SidebarTrigger(props: SidebarTriggerProps) {
   const { className, onClick, ...rest } = props
+  const t = useTranslations()
 
   const { toggleSidebar } = useSidebar()
 
@@ -249,15 +255,16 @@ function SidebarTrigger(props: SidebarTriggerProps) {
       {...rest}
     >
       <PanelLeftIcon />
-      <span className='sr-only'>Toggle Sidebar</span>
+      <span className='sr-only'>{t('common.aria-labels.toggle-sidebar')}</span>
     </Button>
   )
 }
 
 type SidebarRailProps = React.ComponentProps<'button'>
 
-function SidebarRail(props: SidebarRailProps) {
+export function SidebarRail(props: SidebarRailProps) {
   const { className, ...rest } = props
+  const t = useTranslations()
 
   const { toggleSidebar } = useSidebar()
 
@@ -265,10 +272,10 @@ function SidebarRail(props: SidebarRailProps) {
     <button
       data-sidebar='rail'
       data-slot='sidebar-rail'
-      aria-label='Toggle Sidebar'
+      aria-label={t('common.aria-labels.toggle-sidebar')}
       tabIndex={-1}
       onClick={toggleSidebar}
-      title='Toggle Sidebar'
+      title={t('common.aria-labels.toggle-sidebar')}
       type='button'
       className={cn(
         'absolute inset-y-0 z-20 hidden w-4 -translate-x-1/2 transition-all ease-linear group-data-[collapsible=offcanvas]:translate-x-0 group-data-[side=left]:-right-4 group-data-[side=right]:left-0 after:absolute after:inset-y-0 after:left-1/2 after:w-0.5 group-data-[collapsible=offcanvas]:after:left-full hover:group-data-[collapsible=offcanvas]:bg-sidebar hover:after:bg-sidebar-border in-data-[side=left]:cursor-w-resize in-data-[side=right]:cursor-e-resize sm:flex [[data-side=left][data-collapsible=offcanvas]_&]:-right-2 [[data-side=left][data-state=collapsed]_&]:cursor-e-resize [[data-side=right][data-collapsible=offcanvas]_&]:-left-2 [[data-side=right][data-state=collapsed]_&]:cursor-w-resize',
@@ -281,7 +288,7 @@ function SidebarRail(props: SidebarRailProps) {
 
 type SidebarInsetProps = React.ComponentProps<'main'>
 
-function SidebarInset(props: SidebarInsetProps) {
+export function SidebarInset(props: SidebarInsetProps) {
   const { className, ...rest } = props
 
   return (
@@ -298,7 +305,7 @@ function SidebarInset(props: SidebarInsetProps) {
 
 type SidebarInputProps = React.ComponentProps<typeof Input>
 
-function SidebarInput(props: SidebarInputProps) {
+export function SidebarInput(props: SidebarInputProps) {
   const { className, ...rest } = props
 
   return (
@@ -313,7 +320,7 @@ function SidebarInput(props: SidebarInputProps) {
 
 type SidebarHeaderProps = React.ComponentProps<'div'>
 
-function SidebarHeader(props: SidebarHeaderProps) {
+export function SidebarHeader(props: SidebarHeaderProps) {
   const { className, ...rest } = props
 
   return (
@@ -328,7 +335,7 @@ function SidebarHeader(props: SidebarHeaderProps) {
 
 type SidebarFooterProps = React.ComponentProps<'div'>
 
-function SidebarFooter(props: SidebarFooterProps) {
+export function SidebarFooter(props: SidebarFooterProps) {
   const { className, ...rest } = props
 
   return (
@@ -343,7 +350,7 @@ function SidebarFooter(props: SidebarFooterProps) {
 
 type SidebarSeparatorProps = React.ComponentProps<typeof Separator>
 
-function SidebarSeparator(props: SidebarSeparatorProps) {
+export function SidebarSeparator(props: SidebarSeparatorProps) {
   const { className, ...rest } = props
 
   return (
@@ -358,7 +365,7 @@ function SidebarSeparator(props: SidebarSeparatorProps) {
 
 type SidebarContentProps = React.ComponentProps<'div'>
 
-function SidebarContent(props: SidebarContentProps) {
+export function SidebarContent(props: SidebarContentProps) {
   const { className, ...rest } = props
 
   return (
@@ -376,7 +383,7 @@ function SidebarContent(props: SidebarContentProps) {
 
 type SidebarGroupProps = React.ComponentProps<'div'>
 
-function SidebarGroup(props: SidebarGroupProps) {
+export function SidebarGroup(props: SidebarGroupProps) {
   const { className, ...rest } = props
 
   return (
@@ -391,7 +398,7 @@ function SidebarGroup(props: SidebarGroupProps) {
 
 type SidebarGroupLabelProps = useRender.ComponentProps<'div'> & React.ComponentProps<'div'>
 
-function SidebarGroupLabel(props: SidebarGroupLabelProps) {
+export function SidebarGroupLabel(props: SidebarGroupLabelProps) {
   const { className, render, ...rest } = props
 
   return useRender({
@@ -415,7 +422,7 @@ function SidebarGroupLabel(props: SidebarGroupLabelProps) {
 
 type SidebarGroupActionProps = useRender.ComponentProps<'button'> & React.ComponentProps<'button'>
 
-function SidebarGroupAction(props: SidebarGroupActionProps) {
+export function SidebarGroupAction(props: SidebarGroupActionProps) {
   const { className, render, ...rest } = props
 
   return useRender({
@@ -439,7 +446,7 @@ function SidebarGroupAction(props: SidebarGroupActionProps) {
 
 type SidebarGroupContentProps = React.ComponentProps<'div'>
 
-function SidebarGroupContent(props: SidebarGroupContentProps) {
+export function SidebarGroupContent(props: SidebarGroupContentProps) {
   const { className, ...rest } = props
 
   return (
@@ -454,7 +461,7 @@ function SidebarGroupContent(props: SidebarGroupContentProps) {
 
 type SidebarMenuProps = React.ComponentProps<'ul'>
 
-function SidebarMenu(props: SidebarMenuProps) {
+export function SidebarMenu(props: SidebarMenuProps) {
   const { className, ...rest } = props
 
   return (
@@ -469,7 +476,7 @@ function SidebarMenu(props: SidebarMenuProps) {
 
 type SidebarMenuItemProps = React.ComponentProps<'li'>
 
-function SidebarMenuItem(props: SidebarMenuItemProps) {
+export function SidebarMenuItem(props: SidebarMenuItemProps) {
   const { className, ...rest } = props
 
   return (
@@ -510,7 +517,7 @@ type SidebarMenuButtonProps = useRender.ComponentProps<'button'> &
     tooltip?: string | React.ComponentProps<typeof TooltipContent>
   } & VariantProps<typeof sidebarMenuButtonVariants>
 
-function SidebarMenuButton(props: SidebarMenuButtonProps) {
+export function SidebarMenuButton(props: SidebarMenuButtonProps) {
   const { render, isActive = false, variant = 'default', size = 'default', tooltip, className, ...rest } = props
 
   const { isMobile, state } = useSidebar()
@@ -550,7 +557,7 @@ type SidebarMenuActionProps = useRender.ComponentProps<'button'> &
     showOnHover?: boolean
   }
 
-function SidebarMenuAction(props: SidebarMenuActionProps) {
+export function SidebarMenuAction(props: SidebarMenuActionProps) {
   const { className, render, showOnHover = false, ...rest } = props
 
   return useRender({
@@ -576,7 +583,7 @@ function SidebarMenuAction(props: SidebarMenuActionProps) {
 
 type SidebarMenuBadgeProps = React.ComponentProps<'div'>
 
-function SidebarMenuBadge(props: SidebarMenuBadgeProps) {
+export function SidebarMenuBadge(props: SidebarMenuBadgeProps) {
   const { className, ...rest } = props
 
   return (
@@ -596,7 +603,7 @@ type SidebarMenuSkeletonProps = React.ComponentProps<'div'> & {
   showIcon?: boolean
 }
 
-function SidebarMenuSkeleton(props: SidebarMenuSkeletonProps) {
+export function SidebarMenuSkeleton(props: SidebarMenuSkeletonProps) {
   const { className, showIcon = false, ...rest } = props
 
   // Random width between 50 to 90%.
@@ -623,7 +630,7 @@ function SidebarMenuSkeleton(props: SidebarMenuSkeletonProps) {
 
 type SidebarMenuSubProps = React.ComponentProps<'ul'>
 
-function SidebarMenuSub(props: SidebarMenuSubProps) {
+export function SidebarMenuSub(props: SidebarMenuSubProps) {
   const { className, ...rest } = props
 
   return (
@@ -641,7 +648,7 @@ function SidebarMenuSub(props: SidebarMenuSubProps) {
 
 type SidebarMenuSubItemProps = React.ComponentProps<'li'>
 
-function SidebarMenuSubItem(props: SidebarMenuSubItemProps) {
+export function SidebarMenuSubItem(props: SidebarMenuSubItemProps) {
   const { className, ...rest } = props
 
   return (
@@ -660,7 +667,7 @@ type SidebarMenuSubButtonProps = useRender.ComponentProps<'a'> &
     isActive?: boolean
   }
 
-function SidebarMenuSubButton(props: SidebarMenuSubButtonProps) {
+export function SidebarMenuSubButton(props: SidebarMenuSubButtonProps) {
   const { render, size = 'md', isActive = false, className, ...rest } = props
 
   return useRender({
@@ -682,31 +689,4 @@ function SidebarMenuSubButton(props: SidebarMenuSubButtonProps) {
       active: isActive,
     },
   })
-}
-
-export {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarGroup,
-  SidebarGroupAction,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarHeader,
-  SidebarInput,
-  SidebarInset,
-  SidebarMenu,
-  SidebarMenuAction,
-  SidebarMenuBadge,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarMenuSkeleton,
-  SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem,
-  SidebarProvider,
-  SidebarRail,
-  SidebarSeparator,
-  SidebarTrigger,
-  useSidebar,
 }

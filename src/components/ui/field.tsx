@@ -1,6 +1,8 @@
 'use client'
 
-import { cva, type VariantProps } from 'class-variance-authority'
+import type { VariantProps } from 'class-variance-authority'
+
+import { cva } from 'class-variance-authority'
 import { useMemo } from 'react'
 
 import { Label } from '@/components/ui/label'
@@ -9,7 +11,7 @@ import { cn } from '@/utils/cn'
 
 type FieldSetProps = React.ComponentProps<'fieldset'>
 
-function FieldSet(props: FieldSetProps) {
+export function FieldSet(props: FieldSetProps) {
   const { className, ...rest } = props
 
   return (
@@ -26,7 +28,7 @@ function FieldSet(props: FieldSetProps) {
 
 type FieldLegendProps = React.ComponentProps<'legend'> & { variant?: 'legend' | 'label' }
 
-function FieldLegend(props: FieldLegendProps) {
+export function FieldLegend(props: FieldLegendProps) {
   const { className, variant = 'legend', ...rest } = props
 
   return (
@@ -41,7 +43,7 @@ function FieldLegend(props: FieldLegendProps) {
 
 type FieldGroupProps = React.ComponentProps<'div'>
 
-function FieldGroup(props: FieldGroupProps) {
+export function FieldGroup(props: FieldGroupProps) {
   const { className, ...rest } = props
 
   return (
@@ -73,7 +75,7 @@ const fieldVariants = cva('group/field flex w-full gap-3 data-[invalid=true]:tex
 
 type FieldProps = React.ComponentProps<'div'> & VariantProps<typeof fieldVariants>
 
-function Field(props: FieldProps) {
+export function Field(props: FieldProps) {
   const { className, orientation = 'vertical', ...rest } = props
 
   return (
@@ -89,7 +91,7 @@ function Field(props: FieldProps) {
 
 type FieldContentProps = React.ComponentProps<'div'>
 
-function FieldContent(props: FieldContentProps) {
+export function FieldContent(props: FieldContentProps) {
   const { className, ...rest } = props
 
   return (
@@ -103,7 +105,7 @@ function FieldContent(props: FieldContentProps) {
 
 type FieldLabelProps = React.ComponentProps<typeof Label>
 
-function FieldLabel(props: FieldLabelProps) {
+export function FieldLabel(props: FieldLabelProps) {
   const { className, ...rest } = props
 
   return (
@@ -120,7 +122,7 @@ function FieldLabel(props: FieldLabelProps) {
 
 type FieldTitleProps = React.ComponentProps<'div'>
 
-function FieldTitle(props: FieldTitleProps) {
+export function FieldTitle(props: FieldTitleProps) {
   const { className, ...rest } = props
 
   return (
@@ -137,7 +139,7 @@ function FieldTitle(props: FieldTitleProps) {
 
 type FieldDescriptionProps = React.ComponentProps<'p'>
 
-function FieldDescription(props: FieldDescriptionProps) {
+export function FieldDescription(props: FieldDescriptionProps) {
   const { className, ...rest } = props
 
   return (
@@ -156,18 +158,19 @@ type FieldSeparatorProps = React.ComponentProps<'div'> & {
   children?: React.ReactNode
 }
 
-function FieldSeparator(props: FieldSeparatorProps) {
+export function FieldSeparator(props: FieldSeparatorProps) {
   const { children, className, ...rest } = props
+  const hasChildren = Boolean(children)
 
   return (
     <div
       data-slot='field-separator'
-      data-content={Boolean(children)}
+      data-content={hasChildren}
       className={cn('relative -my-2 h-5 text-sm group-data-[variant=outline]/field-group:-mb-2', className)}
       {...rest}
     >
       <Separator className='absolute inset-0 top-1/2' />
-      {children && (
+      {hasChildren && (
         <span
           className='relative mx-auto block w-fit bg-background px-2 text-muted-foreground'
           data-slot='field-separator-content'
@@ -183,11 +186,11 @@ type FieldErrorProps = React.ComponentProps<'div'> & {
   errors?: Array<{ message?: string } | undefined>
 }
 
-function FieldError(props: FieldErrorProps) {
+export function FieldError(props: FieldErrorProps) {
   const { className, children, errors, ...rest } = props
 
-  // ReactNode includes Promise<AwaitedReactNode>,
-  // which triggers this rule incorrectly in Client Components.
+  // ReactNode types may include Promise-like branches in React's typings,
+  // which causes a false positive for this sync useMemo callback.
   // eslint-disable-next-line @typescript-eslint/promise-function-async
   const content = useMemo(() => {
     if (children) {
@@ -198,15 +201,21 @@ function FieldError(props: FieldErrorProps) {
       return null
     }
 
-    const uniqueErrors = [...new Map(errors.map((error) => [error?.message, error])).values()]
+    const uniqueMessages = [...new Set(errors.map((error) => error?.message).filter(Boolean))]
 
-    if (uniqueErrors.length === 1) {
-      return uniqueErrors[0]?.message
+    if (uniqueMessages.length === 0) {
+      return null
+    }
+
+    if (uniqueMessages.length === 1) {
+      return uniqueMessages[0]
     }
 
     return (
       <ul className='ml-4 flex list-disc flex-col gap-1'>
-        {uniqueErrors.map((error, index) => error?.message && <li key={index}>{error.message}</li>)}
+        {uniqueMessages.map((message) => (
+          <li key={message}>{message}</li>
+        ))}
       </ul>
     )
   }, [children, errors])
@@ -225,17 +234,4 @@ function FieldError(props: FieldErrorProps) {
       {content}
     </div>
   )
-}
-
-export {
-  Field,
-  FieldContent,
-  FieldDescription,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-  FieldLegend,
-  FieldSeparator,
-  FieldSet,
-  FieldTitle,
 }

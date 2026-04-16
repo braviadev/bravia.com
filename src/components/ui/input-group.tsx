@@ -1,6 +1,8 @@
 'use client'
 
-import { cva, type VariantProps } from 'class-variance-authority'
+import type { VariantProps } from 'class-variance-authority'
+
+import { cva } from 'class-variance-authority'
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -9,7 +11,7 @@ import { cn } from '@/utils/cn'
 
 type InputGroupProps = React.ComponentProps<'div'>
 
-function InputGroup(props: InputGroupProps) {
+export function InputGroup(props: InputGroupProps) {
   const { className, ...rest } = props
 
   return (
@@ -45,7 +47,7 @@ const inputGroupAddonVariants = cva(
 
 type InputGroupAddonProps = React.ComponentProps<'div'> & VariantProps<typeof inputGroupAddonVariants>
 
-function InputGroupAddon(props: InputGroupAddonProps) {
+export function InputGroupAddon(props: InputGroupAddonProps) {
   const { className, align = 'inline-start', ...rest } = props
 
   return (
@@ -85,7 +87,7 @@ type InputGroupButtonProps = Omit<React.ComponentProps<typeof Button>, 'size' | 
     type?: 'button' | 'submit' | 'reset'
   }
 
-function InputGroupButton(props: InputGroupButtonProps) {
+export function InputGroupButton(props: InputGroupButtonProps) {
   const { className, type = 'button', variant = 'ghost', size = 'xs', ...rest } = props
 
   return (
@@ -101,7 +103,7 @@ function InputGroupButton(props: InputGroupButtonProps) {
 
 type InputGroupTextProps = React.ComponentProps<'span'>
 
-function InputGroupText(props: InputGroupTextProps) {
+export function InputGroupText(props: InputGroupTextProps) {
   const { className, ...rest } = props
 
   return (
@@ -117,7 +119,7 @@ function InputGroupText(props: InputGroupTextProps) {
 
 type InputGroupInputProps = React.ComponentProps<'input'>
 
-function InputGroupInput(props: InputGroupInputProps) {
+export function InputGroupInput(props: InputGroupInputProps) {
   const { className, ...rest } = props
 
   return (
@@ -134,7 +136,7 @@ function InputGroupInput(props: InputGroupInputProps) {
 
 type InputGroupTextareaProps = React.ComponentProps<'textarea'>
 
-function InputGroupTextarea(props: InputGroupTextareaProps) {
+export function InputGroupTextarea(props: InputGroupTextareaProps) {
   const { className, ...rest } = props
 
   return (
@@ -148,5 +150,3 @@ function InputGroupTextarea(props: InputGroupTextareaProps) {
     />
   )
 }
-
-export { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput, InputGroupText, InputGroupTextarea }

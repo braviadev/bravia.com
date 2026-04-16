@@ -2,13 +2,14 @@
 
 import { CheckIcon, CopyIcon } from 'lucide-react'
 import mergeRefs from 'merge-refs'
+import { useTranslations } from 'next-intl'
 import { useEffect, useRef, useState } from 'react'
 
 import { cn } from '@/utils/cn'
 import { getIconByLanguage } from '@/utils/get-icon-by-language'
 
 import { Button } from './button'
-import { ScrollArea, ScrollBar } from './scroll-area'
+import { ScrollArea } from './scroll-area'
 
 type CodeBlockProps = {
   'data-lang'?: string
@@ -16,14 +17,14 @@ type CodeBlockProps = {
   scrollAreaClassName?: string
 } & React.ComponentProps<'pre'>
 
-function CodeBlock(props: CodeBlockProps) {
+export function CodeBlock(props: CodeBlockProps) {
   const { children, className, title, 'data-lang': lang, figureClassName, scrollAreaClassName, ref, ...rest } = props
 
-  const textInput = useRef<HTMLPreElement>(null)
+  const preRef = useRef<HTMLPreElement>(null)
   const Icon = getIconByLanguage(lang ?? '')
 
   function onCopy() {
-    void navigator.clipboard.writeText(textInput.current?.textContent ?? '')
+    void navigator.clipboard.writeText(preRef.current?.textContent ?? '')
   }
 
   return (
@@ -46,10 +47,9 @@ function CodeBlock(props: CodeBlockProps) {
       )}
 
       <ScrollArea className={scrollAreaClassName}>
-        <pre ref={mergeRefs(textInput, ref)} className={cn('p-4 text-[13px]', className)} {...rest}>
+        <pre ref={mergeRefs(preRef, ref)} className={cn('p-4 text-[13px]', className)} {...rest}>
           {children}
         </pre>
-        <ScrollBar orientation='horizontal' />
       </ScrollArea>
     </figure>
   )
@@ -62,6 +62,7 @@ type CopyButtonProps = {
 function CopyButton(props: CopyButtonProps) {
   const { onCopy, className, ...rest } = props
   const [isCopied, setIsCopied] = useState(false)
+  const t = useTranslations()
 
   useEffect(() => {
     const copyResetTimeoutId = setTimeout(() => {
@@ -82,12 +83,10 @@ function CopyButton(props: CopyButtonProps) {
         setIsCopied(true)
       }}
       className={cn('size-7.5 opacity-0 transition-opacity group-hover:opacity-100', className)}
-      aria-label='Copy code to clipboard'
+      aria-label={t('common.aria-labels.copy-code')}
       {...rest}
     >
       {isCopied ? <CheckIcon className='size-3.5' /> : <CopyIcon className='size-3.5' />}
     </Button>
   )
 }
-
-export { CodeBlock }
