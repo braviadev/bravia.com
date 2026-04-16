@@ -14,9 +14,9 @@ import {
   DrawerTrigger,
 } from '@/components/ui/drawer'
 import { Link } from '@/components/ui/link'
-import { ACCOUNT_SIDEBAR_LINKS } from '@/config/links'
+import { ACCOUNT_SIDEBAR_LINKS } from '@/constants/navigation'
 
-function AccountMobileNav() {
+export function AccountMobileNav() {
   const t = useTranslations()
   const [open, setOpen] = useState(false)
 
@@ -38,8 +38,8 @@ function AccountMobileNav() {
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader className='sr-only'>
-          <DrawerTitle>Drawer</DrawerTitle>
-          <DrawerDescription>Displays the mobile navigation in drawer.</DrawerDescription>
+          <DrawerTitle>{t('account.mobile-nav.title')}</DrawerTitle>
+          <DrawerDescription>{t('account.mobile-nav.description')}</DrawerDescription>
         </DrawerHeader>
         <ul className='p-8'>
           {ACCOUNT_SIDEBAR_LINKS.map((link) => (
@@ -54,5 +54,3 @@ function AccountMobileNav() {
     </Drawer>
   )
 }
-
-export default AccountMobileNav
