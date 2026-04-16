@@ -9,17 +9,16 @@ import { toast } from 'sonner'
 
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
+import { Tip } from '@/components/ui/tip'
 import { useListSessions, useRevokeSession } from '@/hooks/queries/auth.query'
 import { useFormattedDate } from '@/hooks/use-formatted-date'
 import { useRouter } from '@/i18n/routing'
 import { useSession } from '@/lib/auth-client'
 
-import Tip from '../tip'
+import { ActiveSessionsSkeleton } from './active-sessions-skeleton'
 
-import ActiveSessionsSkeleton from './active-sessions-skeleton'
-
-function ActiveSessions() {
+export function ActiveSessions() {
   const t = useTranslations()
   const { data, isSuccess, isLoading, isError } = useListSessions()
 
@@ -86,7 +85,7 @@ function Session(props: SessionProps) {
     toast.success(t('success.session-revoked'))
     if (session.isCurrentSession) {
       router.push('/')
-      refetchSession()
+      void refetchSession()
     }
   })
 
@@ -96,14 +95,14 @@ function Session(props: SessionProps) {
   }
 
   return (
-    <Card className='p-4 sm:p-6'>
-      <div className='flex flex-col gap-4 sm:flex-row sm:justify-between'>
+    <Card>
+      <CardContent className='flex flex-col gap-4 sm:flex-row sm:justify-between'>
         <div className='flex gap-4'>
-          <div className='flex size-12 items-center justify-center rounded-full bg-secondary'>
+          <div className='hidden size-12 shrink-0 items-center justify-center rounded-full bg-secondary md:flex'>
             <PlatformIcon aria-hidden className='size-6' />
           </div>
           <div className='space-y-1'>
-            <div className='flex h-12 items-center gap-4 font-semibold'>
+            <div className='flex items-center gap-2 font-semibold'>
               <span className='text-lg'>{osName}</span>{' '}
               {session.isCurrentSession && <Badge>{t('account.this-device')}</Badge>}
             </div>
@@ -111,15 +110,15 @@ function Session(props: SessionProps) {
               <div>
                 {browserName} {browserVersion && <span className='text-muted-foreground'>{browserVersion}</span>}
               </div>
-              <div className='flex items-center gap-1.5'>
-                {ipAddress}{' '}
+              <div className='flex flex-wrap items-center gap-1.5'>
+                <span data-posthog-block>{ipAddress}</span>{' '}
                 {session.location && (
-                  <>
+                  <div data-posthog-block className='flex items-center gap-2'>
                     <span className='text-muted-foreground'>{session.location}</span>
-                    <Tip content='Location may not be accurate'>
+                    <Tip content={t('account.location-not-accurate')}>
                       <InfoIcon className='size-4 text-muted-foreground' />
                     </Tip>
-                  </>
+                  </div>
                 )}
               </div>
               <div>{lastActive ?? '--'}</div>
@@ -129,9 +128,7 @@ function Session(props: SessionProps) {
         <Button variant='destructive' size='sm' onClick={handleRevoke} disabled={isRevoking}>
           {t('account.revoke-session')}
         </Button>
-      </div>
+      </CardContent>
     </Card>
   )
 }
-
-export default ActiveSessions
