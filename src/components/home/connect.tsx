@@ -2,9 +2,9 @@ import { LinkIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { Link } from '@/components/ui/link'
-import { SOCIAL_LINKS } from '@/config/links'
+import { SOCIAL_LINKS } from '@/constants/navigation'
 
-function Connect() {
+export function Connect() {
   const t = useTranslations()
 
   return (
@@ -32,5 +32,3 @@ function Connect() {
     </div>
   )
 }
-
-export default Connect

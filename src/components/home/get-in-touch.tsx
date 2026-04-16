@@ -4,23 +4,17 @@ import { motion, useAnimate, useInView } from 'motion/react'
 import { useTranslations } from 'next-intl'
 import { useEffect, useRef } from 'react'
 
-import BlurImage from '@/components/blur-image'
+import { BlurImage } from '@/components/blur-image'
 import { cn } from '@/utils/cn'
 
 import { buttonVariants } from '../ui/button'
 
 const variants = {
-  initial: {
-    y: 40,
-    opacity: 0,
-  },
-  animate: {
-    y: 0,
-    opacity: 1,
-  },
+  initial: { y: 40, opacity: 0 },
+  animate: { y: 0, opacity: 1 },
 }
 
-function GetInTouch() {
+export function GetInTouch() {
   const [scope, animate] = useAnimate()
   const cardsRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(cardsRef, { once: true, margin: '-100px' })
@@ -55,9 +49,7 @@ function GetInTouch() {
       animate={isInView ? 'animate' : 'initial'}
       variants={variants}
       ref={cardsRef}
-      transition={{
-        duration: 0.5,
-      }}
+      transition={{ duration: 0.5 }}
     >
       <div className='relative size-64 max-md:mx-auto' ref={scope}>
         <BlurImage
@@ -108,7 +100,7 @@ function GetInTouch() {
               d='M12 5.50676L0 0L2.83818 13L6.30623 7.86537L12 5.50676V5.50676Z'
             />
           </svg>
-          <span className='relative left-4 rounded-4xl bg-red-500 px-2 py-0.5 text-xs text-white'>Bravía</span>
+          <span className='relative left-4 rounded-4xl bg-red-500 px-2 py-0.5 text-xs text-white'>Nelson</span>
         </div>
       </div>
 
@@ -116,13 +108,11 @@ function GetInTouch() {
         <p className='mb-2 text-3xl font-semibold'>{t('homepage.get-in-touch.title')}</p>
         <p className='text-muted-foreground'>{t('homepage.get-in-touch.description')}</p>
         <div className='my-8'>
-          <a href='mailto:me@bravía.com' className={cn(buttonVariants(), 'bg-email-button text-white')}>
-            me@bravía.com
+          <a href='mailto:me@nelsonlai.dev' className={cn(buttonVariants(), 'bg-email-button text-white')}>
+            me@nelsonlai.dev
           </a>
         </div>
       </div>
     </motion.div>
   )
 }
-
-export default GetInTouch
