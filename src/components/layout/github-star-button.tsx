@@ -14,7 +14,7 @@ export function GithubStarButton() {
 
   return (
     <Link
-      href='https://github.com/nelsonlaidev/nelsonlai.dev'
+      href='https://github.com/braviadev/bravia.dev'
       className='flex items-center overflow-hidden rounded-4xl border'
     >
       <div className='flex h-8 items-center gap-2 bg-muted pr-2 pl-3 font-medium'>
