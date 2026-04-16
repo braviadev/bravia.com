@@ -2,7 +2,7 @@ import { Ratelimit } from '@upstash/ratelimit'
 import { Redis } from '@upstash/redis'
 import { consola } from 'consola'
 
-import { env } from '@/lib/env'
+import { env } from '@/env'
 
 export const redis = new Redis({
   url: env.UPSTASH_REDIS_REST_URL,
@@ -17,23 +17,25 @@ export const ratelimit = new Ratelimit({
 
 const DEFAULT_TTL = 60 * 60 * 24 // 1 day
 
-export function createCache<T>(prefix: string, ttl: number = DEFAULT_TTL) {
+export function createCache<TValue>(prefix: string, ttl: number = DEFAULT_TTL) {
   function getKey(...parts: Array<string | number>) {
     return [prefix, ...parts].filter(Boolean).join(':')
   }
 
   return {
-    async get(key: string): Promise<T | null> {
+    async get(key: string): Promise<TValue | null> {
       const fullKey = getKey(key)
       try {
-        return await redis.get<T>(fullKey)
+        const value = await redis.get<TValue>(fullKey)
+        if (value !== null) consola.info('[Cache] Hit:', fullKey)
+        return value
       } catch (error) {
         consola.error('[Cache] Get failed:', fullKey, error)
         return null
       }
     },
 
-    async set(key: string, value: T, customTtl?: number): Promise<void> {
+    async set(key: string, value: TValue, customTtl?: number): Promise<void> {
       const fullKey = getKey(key)
       try {
         await redis.set(fullKey, value, { ex: customTtl ?? ttl })
@@ -63,7 +65,7 @@ export function createCache<T>(prefix: string, ttl: number = DEFAULT_TTL) {
       }
     },
 
-    async getOrSet(key: string, factory: () => Promise<T>, customTtl?: number): Promise<T> {
+    async getOrSet(key: string, factory: () => Promise<TValue>, customTtl?: number): Promise<TValue> {
       const cached = await this.get(key)
       if (cached !== null) return cached
 

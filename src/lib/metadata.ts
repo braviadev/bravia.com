@@ -6,7 +6,7 @@ import { routing } from '@/i18n/routing'
 import { getBaseUrl } from '@/utils/get-base-url'
 import { getLocalizedPath } from '@/utils/get-localized-path'
 
-import { MY_NAME, OG_IMAGE_HEIGHT, OG_IMAGE_TYPE, OG_IMAGE_WIDTH } from './constants'
+import { MY_NAME, OG_IMAGE_HEIGHT, OG_IMAGE_TYPE, OG_IMAGE_WIDTH } from '../constants/site'
 
 type Options = {
   root?: boolean
@@ -75,7 +75,7 @@ export function createMetadata(options: Options): Metadata {
       twitter: {
         card: 'summary_large_image',
         siteId: '1152256803746377730',
-        creator: '@braviadev',
+        creator: '@nelsonlaidev',
         creatorId: '1152256803746377730',
       },
       icons: {

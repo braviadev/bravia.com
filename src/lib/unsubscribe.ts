@@ -6,7 +6,7 @@ import * as z from 'zod'
 
 import { db } from '@/db'
 import { comments, unsubscribes } from '@/db/schemas'
-import { env } from '@/lib/env'
+import { env } from '@/env'
 import { getMaskedEmail } from '@/utils/get-masked-email'
 
 const TokenSchema = z.jwt({ alg: 'HS256' })
@@ -19,7 +19,7 @@ const CommentReplyUnsubPayloadSchema = z.object({
 
 const UnsubPayloadSchema = z.discriminatedUnion('type', [CommentReplyUnsubPayloadSchema])
 
-type UnsubTokenResult<T> = { success: true; data: T } | { success: false }
+type UnsubTokenResult<TData> = { success: true; data: TData } | { success: false }
 type UnsubPayload = z.infer<typeof UnsubPayloadSchema>
 type CommentReplyUnsubPayload = z.infer<typeof CommentReplyUnsubPayloadSchema>
 
@@ -114,14 +114,11 @@ export async function getUnsubData(token: string | null) {
   const { data } = result
 
   // Allow for future types
-  // eslint-disable-next-line sonarjs/no-small-switch
-  switch (data.type) {
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    case 'comment_reply': {
-      return getCommentReplyUnsubData(data, token)
-    }
-    default: {
-      return null
-    }
+  // Note: use switch in the future
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (data.type === 'comment_reply') {
+    return getCommentReplyUnsubData(data, token)
   }
+
+  return null
 }

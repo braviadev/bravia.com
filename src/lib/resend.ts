@@ -1,6 +1,6 @@
 import { Resend } from 'resend'
 
-import { env } from '@/lib/env'
+import { env } from '@/env'
 
 type SendEmailOptions = {
   subject: string
@@ -18,7 +18,7 @@ export async function sendEmail(options: SendEmailOptions) {
   const resend = new Resend(env.RESEND_API_KEY)
 
   return resend.emails.send({
-    from: 'Olanrewaju Toyyib <me@bravía.com>',
+    from: 'Nelson Lai <me@nelsonlai.dev>',
     to,
     subject,
     react,

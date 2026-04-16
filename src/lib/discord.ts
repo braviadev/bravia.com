@@ -1,6 +1,6 @@
 import type { RESTPostAPIWebhookWithTokenFormDataBody } from 'discord-api-types/rest'
 
-import { env } from '@/lib/env'
+import { env } from '@/env'
 
 const BOT_AVATAR_URL = 'https://cdn.discordapp.com/avatars/1123845082672537751/8af603a10f1d2f86ebc922ede339cd3a.webp'
 
@@ -24,7 +24,7 @@ export async function sendGuestbookNotification(message: string, userName: strin
       {
         title: 'New message on the guestbook!',
         description: message,
-        url: 'https://www.bravía.com/guestbook',
+        url: 'https://nelsonlai.dev/guestbook',
         color: 6_609_519,
         author: {
           name: userName,
