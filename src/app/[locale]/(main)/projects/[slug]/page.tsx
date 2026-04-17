@@ -8,7 +8,7 @@ import { setRequestLocale } from 'next-intl/server'
 import { use } from 'react'
 
 import BlurImage from '@/components/blur-image'
-import JsonLd from '@/components/json-ld'
+import { JsonLd } from '@/components/json-ld'
 import Mdx from '@/components/mdx'
 import ProjectHeader from '@/components/project-header'
 import { MY_NAME } from '@/lib/constants'
