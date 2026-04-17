@@ -5,7 +5,7 @@ import { type Locale, useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { use } from 'react'
 
-import JsonLd from '@/components/json-ld'
+import { JsonLd } from '@/components/json-ld'
 import PageHeader from '@/components/page-header'
 import Stats from '@/components/stats'
 import { MY_NAME } from '@/lib/constants'
