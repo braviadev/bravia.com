@@ -1,5 +1,5 @@
 <div align="center">
-  <a href="https://nelsonlai.dev">
+  <a href="https://bravía.com">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="public/images/dark-header.png">
       <img alt="Project Cover" src="public/images/light-header.png">
@@ -7,7 +7,7 @@
   </a>
 
   <h1 align="center">
-    nelsonlai.dev
+    bravía.com
   </h1>
 
   <img src="https://img.shields.io/badge/Next.js-000000.svg?style=for-the-badge&logo=Next.js&labelColor=000" alt="Framework" />
@@ -97,7 +97,7 @@ Welcome to my personal blog and portfolio website! This repository contains a mo
 ## Project Structure
 
 ```
-nelsonlai.dev/
+bravía.com/
 ├── public/           # Static assets (images, fonts, videos)
 ├── src/
 │   ├── app/          # Next.js app router pages
@@ -255,11 +255,11 @@ The following projects were referenced for inspiration:
 
 ## Author
 
-- [@nelsonlaidev](https://github.com/nelsonlaidev)
+- [@braviadev](https://github.com/braviadev)
 
 ## Donation
 
-If you find this project helpful, consider supporting me by [sponsoring the project](https://github.com/sponsors/nelsonlaidev).
+If you find this project helpful, consider supporting me by [sponsoring the project](https://github.com/sponsors/braviadev).
 
 ## License
 
