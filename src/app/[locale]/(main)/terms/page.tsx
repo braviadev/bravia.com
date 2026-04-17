@@ -5,7 +5,7 @@ import { type Locale, useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { use } from 'react'
 
-import Mdx from '@/components/mdx'
+import { Mdx } from '@/components/mdx'
 import PageHeader from '@/components/page-header'
 import { getPageBySlug } from '@/lib/content'
 import { createMetadata } from '@/lib/metadata'
