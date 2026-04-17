@@ -1,12 +1,12 @@
-export const SITE_GITHUB_URL = 'https://github.com/nelsonlaidev'
-export const SITE_FACEBOOK_URL = 'https://www.facebook.com/nelsonlaidev'
-export const SITE_INSTAGRAM_URL = 'https://www.instagram.com/nelsonlaidev'
-export const SITE_X_URL = 'https://x.com/nelsonlaidev'
-export const SITE_YOUTUBE_URL = 'https://www.youtube.com/@nelsonlaidev'
+export const SITE_GITHUB_URL = 'https://github.com/braviadev'
+export const SITE_FACEBOOK_URL = 'https://www.facebook.com/olanrewajutoyyiib'
+export const SITE_INSTAGRAM_URL = 'https://www.instagram.com/bravia.ot'
+export const SITE_X_URL = 'https://x.com/O_Toyyib'
+export const SITE_YOUTUBE_URL = 'https://youtube.com/@olanrewajutoyyib'
 
-export const GITHUB_USERNAME = 'nelsonlaidev'
+export const GITHUB_USERNAME = 'braviadev'
 
-export const MY_NAME = 'Nelson Lai'
+export const MY_NAME = 'Olanrewaju Toyyib'
 
 export const OG_IMAGE_WIDTH = 1200
 export const OG_IMAGE_HEIGHT = 630
