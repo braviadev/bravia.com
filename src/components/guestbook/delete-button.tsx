@@ -14,14 +14,14 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
-import { Button, buttonVariants } from '@/components/ui/button'
+import { Button } from '@/components/ui/button'
 import { useDeleteMessage } from '@/hooks/queries/message.query'
 
 type DeleteButtonProps = {
   message: MessageListOutput['messages'][number]
 }
 
-function DeleteButton(props: DeleteButtonProps) {
+export function DeleteButton(props: DeleteButtonProps) {
   const { message } = props
   const t = useTranslations()
 
@@ -60,7 +60,7 @@ function DeleteButton(props: DeleteButtonProps) {
               onClick={() => {
                 handleDeleteMessage(message.id)
               }}
-              className={buttonVariants({ variant: 'destructive' })}
+              variant='destructive'
               data-testid='guestbook-dialog-delete-button'
             >
               {t('common.delete')}
@@ -71,5 +71,3 @@ function DeleteButton(props: DeleteButtonProps) {
     </div>
   )
 }
-
-export default DeleteButton

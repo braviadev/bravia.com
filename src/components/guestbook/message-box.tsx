@@ -7,20 +7,18 @@ import { useTranslations } from 'next-intl'
 import { toast } from 'sonner'
 import * as z from 'zod'
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { Field, FieldError, FieldGroup } from '@/components/ui/field'
 import { Textarea } from '@/components/ui/textarea'
+import { UserAvatar } from '@/components/ui/user-avatar'
 import { useCreateMessage } from '@/hooks/queries/message.query'
 import { useSignOut } from '@/hooks/use-sign-out'
-import { getAbbreviation } from '@/utils/get-abbreviation'
-import { getDefaultImage } from '@/utils/get-default-image'
 
 type MessageBoxProps = {
   user: User
 }
 
-function MessageBox(props: MessageBoxProps) {
+export function MessageBox(props: MessageBoxProps) {
   const { user } = props
   const t = useTranslations()
   const signOut = useSignOut()
@@ -52,15 +50,10 @@ function MessageBox(props: MessageBoxProps) {
     void form.handleSubmit()
   }
 
-  const defaultImage = getDefaultImage(user.id)
-
   return (
     <div className='flex gap-3'>
-      <Avatar className='size-10'>
-        <AvatarImage src={user.image ?? defaultImage} alt={user.name} />
-        <AvatarFallback>{getAbbreviation(user.name)}</AvatarFallback>
-      </Avatar>
-      <form onSubmit={handleSubmit} className='w-full'>
+      <UserAvatar id={user.id} name={user.name} image={user.image} size='lg' />
+      <form onSubmit={handleSubmit} className='w-full space-y-4'>
         <FieldGroup>
           <form.Field name='message'>
             {(field) => {
@@ -87,7 +80,7 @@ function MessageBox(props: MessageBoxProps) {
             }}
           </form.Field>
         </FieldGroup>
-        <div className='mt-4 flex justify-end gap-2'>
+        <div className='flex items-center justify-end gap-2'>
           <Button variant='outline' onClick={signOut} disabled={isCreating}>
             {t('common.sign-out')}
           </Button>
@@ -99,5 +92,3 @@ function MessageBox(props: MessageBoxProps) {
     </div>
   )
 }
-
-export default MessageBox

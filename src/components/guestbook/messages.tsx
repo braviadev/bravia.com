@@ -6,17 +6,15 @@ import { useTranslations } from 'next-intl'
 import { useEffect } from 'react'
 import { useInView } from 'react-intersection-observer'
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { UserAvatar } from '@/components/ui/user-avatar'
 import { useListMessages } from '@/hooks/queries/message.query'
 import { useFormattedDate } from '@/hooks/use-formatted-date'
 import { useSession } from '@/lib/auth-client'
-import { getAbbreviation } from '@/utils/get-abbreviation'
-import { getDefaultImage } from '@/utils/get-default-image'
 
-import DeleteButton from './delete-button'
-import MessagesLoader from './messages-loader'
+import { DeleteButton } from './delete-button'
+import { MessagesLoader } from './messages-loader'
 
-function Messages() {
+export function Messages() {
   const { data, isSuccess, isLoading, isError, fetchNextPage, hasNextPage, isFetchingNextPage } = useListMessages()
   const t = useTranslations()
 
@@ -58,26 +56,21 @@ function Message(props: MessageProps) {
 
   const isAuthor = message.userId === session?.user.id
 
-  const defaultImage = getDefaultImage(message.userId)
-
   const formattedDate = useFormattedDate(message.createdAt, { formatName: 'long' })
 
   return (
     <div className='rounded-xl border p-4' data-testid={`message-${message.id}`}>
       <div className='mb-3 flex gap-3'>
-        <Avatar className='size-10'>
-          <AvatarImage src={message.user.image ?? defaultImage} alt={message.user.name} />
-          <AvatarFallback>{getAbbreviation(message.user.name)}</AvatarFallback>
-        </Avatar>
+        <UserAvatar id={message.userId} name={message.user.name} image={message.user.image} size='lg' />
         <div className='flex flex-col justify-center gap-px text-sm'>
           <div>{message.user.name}</div>
           <div className='text-xs text-muted-foreground'>{formattedDate ?? '--'}</div>
         </div>
       </div>
-      <div className='pl-13 wrap-break-word'>{message.body}</div>
+      <div data-posthog-mask className='pl-13 wrap-break-word'>
+        {message.body}
+      </div>
       {isAuthor && <DeleteButton message={message} />}
     </div>
   )
 }
-
-export default Messages
