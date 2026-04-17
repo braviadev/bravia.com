@@ -1,5 +1,7 @@
 import { Column, Hr, Img, Link, Row, Section, Text } from '@react-email/components'
 
+const currentYear = new Date().getFullYear()
+
 function Footer() {
   return (
     <>
