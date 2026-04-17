@@ -1,9 +1,10 @@
 import { createId } from '@paralleldrive/cuid2'
 import { relations, sql } from 'drizzle-orm'
-import { boolean, foreignKey, index, integer, pgTable, primaryKey, text, timestamp } from 'drizzle-orm/pg-core'
+import { boolean, foreignKey, index, integer, pgTable, primaryKey, text } from 'drizzle-orm/pg-core'
 
 import { users } from './auth.schema'
 import { posts } from './post.schema'
+import { createdAt, updatedAt } from './shared.schema'
 import { unsubscribes } from './unsubscribe.schema'
 
 export const comments = pgTable(
@@ -17,13 +18,8 @@ export const comments = pgTable(
       .notNull()
       .default('ghost')
       .references(() => users.id, { onDelete: 'set default' }),
-    createdAt: timestamp('created_at')
-      .notNull()
-      .$defaultFn(() => new Date()),
-    updatedAt: timestamp('updated_at')
-      .notNull()
-      .$defaultFn(() => new Date())
-      .$onUpdateFn(() => new Date()),
+    createdAt: createdAt(),
+    updatedAt: updatedAt(),
     postId: text('post_id')
       .notNull()
       .references(() => posts.slug, { onDelete: 'cascade' }),
@@ -39,7 +35,6 @@ export const comments = pgTable(
       foreignColumns: [table.id],
     }).onDelete('restrict'),
     index('comments_post_id_idx').on(table.postId),
-    index('comments_parent_id_idx').on(table.parentId),
     index('comments_user_id_idx').on(table.userId),
     index('comments_post_id_created_at_desc_idx')
       .on(table.postId, table.createdAt.desc())

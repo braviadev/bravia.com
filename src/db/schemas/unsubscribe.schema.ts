@@ -1,8 +1,9 @@
 import { relations, sql } from 'drizzle-orm'
-import { check, index, pgEnum, pgTable, text, timestamp, unique } from 'drizzle-orm/pg-core'
+import { check, index, pgEnum, pgTable, text, unique } from 'drizzle-orm/pg-core'
 
 import { users } from './auth.schema'
 import { comments } from './comment.schema'
+import { createdAt, updatedAt } from './shared.schema'
 
 export const unsubscribeTypeEnum = pgEnum('unsubscribe_type', ['comment_reply'])
 
@@ -15,13 +16,8 @@ export const unsubscribes = pgTable(
       .references(() => users.id, { onDelete: 'cascade' }),
     type: unsubscribeTypeEnum('type').notNull(),
     commentId: text('comment_id').references(() => comments.id, { onDelete: 'cascade' }),
-    createdAt: timestamp('created_at')
-      .notNull()
-      .$defaultFn(() => new Date()),
-    updatedAt: timestamp('updated_at')
-      .notNull()
-      .$defaultFn(() => new Date())
-      .$onUpdate(() => new Date()),
+    createdAt: createdAt(),
+    updatedAt: updatedAt(),
   },
   (table) => [
     index('unsubscribes_user_id_idx').on(table.userId),
@@ -29,7 +25,7 @@ export const unsubscribes = pgTable(
     unique('unsubscribes_user_id_type_comment_id_uq').on(table.userId, table.type, table.commentId),
     check(
       'unsubscribes_comment_reply_check',
-      sql`(${table.type} = 'comment_reply' AND ${table.commentId} IS NOT NULL)`,
+      sql`(${table.type} = 'comment_reply' AND ${table.commentId} IS NOT NULL) OR (${table.type} != 'comment_reply' AND ${table.commentId} IS NULL)`,
     ),
   ],
 )

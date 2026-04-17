@@ -2,7 +2,7 @@ import { consola } from 'consola'
 import { sql } from 'drizzle-orm'
 import { execa } from 'execa'
 
-import { env } from '@/lib/env'
+import { env } from '@/env'
 
 import { db } from './index'
 
@@ -53,11 +53,11 @@ async function main() {
 
     consola.info('Migrating database...')
 
-    await execa('pnpm', ['db:migrate'], { stdio: 'inherit' })
+    await execa('bun', ['db:migrate'], { stdio: 'inherit' })
 
     consola.info('Seeding database...')
 
-    await execa('pnpm', ['db:seed'], { stdio: 'inherit' })
+    await execa('bun', ['db:seed'], { stdio: 'inherit' })
 
     consola.success('Database reset successfully!')
   } catch (error) {
