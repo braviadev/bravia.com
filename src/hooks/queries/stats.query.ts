@@ -3,11 +3,11 @@ import { useQuery } from '@tanstack/react-query'
 import { orpc } from '@/orpc/client'
 
 export function useYoutubeStats() {
-  return useQuery(orpc.youtube.stats.queryOptions())
+  return useQuery(orpc.youtube.stats.queryOptions({ refetchOnWindowFocus: false }))
 }
 
-export function useGitHubStats() {
-  return useQuery(orpc.github.stats.queryOptions())
+export function useGithubStats() {
+  return useQuery(orpc.github.stats.queryOptions({ refetchOnWindowFocus: false }))
 }
 
 export function useLikeStats() {
@@ -19,7 +19,7 @@ export function useViewStats() {
 }
 
 export function useWakatimeStats() {
-  return useQuery(orpc.wakatime.stats.queryOptions())
+  return useQuery(orpc.wakatime.stats.queryOptions({ refetchOnWindowFocus: false }))
 }
 
 export function useSpotifyStats() {
