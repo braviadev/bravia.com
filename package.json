@@ -1,8 +1,8 @@
 {
-  "name": "nelsonlai-dev",
+  "name": "olanrewajutoyyib-dev",
   "version": "0.0.0",
   "license": "MIT",
-  "author": "Nelson Lai <me@nelsonlai.dev> (https://github.com/nelsonlaidev/)",
+  "author": "Olanrewaju Toyyib <me@bravía.com> (https://github.com/braviadev/)",
   "type": "module",
   "scripts": {
     "analyze": "next experimental-analyze",
