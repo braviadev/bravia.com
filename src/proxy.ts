@@ -11,7 +11,7 @@ const POSTHOG_ORIGINS = getPostHogAllowedOrigins().join(' ')
 export function proxy(request: NextRequest) {
   const csp = `
     default-src 'none';
-    script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.nelsonlai.dev https://*.posthog.com ${POSTHOG_ORIGINS} https://va.vercel-scripts.com ${IS_PREVIEW ? 'https://vercel.live' : ''};
+    script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.bravía.com https://*.posthog.com ${POSTHOG_ORIGINS} https://va.vercel-scripts.com ${IS_PREVIEW ? 'https://vercel.live' : ''};
     style-src 'self' 'unsafe-inline' https://*.posthog.com ${POSTHOG_ORIGINS} ${IS_PREVIEW ? 'https://vercel.live' : ''};
     img-src 'self' data: https://avatars.githubusercontent.com https://*.googleusercontent.com https://*.posthog.com ${POSTHOG_ORIGINS} https://github.com https://images.unsplash.com ${env.CLOUDFLARE_R2_PUBLIC_URL} ${IS_PREVIEW ? 'https://vercel.live https://vercel.com blob:' : ''};
     font-src 'self' https://*.posthog.com ${POSTHOG_ORIGINS} ${IS_PREVIEW ? 'https://vercel.live https://assets.vercel.com' : ''};
@@ -19,7 +19,7 @@ export function proxy(request: NextRequest) {
     object-src 'none';
     base-uri 'none';
     form-action 'none';
-    connect-src 'self' https://*.nelsonlai.dev https://*.posthog.com ${POSTHOG_ORIGINS} ${env.CLOUDFLARE_R2_ENDPOINT} ${IS_PREVIEW ? 'https://vercel.live wss://ws-us3.pusher.com' : ''};
+    connect-src 'self' https://*.bravía.com https://*.posthog.com ${POSTHOG_ORIGINS} ${env.CLOUDFLARE_R2_ENDPOINT} ${IS_PREVIEW ? 'https://vercel.live wss://ws-us3.pusher.com' : ''};
     media-src 'self' https://*.posthog.com ${POSTHOG_ORIGINS};
     manifest-src 'self';
     frame-ancestors 'self' https://*.posthog.com ${POSTHOG_ORIGINS} ${IS_PRODUCTION ? '' : 'http://localhost:3002'};
