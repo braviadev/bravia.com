@@ -1,4 +1,6 @@
-import { type DateTimeFormatOptions, useFormatter, useNow } from 'next-intl'
+import type { DateTimeFormatOptions } from 'next-intl'
+
+import { useFormatter, useNow } from 'next-intl'
 import { useEffect, useState } from 'react'
 
 type Options = {
@@ -34,6 +36,7 @@ export function useFormattedDate(date: DateInput, options: Options = {}): string
       ? format.relativeTime(dateTime, now)
       : format.dateTime(dateTime, formatName, formatOptionsWithTimeZone)
 
+    // eslint-disable-next-line @eslint-react/set-state-in-effect
     setFormattedDate(result)
   }, [date, relative, threshold, formatOptions, format, now, formatName])
 
