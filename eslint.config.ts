@@ -1,4 +1,4 @@
-import { defineConfig } from '@nelsonlaidev/eslint-config'
+import { defineConfig } from '@braviadev/eslint-config'
 
 export default defineConfig(
   {
