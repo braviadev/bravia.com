@@ -1,14 +1,17 @@
 {
-  "$schema": "https://json.schemastore.org/tsconfig",
-  "compilerOptions": {
-    "paths": {
-      "@/*": ["./src/*"],
-      "~/*": ["./public/*"],
-      "content-collections": ["./.content-collections/generated"]
-    },
-    "types": ["node"]
+  "name": "your-app",
+  "private": true,
+  "scripts": {
+    "build": "bun cosmos:export && next build",
+    "cosmos:export": "cosmos-export --expose-imports",
+    "dev": "next dev",
+    "start": "next start"
   },
-  "extends": "@braviadev/typescript-config/nextjs.json",
-  "exclude": ["node_modules"],
-  "include": ["**/*.ts", "**/*.tsx", "next-env.d.ts", ".next/types/**/*.ts", ".next/dev/types/**/*.ts"]
+  "dependencies": {
+    "next": "16.2.1",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "@braviadev/typescript-config": "^1.0.0",
+    "@content-collections/core": "^0.x"
+  }
 }
