@@ -2,8 +2,9 @@
 // Copyright (c) fuma-nama
 // Source: https://github.com/fuma-nama/fumadocs/blob/7b18075cc97ca876ab14b22f05349a09dc0e4025/packages/core/src/mdx-plugins/rehype-code.ts
 //
-// Modified by: Olanrewaju Toyyib
+// Modified by: Nelson Lai
 import type { Root } from 'hast'
+import type { ShikiTransformer } from 'shiki'
 import type { Transformer } from 'unified'
 
 import rehypeShikiFromHighlighter from '@shikijs/rehype/core'
@@ -13,7 +14,7 @@ import {
   transformerNotationHighlight,
   transformerNotationWordHighlight,
 } from '@shikijs/transformers'
-import { bundledLanguages, getSingletonHighlighter, type ShikiTransformer } from 'shiki'
+import { bundledLanguages, getSingletonHighlighter } from 'shiki'
 import { createOnigurumaEngine } from 'shiki/engine/oniguruma'
 
 const titleRegex = /title=["']([^"']*)["']/

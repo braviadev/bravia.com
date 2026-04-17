@@ -6,10 +6,11 @@
 // Copyright (c) Pine Wu and Anthony Fu
 // Source: https://github.com/shikijs/shiki/blob/481135b16287d7dabc2e155f427af63d3ff3536d/packages/rehype/src/index.ts
 //
-// Modified by: Olanrewaju Toyyib
+// Modified by: Nelson Lai
 import type { Root } from 'hast'
+import type { Highlighter } from 'shiki'
 
-import { bundledLanguages, getSingletonHighlighter, type Highlighter } from 'shiki'
+import { bundledLanguages, getSingletonHighlighter } from 'shiki'
 import { visit } from 'unist-util-visit'
 
 import { DEFAULT_SHIKI_THEMES } from './rehype-code'
