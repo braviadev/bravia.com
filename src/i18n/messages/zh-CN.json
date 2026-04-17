@@ -11,6 +11,11 @@
     "edit-name": "编辑名称",
     "edit-name-description": "更改您的显示名称。此名称将显示在您的个人资料和评论中。",
     "email": "邮箱",
+    "location-not-accurate": "位置可能不准确",
+    "mobile-nav": {
+      "description": "在抽屉中显示移动端导航。",
+      "title": "抽屉"
+    },
     "no-active-sessions": "没有活动会话",
     "open-navigation-menu": "打开导航菜单",
     "profile": "个人资料",
@@ -19,6 +24,29 @@
     "update-avatar": "更新头像"
   },
   "admin": {
+    "dashboard": {
+      "description": "网站概览",
+      "recent-activity": {
+        "commented-on": "{name} 在 <link>{post}</link> 发表了评论",
+        "empty": "没有最近的活动",
+        "guestbook-message": "{name} 留下了一条留言",
+        "title": "最近活动"
+      },
+      "stats": {
+        "comments": "评论",
+        "likes": "点赞",
+        "messages": "消息",
+        "users": "用户",
+        "views": "浏览次数"
+      },
+      "trends": {
+        "comments": "评论",
+        "last-n-days": "最近 {days} 天",
+        "messages": "留言板",
+        "no-data": "没有可用的数据",
+        "title": "趋势"
+      }
+    },
     "page-header": {
       "comments": {
         "description": "管理评论"
@@ -38,6 +66,7 @@
       "highlighted-comment": "已标注评论",
       "newest": "最新",
       "no-comments": "没有评论",
+      "nothing-to-preview": "没有预览内容",
       "oldest": "最旧",
       "open-menu": "开启选单",
       "placeholder": "留下评论",
@@ -71,14 +100,22 @@
       "copy-link": "复制链接",
       "source-code": "源代码"
     },
+    "description": "搜索要运行的指令...",
     "groups": {
       "social": "社群"
     },
     "no-results": "没有找到结果。",
     "open-menu": "开启指令选单",
-    "placeholder": "输入指令或搜寻"
+    "placeholder": "输入指令或搜寻",
+    "title": "指令选单"
   },
   "common": {
+    "aria-labels": {
+      "copy-code": "复制代码到剪贴板",
+      "loading": "加载中",
+      "toggle-sidebar": "切换侧边栏",
+      "tree-view": "树状视图"
+    },
     "avatar-alt": "{name} 的头像",
     "cancel": "取消",
     "delete": "删除",
@@ -94,10 +131,10 @@
       "about": "关于",
       "account": "账户",
       "blog": "博客",
+      "close": "关闭",
       "comment": "评论",
       "comments": "评论",
       "dashboard": "仪表板",
-      "design": "设计",
       "facebook": "Facebook",
       "general": "一般",
       "github": "GitHub",
@@ -128,7 +165,30 @@
       "no-posts-found": "没有找到文章",
       "placeholder": "搜寻文章"
     },
-    "go-to-homepage": "回到首页"
+    "go-to-homepage": "回到首页",
+    "tables": {
+      "users": {
+        "user": "用户",
+        "email": "邮箱",
+        "role": "角色",
+        "created-at": "创建时间"
+      },
+      "comments": {
+        "user": "用户",
+        "comment": "评论",
+        "post": "文章",
+        "created-at": "创建时间"
+      }
+    },
+    "table-pagination": {
+      "go-to-first-page": "前往第一页",
+      "go-to-last-page": "前往最后一页",
+      "go-to-next-page": "前往下一页",
+      "go-to-previous-page": "前往上一页",
+      "page-of": "第 {page} 页，共 {total} 页",
+      "rows-per-page": "每页行数",
+      "rows-selected": "已选取 {selected} / {total} 行"
+    }
   },
   "dashboard": {
     "description": "这是我的个人仪表板，使用 Next.js API 路由建立，并部署为 serverless functions。我使用这个仪表板追踪 YouTube、GitHub 等平台的各种统计。",
@@ -141,9 +201,6 @@
       "youtube-subscribers": "YouTube 订阅者",
       "youtube-views": "YouTube 浏览量"
     }
-  },
-  "design": {
-    "description": "探索本网站使用的设计系统和 UI 组件。查看组件变体、样式和实现示例。"
   },
   "dialog": {
     "sign-in": {
@@ -159,6 +216,7 @@
     "comment-cannot-be-empty": "评论不能为空",
     "copy-to-clipboard-error": "无法复制到剪贴板，请再试一次。",
     "failed-to-fetch-comments-data": "无法获取评论数据。请刷新页面。",
+    "failed-to-fetch-dashboard-data": "无法获取仪表板数据。请刷新页面。",
     "failed-to-fetch-users-data": "无法获取用户数据。请刷新页面。",
     "failed-to-load-comments": "无法载入评论。请刷新页面。",
     "failed-to-load-messages": "无法载入留言。请刷新页面。",
@@ -196,7 +254,8 @@
       "coding-hours": "编程时间",
       "connect": "联系",
       "fav-framework": "最爱框架",
-      "location": "香港",
+      "location": "位置",
+      "location-value": "🇭🇰 香港",
       "more": "进一步了解我",
       "stacks": "技术栈",
       "title": "关于我"
@@ -212,10 +271,11 @@
       "fantastic": "极致出色",
       "location-timezone": "香港 • UTC/GMT +8",
       "stunning": "惊艳非凡",
-      "title-bottom": "并使用 React 开发",
-      "title-middle-left": "制作",
-      "title-middle-right": "的网站",
-      "title-top": "我是 Nelson，一位全栈工程师"
+      "line-1": "我是 Nelson，一位全栈工程师",
+      "line-2-left": "制作",
+      "line-2-right": "的网站",
+      "line-3": "并使用 React 开发",
+      "image-alt": "Nelson Lai 的标志"
     },
     "latest-articles": {
       "card": "文章",
@@ -233,6 +293,10 @@
     "now-playing": {
       "loading": "载入中...",
       "not-listening": "未在收听 - Spotify"
+    },
+    "sidebar": {
+      "description": "显示移动端侧边栏。",
+      "title": "侧边栏"
     },
     "skip-to-main-content": "跳至主要内容",
     "toggle-menu": "打开选单"

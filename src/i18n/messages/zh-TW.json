@@ -11,6 +11,11 @@
     "edit-name": "編輯名稱",
     "edit-name-description": "更改您的顯示名稱。此名稱將顯示在您的個人資料和評論中。",
     "email": "電子郵件",
+    "location-not-accurate": "位置可能不準確",
+    "mobile-nav": {
+      "description": "在抽屜中顯示行動版導覽。",
+      "title": "抽屜"
+    },
     "no-active-sessions": "沒有使用中工作階段",
     "open-navigation-menu": "開啟導覽選單",
     "profile": "個人資料",
@@ -19,6 +24,29 @@
     "update-avatar": "更新頭像"
   },
   "admin": {
+    "dashboard": {
+      "description": "網站概覽",
+      "recent-activity": {
+        "commented-on": "{name} 在 <link>{post}</link> 發表了評論",
+        "empty": "沒有最近的活動",
+        "guestbook-message": "{name} 留下了一則留言",
+        "title": "最近活動"
+      },
+      "stats": {
+        "comments": "評論",
+        "likes": "按讚",
+        "messages": "訊息",
+        "users": "使用者",
+        "views": "瀏覽次數"
+      },
+      "trends": {
+        "comments": "評論",
+        "last-n-days": "最近 {days} 天",
+        "messages": "留言板",
+        "no-data": "沒有可用的資料",
+        "title": "趨勢"
+      }
+    },
     "page-header": {
       "comments": {
         "description": "管理評論"
@@ -38,6 +66,7 @@
       "highlighted-comment": "已標註評論",
       "newest": "最新",
       "no-comments": "沒有評論",
+      "nothing-to-preview": "沒有預覽內容",
       "oldest": "最舊",
       "open-menu": "開啟選單",
       "placeholder": "留下評論",
@@ -71,14 +100,22 @@
       "copy-link": "複製連結",
       "source-code": "原始碼"
     },
+    "description": "搜尋要執行的指令...",
     "groups": {
       "social": "社群"
     },
     "no-results": "沒有找到結果。",
     "open-menu": "開啟指令選單",
-    "placeholder": "輸入指令或搜尋"
+    "placeholder": "輸入指令或搜尋",
+    "title": "指令選單"
   },
   "common": {
+    "aria-labels": {
+      "copy-code": "複製代碼到剪貼簿",
+      "loading": "載入中",
+      "toggle-sidebar": "切換側邊欄",
+      "tree-view": "樹狀視圖"
+    },
     "avatar-alt": "{name} 的頭像",
     "cancel": "取消",
     "delete": "刪除",
@@ -94,10 +131,10 @@
       "about": "關於",
       "account": "帳戶",
       "blog": "部落格",
+      "close": "關閉",
       "comment": "評論",
       "comments": "評論",
       "dashboard": "儀表板",
-      "design": "設計",
       "facebook": "Facebook",
       "general": "一般",
       "github": "GitHub",
@@ -128,7 +165,30 @@
       "no-posts-found": "沒有找到文章",
       "placeholder": "搜尋文章"
     },
-    "go-to-homepage": "回到首頁"
+    "go-to-homepage": "回到首頁",
+    "tables": {
+      "users": {
+        "user": "使用者",
+        "email": "電子郵件",
+        "role": "角色",
+        "created-at": "建立時間"
+      },
+      "comments": {
+        "user": "使用者",
+        "comment": "評論",
+        "post": "文章",
+        "created-at": "建立時間"
+      }
+    },
+    "table-pagination": {
+      "go-to-first-page": "前往第一頁",
+      "go-to-last-page": "前往最後一頁",
+      "go-to-next-page": "前往下一頁",
+      "go-to-previous-page": "前往上一頁",
+      "page-of": "第 {page} 頁，共 {total} 頁",
+      "rows-per-page": "每頁行數",
+      "rows-selected": "已選取 {selected} / {total} 行"
+    }
   },
   "dashboard": {
     "description": "這是我的個人儀表板，使用 Next.js API 路由建立，並部署為 serverless functions。我使用這個儀表板追蹤 YouTube、GitHub 等平台的各種統計。",
@@ -141,9 +201,6 @@
       "youtube-subscribers": "YouTube 訂閱者",
       "youtube-views": "YouTube 瀏覽量"
     }
-  },
-  "design": {
-    "description": "探索本網站使用的設計系統和 UI 元件。查看元件變體、樣式和實作範例。"
   },
   "dialog": {
     "sign-in": {
@@ -159,6 +216,7 @@
     "comment-cannot-be-empty": "評論不能為空",
     "copy-to-clipboard-error": "無法複製到剪貼簿，請再試一次。",
     "failed-to-fetch-comments-data": "無法獲取評論資料。請重新整理頁面。",
+    "failed-to-fetch-dashboard-data": "無法獲取儀表板資料。請重新整理頁面。",
     "failed-to-fetch-users-data": "無法獲取使用者資料。請重新整理頁面。",
     "failed-to-load-comments": "無法載入評論。請重新整理頁面。",
     "failed-to-load-messages": "無法載入留言。請重新整理頁面。",
@@ -196,7 +254,8 @@
       "coding-hours": "編程時間",
       "connect": "聯繫",
       "fav-framework": "最愛框架",
-      "location": "香港",
+      "location": "位置",
+      "location-value": "🇭🇰 香港",
       "more": "進一步了解我",
       "stacks": "技術棧",
       "title": "關於我"
@@ -212,10 +271,11 @@
       "fantastic": "極致出色",
       "location-timezone": "香港 • UTC/GMT +8",
       "stunning": "驚豔非凡",
-      "title-bottom": "並使用 React 開發",
-      "title-middle-left": "製作",
-      "title-middle-right": "的網站",
-      "title-top": "我是 Nelson，一位全端工程師"
+      "line-1": "我是 Nelson，一位全端工程師",
+      "line-2-left": "製作",
+      "line-2-right": "的網站",
+      "line-3": "並使用 React 開發",
+      "image-alt": "Nelson Lai 的標誌"
     },
     "latest-articles": {
       "card": "文章",
@@ -233,6 +293,10 @@
     "now-playing": {
       "loading": "載入中...",
       "not-listening": "未在收聽 - Spotify"
+    },
+    "sidebar": {
+      "description": "顯示行動版側邊欄。",
+      "title": "側邊欄"
     },
     "skip-to-main-content": "跳至主要內容",
     "toggle-menu": "打開選單"
