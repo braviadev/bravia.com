@@ -1,16 +1,17 @@
 import type { Metadata } from 'next'
+import type { Locale } from 'next-intl'
 import type { WebSite, WithContext } from 'schema-dts'
 
-import { type Locale, useTranslations } from 'next-intl'
+import { useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { use } from 'react'
 
-import AboutMe from '@/components/home/about-me'
-import GetInTouch from '@/components/home/get-in-touch'
-import Hero from '@/components/home/hero'
-import LatestArticles from '@/components/home/latest-articles'
-import SelectedProjects from '@/components/home/selected-projects'
-import JsonLd from '@/components/json-ld'
+import { AboutMe } from '@/components/home/about-me'
+import { GetInTouch } from '@/components/home/get-in-touch'
+import { Hero } from '@/components/home/hero'
+import { LatestArticles } from '@/components/home/latest-articles'
+import { SelectedProjects } from '@/components/home/selected-projects'
+import { JsonLd } from '@/components/json-ld'
 import {
   MY_NAME,
   SITE_FACEBOOK_URL,
@@ -18,7 +19,7 @@ import {
   SITE_INSTAGRAM_URL,
   SITE_X_URL,
   SITE_YOUTUBE_URL,
-} from '@/lib/constants'
+} from '@/constants/site'
 import { getLatestPosts, getSelectedProjects } from '@/lib/content'
 import { createMetadata } from '@/lib/metadata'
 import { getBaseUrl } from '@/utils/get-base-url'
@@ -61,9 +62,11 @@ function Page(props: PageProps<'/[locale]'>) {
       url: getBaseUrl(),
       sameAs: [SITE_FACEBOOK_URL, SITE_INSTAGRAM_URL, SITE_X_URL, SITE_GITHUB_URL, SITE_YOUTUBE_URL],
     },
-    copyrightYear: new Date().getFullYear(),
-    dateCreated: '2026-02-01T00:00:00Z',
+    dateCreated: '2022-02-01T00:00:00Z',
+    // eslint-disable-next-line @eslint-react/purity
     dateModified: new Date().toISOString(),
+    // eslint-disable-next-line @eslint-react/purity
+    copyrightYear: new Date().getFullYear(),
     inLanguage: locale,
   }
 

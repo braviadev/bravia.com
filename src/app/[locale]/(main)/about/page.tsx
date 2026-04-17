@@ -1,14 +1,15 @@
 import type { Metadata } from 'next'
+import type { Locale } from 'next-intl'
 import type { AboutPage, WithContext } from 'schema-dts'
 
 import { notFound } from 'next/navigation'
-import { type Locale, useTranslations } from 'next-intl'
+import { useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { use } from 'react'
 
-import JsonLd from '@/components/json-ld'
-import Mdx from '@/components/mdx'
-import PageHeader from '@/components/page-header'
+import { JsonLd } from '@/components/json-ld'
+import { Mdx } from '@/components/mdx'
+import { PageHeader } from '@/components/page-header'
 import {
   MY_NAME,
   SITE_FACEBOOK_URL,
@@ -16,7 +17,7 @@ import {
   SITE_INSTAGRAM_URL,
   SITE_X_URL,
   SITE_YOUTUBE_URL,
-} from '@/lib/constants'
+} from '@/constants/site'
 import { getPageBySlug } from '@/lib/content'
 import { createMetadata } from '@/lib/metadata'
 import { getBaseUrl } from '@/utils/get-base-url'

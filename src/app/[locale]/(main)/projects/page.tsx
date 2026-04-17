@@ -1,14 +1,15 @@
 import type { Metadata } from 'next'
+import type { Locale } from 'next-intl'
 import type { CollectionPage, WithContext } from 'schema-dts'
 
-import { type Locale, useTranslations } from 'next-intl'
+import { useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { use } from 'react'
 
-import JsonLd from '@/components/json-ld'
-import PageHeader from '@/components/page-header'
-import ProjectCards from '@/components/project-cards'
-import { MY_NAME } from '@/lib/constants'
+import { JsonLd } from '@/components/json-ld'
+import { PageHeader } from '@/components/page-header'
+import { ProjectCard } from '@/components/project-card'
+import { MY_NAME } from '@/constants/site'
 import { getLatestProjects } from '@/lib/content'
 import { createMetadata } from '@/lib/metadata'
 import { getBaseUrl } from '@/utils/get-base-url'
@@ -72,7 +73,11 @@ function Page(props: PageProps<'/[locale]/projects'>) {
     <>
       <JsonLd json={jsonLd} />
       <PageHeader title={title} description={description} />
-      <ProjectCards projects={projects} />
+      <div className='grid gap-4 md:grid-cols-2'>
+        {projects.map((project) => (
+          <ProjectCard key={project.slug} project={project} />
+        ))}
+      </div>
     </>
   )
 }
