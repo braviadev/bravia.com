@@ -1,3 +1,5 @@
-import { defineConfig } from '@nelsonlaidev/prettier-config'
+import { defineConfig } from '@braviadev/prettier-config'
 
-export default defineConfig()
+export default defineConfig({
+  // You can override any default settings here
+})
