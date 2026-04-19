@@ -1,0 +1,33 @@
+name: Setup
+description: Install Node.js, bun and dependencies
+
+runs:
+  using: composite
+  steps:
+    - name: Install bun
+      uses: oven-sh/setup-bun@v2
+      with:
+        bun-version: latest
+
+    - name: Install Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version-file: 'package.json'
+
+    - name: Install dependencies
+      shell: bash
+      run: bun install --frozen-lockfile
+      env:
+        PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+
+    - name: Build MDX
+      shell: bash
+      run: bun build:mdx
+
+    - name: Build Cosmos
+      shell: bash
+      run: bun cosmos:export
+
+    - name: Generate Next.js route types
+      shell: bash
+      run: bun typegen
