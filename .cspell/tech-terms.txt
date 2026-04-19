@@ -1,6 +1,0 @@
-argb
-gifs
-jsxs
-khtml
-nums
-plpgsql
