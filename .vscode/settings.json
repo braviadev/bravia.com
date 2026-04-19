@@ -1,0 +1,22 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always"
+  },
+
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+
+  "files.associations": {
+    "*.css": "tailwindcss",
+    ".env*": "properties"
+  },
+
+  "tailwindCSS.classFunctions": ["cva", "cn"],
+
+  "js/ts.tsdk.promptToUseWorkspaceVersion": true,
+  "js/ts.preferences.preferTypeOnlyAutoImports": true,
+  "js/ts.tsdk.path": "node_modules/typescript/lib",
+
+  "i18n-ally.localesPaths": ["src/i18n/messages"],
+  "i18n-ally.keystyle": "nested"
+}
