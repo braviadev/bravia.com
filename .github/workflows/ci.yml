@@ -1,0 +1,157 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
+  DATABASE_URL: ${{ secrets.DATABASE_URL }}
+  UPSTASH_REDIS_REST_URL: ${{ secrets.UPSTASH_REDIS_REST_URL }}
+  UPSTASH_REDIS_REST_TOKEN: ${{ secrets.UPSTASH_REDIS_REST_TOKEN }}
+  IP_ADDRESS_SALT: ${{ secrets.IP_ADDRESS_SALT }}
+  BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
+  GITHUB_CLIENT_ID: ${{ secrets.GH_CLIENT_ID }}
+  GITHUB_CLIENT_SECRET: ${{ secrets.GH_CLIENT_SECRET }}
+
+jobs:
+  tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+
+      - name: Configure environment
+        uses: ./.github/actions/setup
+
+      - name: Run unit tests
+        run: bun test:unit
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+
+      - name: Configure environment
+        uses: ./.github/actions/setup
+
+      - name: Run ESLint
+        run: bun lint
+
+  spellcheck:
+    name: Spell Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+
+      - name: Configure environment
+        uses: ./.github/actions/setup
+
+      - name: Run cspell
+        run: bun lint:spell
+
+  types:
+    name: TypeScript
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+
+      - name: Configure environment
+        uses: ./.github/actions/setup
+
+      - name: Run type check
+        run: bun typecheck
+
+  format:
+    name: Format
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+
+      - name: Configure environment
+        uses: ./.github/actions/setup
+
+      - name: Run Prettier format check
+        run: bun format:check
+
+  knip:
+    name: Knip
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+
+      - name: Configure environment
+        uses: ./.github/actions/setup
+
+      - name: Run Knip
+        run: bun knip
+
+  i18n:
+    name: i18n
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+
+      - name: Configure environment
+        uses: ./.github/actions/setup
+
+      - name: Run i18n check
+        run: bun check:i18n
+
+  e2e:
+    name: End-to-end Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+
+      - name: Configure environment
+        uses: ./.github/actions/setup
+
+      - name: Install Playwright with dependencies
+        run: bun playwright install --with-deps chromium --only-shell
+
+      - name: Build apps
+        run: bun run build
+
+      - name: Run services
+        run: docker compose up -d
+
+      - name: Verify Postgres is ready
+        run: |
+          until docker exec $(docker ps -qf "name=nelsonlaidev-postgres") pg_isready; do
+            echo "Waiting for database..."
+            sleep 2
+          done
+
+      - name: Migrate database
+        run: bun db:migrate
+
+      - name: Seed database
+        run: bun db:seed
+
+      - name: Run Playwright tests
+        run: bun test:e2e
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
