@@ -7,7 +7,7 @@ describe('posthog sanitize helpers', () => {
     expect(
       sanitizeProperties({
         body: 'secret response body',
-        location: 'Hong Kong',
+        location: 'Kwara State',
         status: 500,
         provider: 'github',
       }),

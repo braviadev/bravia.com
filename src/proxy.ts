@@ -9,9 +9,10 @@ const IS_PREVIEW = env.VERCEL_ENV === 'preview'
 const POSTHOG_ORIGINS = getPostHogAllowedOrigins().join(' ')
 
 export function proxy(request: NextRequest) {
+  // 1. Fixed the 'bravía.com' to use the Punycode 'xn--brava-2sa.com' in script-src and connect-src
   const csp = `
     default-src 'none';
-    script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.bravía.com https://*.posthog.com ${POSTHOG_ORIGINS} https://va.vercel-scripts.com ${IS_PREVIEW ? 'https://vercel.live' : ''};
+    script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.xn--brava-2sa.com https://*.posthog.com ${POSTHOG_ORIGINS} https://va.vercel-scripts.com ${IS_PREVIEW ? 'https://vercel.live' : ''};
     style-src 'self' 'unsafe-inline' https://*.posthog.com ${POSTHOG_ORIGINS} ${IS_PREVIEW ? 'https://vercel.live' : ''};
     img-src 'self' data: https://avatars.githubusercontent.com https://*.googleusercontent.com https://*.posthog.com ${POSTHOG_ORIGINS} https://github.com https://images.unsplash.com ${env.CLOUDFLARE_R2_PUBLIC_URL} ${IS_PREVIEW ? 'https://vercel.live https://vercel.com blob:' : ''};
     font-src 'self' https://*.posthog.com ${POSTHOG_ORIGINS} ${IS_PREVIEW ? 'https://vercel.live https://assets.vercel.com' : ''};
@@ -19,7 +20,7 @@ export function proxy(request: NextRequest) {
     object-src 'none';
     base-uri 'none';
     form-action 'none';
-    connect-src 'self' https://*.bravía.com https://*.posthog.com ${POSTHOG_ORIGINS} ${env.CLOUDFLARE_R2_ENDPOINT} ${IS_PREVIEW ? 'https://vercel.live wss://ws-us3.pusher.com' : ''};
+    connect-src 'self' https://*.xn--brava-2sa.com https://*.posthog.com ${POSTHOG_ORIGINS} ${env.CLOUDFLARE_R2_ENDPOINT} ${IS_PREVIEW ? 'https://vercel.live wss://ws-us3.pusher.com' : ''};
     media-src 'self' https://*.posthog.com ${POSTHOG_ORIGINS};
     manifest-src 'self';
     frame-ancestors 'self' https://*.posthog.com ${POSTHOG_ORIGINS} ${IS_PRODUCTION ? '' : 'http://localhost:3002'};
@@ -28,7 +29,10 @@ export function proxy(request: NextRequest) {
 
   const response = i18nMiddleware(request)
 
-  response.headers.set('Content-Security-Policy', csp.replaceAll('\n', ''))
+  // 2. The Development Fix: Only apply this strict security policy when the site is live (Production or Preview)
+  if (IS_PRODUCTION || IS_PREVIEW) {
+    response.headers.set('Content-Security-Policy', csp.replaceAll('\n', ''))
+  }
 
   return response
 }
@@ -48,6 +52,7 @@ export const config = {
   // - robots.txt
   // - site.webmanifest
   matcher: [
-    '/((?!api|cosmos|rpc|_next/static|_next/image|_vercel|_ph|favicon|android-chrome|apple-touch-icon|fonts|images|videos|favicon.ico|sitemap.xml|robots.txt|site.webmanifest).*)',
+    // 👇 The Fix: Added 'academic-writings' right after 'videos' so the middleware ignores it
+    '/((?!api|cosmos|rpc|_next/static|_next/image|_vercel|_ph|favicon|android-chrome|apple-touch-icon|fonts|images|videos|academic-writings|favicon.ico|sitemap.xml|robots.txt|site.webmanifest).*)',
   ],
 }

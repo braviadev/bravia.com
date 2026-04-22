@@ -1,6 +1,6 @@
 export const TEST_USER = {
   name: 'Test User',
-  email: 'test-user@nelsonlai.dev',
+  email: 'test-user@bravía.com',
   emailVerified: false,
   image: 'https://avatars.githubusercontent.com/u/583231?v=4',
   sessionToken: '00000000000000000000000000000000',

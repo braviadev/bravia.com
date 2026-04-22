@@ -1,6 +1,6 @@
 {
   "about": {
-    "description": "こんにちは！Nelson Lai です。HTML、CSS、JavaScript を使って革新的なプロジェクトを作る、情熱的な Web 開発学生です。私のポートフォリオ、スキル、そして使いやすいアプリ作りの旅をご覧ください。ぜひつながりましょう！"
+    "description": "こんにちは！Olanrewaju Toyyib です。HTML、CSS、JavaScript を使って革新的なプロジェクトを作る、情熱的な Web 開発学生です。私のポートフォリオ、スキル、そして使いやすいアプリ作りの旅をご覧ください。ぜひつながりましょう！"
   },
   "account": {
     "account-created": "アカウント作成日",
@@ -205,7 +205,7 @@
   "dialog": {
     "sign-in": {
       "continue-with": "{provider} で続ける",
-      "description": "nelsonlai.dev に続けるには",
+      "description": "bravía.com に続けるには",
       "last-used": "最後に使用",
       "notice": "続けることで、<terms>利用規約</terms>と<privacy>プライバシーポリシー</privacy>に同意したことになります"
     }
@@ -262,7 +262,7 @@
     },
     "get-in-touch": {
       "description": "気軽にご連絡ください！",
-      "image-alt": "Nelson Lai のロゴ",
+      "image-alt": "Olanrewaju Toyyib のロゴ",
       "title": "Next.js についてご質問があれば？"
     },
     "hero": {
@@ -271,11 +271,11 @@
       "fantastic": "最高な",
       "location-timezone": "香港 • UTC/GMT +8",
       "stunning": "圧倒的な",
-      "line-1": "Nelson です。フルスタックエンジニアとして",
+      "line-1": "Bravia です。フルスタックエンジニアとして",
       "line-2-left": "制作している",
       "line-2-right": "ウェブサイトを",
       "line-3": "React で開発しています",
-      "image-alt": "Nelson Lai のロゴ"
+      "image-alt": "Olanrewaju Toyyib のロゴ"
     },
     "latest-articles": {
       "card": "記事",
@@ -305,7 +305,7 @@
     "link-to-section": "セクションへのリンク"
   },
   "metadata": {
-    "site-description": "Nelson Lai は香港在住のフルスタックエンジニアです。React、Node.js、最新技術を使ってパフォーマントで洗練されたウェブサイトを構築しています。"
+    "site-description": "Olanrewaju Toyyib は香港在住のフルスタックエンジニアです。React、Node.js、最新技術を使ってパフォーマントで洗練されたウェブサイトを構築しています。"
   },
   "privacy": {
     "description": "このページでは、当ウェブサイトをご利用いただく際のデータの取り扱いとプライバシー保護について説明します。"

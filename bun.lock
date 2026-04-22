@@ -117,6 +117,7 @@
         "jsdom": "29.0.1",
         "knip": "6.0.6",
         "lefthook": "2.1.4",
+        "posthog-cli": "0.1.6",
         "prettier": "3.8.1",
         "react-cosmos": "7.2.0",
         "react-cosmos-core": "7.2.0",
@@ -2932,6 +2933,8 @@
     "postcss-selector-parser": ["postcss-selector-parser@6.0.10", "", { "dependencies": { "cssesc": "^3.0.0", "util-deprecate": "^1.0.2" } }, "sha512-IQ7TZdoaqbT+LCpShg46jnZVlhWD2w6iQYAcYXfHARZ7X1t/UGhhceQDs5X0cGqKvYlHNOuv7Oa1xmb0oQuA3w=="],
 
     "postgres": ["postgres@3.4.8", "", {}, "sha512-d+JFcLM17njZaOLkv6SCev7uoLaBtfK86vMUXhW1Z4glPWh4jozno9APvW/XKFJ3CCxVoC7OL38BqRydtu5nGg=="],
+
+    "posthog-cli": ["posthog-cli@0.1.6", "", { "dependencies": { "commander": "^12.0.0" }, "bin": { "posthog": "dist/index.js" } }, "sha512-aDjjl3vp1n9/7+PUN9OGerEBb/tZC7s9pAHXJu5lzkA4PLsxwfbmRXeetmT+V3ihpxOfmarpYRVy3iwMBcMm3A=="],
 
     "posthog-js": ["posthog-js@1.364.1", "", { "dependencies": { "@opentelemetry/api": "^1.9.0", "@opentelemetry/api-logs": "^0.208.0", "@opentelemetry/exporter-logs-otlp-http": "^0.208.0", "@opentelemetry/resources": "^2.2.0", "@opentelemetry/sdk-logs": "^0.208.0", "@posthog/core": "1.24.3", "@posthog/types": "1.364.1", "core-js": "^3.38.1", "dompurify": "^3.3.2", "fflate": "^0.4.8", "preact": "^10.28.2", "query-selector-shadow-dom": "^1.0.1", "web-vitals": "^5.1.0" } }, "sha512-7nR2lfxKKqv5SeC+OjeWkWXfK/4RbXxRiqmSAW214y+FuDFVS+Li0mPzTBC/V20uHPWtd92ptrctpY/jKj0F7w=="],
 

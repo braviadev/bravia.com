@@ -1,6 +1,6 @@
 {
   "about": {
-    "description": "¡Hola! Soy Nelson Lai, un apasionado estudiante de desarrollo web que crea proyectos innovadores con HTML, CSS y JavaScript. Explora mi portafolio, habilidades y mi camino en la creación de aplicaciones amigables. ¡Conectemos!"
+    "description": "¡Hola! Soy Olanrewaju Toyyib, un apasionado estudiante de desarrollo web que crea proyectos innovadores con HTML, CSS y JavaScript. Explora mi portafolio, habilidades y mi camino en la creación de aplicaciones amigables. ¡Conectemos!"
   },
   "account": {
     "account-created": "Cuenta creada",
@@ -82,7 +82,7 @@
       "toggle-strikethrough": "Alternar tachado",
       "write": "Escribir"
     },
-    "description": "Descubre mi sitio web y blog, donde comparto tutoriales, notas y experiencias como ingeniero full-stack con base en Hong Kong. Empecé el desarrollo web como hobby en dic. de 2020. ¡Explora mi camino!",
+    "description": "Descubre mi sitio web y blog, donde comparto tutoriales, notas y experiencias como ingeniero full-stack con base en Kwara State. Empecé el desarrollo web como hobby en dic. de 2020. ¡Explora mi camino!",
     "footer": {
       "edit-on-github": "Editar en GitHub",
       "last-updated": "Última actualización: {date}"
@@ -205,7 +205,7 @@
   "dialog": {
     "sign-in": {
       "continue-with": "Continuar con {provider}",
-      "description": "para continuar a nelsonlai.dev",
+      "description": "para continuar a bravía.com",
       "last-used": "Último usado",
       "notice": "Al continuar, aceptas nuestros <terms>Términos de servicio</terms> y <privacy>Política de privacidad</privacy>"
     }
@@ -255,27 +255,27 @@
       "connect": "Conectar",
       "fav-framework": "Framework favorito",
       "location": "Ubicación",
-      "location-value": "🇭🇰 Hong Kong",
+      "location-value": "🇭🇰 Kwara State",
       "more": "Conoce más sobre mí",
       "stacks": "Tecnologías",
       "title": "Sobre mí"
     },
     "get-in-touch": {
       "description": "¡No dudes en contactarme!",
-      "image-alt": "Logo de Nelson Lai",
+      "image-alt": "Logo de Olanrewaju Toyyib",
       "title": "¿Preguntas sobre Next.js?"
     },
     "hero": {
       "amazing": "Increíble",
       "attractive": "Atractivo",
       "fantastic": "Fantástico",
-      "location-timezone": "Hong Kong • UTC/GMT +8",
+      "location-timezone": "Kwara State • UTC/GMT +8",
       "stunning": "Impresionante",
-      "line-1": "Soy Nelson, un Ingeniero Full Stack",
+      "line-1": "Soy Bravia, un Ingeniero Full Stack",
       "line-2-left": "construyendo",
       "line-2-right": "sitios web",
       "line-3": "con React",
-      "image-alt": "Logo de Nelson Lai"
+      "image-alt": "Logo de Olanrewaju Toyyib"
     },
     "latest-articles": {
       "card": "Artículo",
@@ -305,7 +305,7 @@
     "link-to-section": "Enlace a la sección"
   },
   "metadata": {
-    "site-description": "Nelson Lai es un ingeniero full-stack con base en Hong Kong. Construye sitios web elegantes y eficientes usando React, Node.js y tecnologías modernas."
+    "site-description": "Olanrewaju Toyyib es un ingeniero full-stack con base en Kwara State. Construye sitios web elegantes y eficientes usando React, Node.js y tecnologías modernas."
   },
   "privacy": {
     "description": "Esta página explica cómo gestionamos tus datos y protegemos tu privacidad cuando usas nuestro sitio web."

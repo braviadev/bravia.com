@@ -75,7 +75,7 @@ export function createMetadata(options: Options): Metadata {
       twitter: {
         card: 'summary_large_image',
         siteId: '1152256803746377730',
-        creator: '@nelsonlaidev',
+        creator: '@braviadev',
         creatorId: '1152256803746377730',
       },
       icons: {

@@ -3,6 +3,7 @@ node_modules/
 
 # Env files
 .env*.local
+.env.local
 .env
 
 # Vercel

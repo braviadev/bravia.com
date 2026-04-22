@@ -67,7 +67,7 @@ async function Layout(props: LayoutProps<'/[locale]'>) {
       data-scroll-behavior='smooth'
       suppressHydrationWarning
     >
-      <body>
+      <body suppressHydrationWarning>
         <NuqsAdapter>
           <Providers>
             <NextIntlClientProvider>

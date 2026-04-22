@@ -100,7 +100,7 @@ export function GetInTouch() {
               d='M12 5.50676L0 0L2.83818 13L6.30623 7.86537L12 5.50676V5.50676Z'
             />
           </svg>
-          <span className='relative left-4 rounded-4xl bg-red-500 px-2 py-0.5 text-xs text-white'>Nelson</span>
+          <span className='relative left-4 rounded-4xl bg-red-500 px-2 py-0.5 text-xs text-white'>Bravia</span>
         </div>
       </div>
 

@@ -12,7 +12,7 @@ INSERT INTO "users" (
 SELECT
     'ghost',
     'Deleted User',
-    'ghost@nelsonlai.dev',
+    'ghost@bravía.com',
     TRUE,
     NULL,
     NOW(),

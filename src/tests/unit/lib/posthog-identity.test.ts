@@ -11,7 +11,7 @@ describe('posthog identity helpers', () => {
   })
 
   test('extracts pathname and locale from the referer header', () => {
-    const headers = new Headers({ referer: 'https://nelsonlai.dev/ja/blog/posthog-guide?foo=bar' })
+    const headers = new Headers({ referer: 'https://bravía.com/ja/blog/posthog-guide?foo=bar' })
 
     expect(getRouteContextFromHeaders(headers)).toEqual({
       pathname: '/ja/blog/posthog-guide',

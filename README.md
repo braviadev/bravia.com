@@ -11,8 +11,8 @@
   </h1>
 
   <img src="https://img.shields.io/badge/Next.js-000000.svg?style=for-the-badge&logo=Next.js&labelColor=000" alt="Framework" />
-  <img src="https://img.shields.io/github/languages/top/nelsonlaidev/nelsonlai.dev?style=for-the-badge&labelColor=000" alt="Language" />
-  <img src="https://img.shields.io/github/license/nelsonlaidev/nelsonlai.dev?style=for-the-badge&labelColor=000" alt="License" />
+  <img src="https://img.shields.io/github/languages/top/braviadev/bravía.com?style=for-the-badge&labelColor=000" alt="Language" />
+  <img src="https://img.shields.io/github/license/braviadev/bravía.com?style=for-the-badge&labelColor=000" alt="License" />
 </div>
 
 Welcome to my personal blog and portfolio website! This repository contains a modern Next.js application where I share my thoughts, projects, and insights.
@@ -128,13 +128,13 @@ To run this project locally, you need to set up the development environment.
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/nelsonlaidev/nelsonlai.dev
+git clone https://github.com/braviadev/bravía.com
 ```
 
 2. Navigate to the project directory:
 
 ```bash
-cd nelsonlai.dev
+cd bravía.com
 ```
 
 3. Install dependencies using bun:

@@ -2,11 +2,10 @@ type LogoProps = React.SVGAttributes<SVGElement>
 
 export function Logo(props: LogoProps) {
   return (
-    <svg version='1.0' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 715' {...props}>
-      <path
-        d='M0 0V625C0 652.614 22.3858 675 50 675H150C177.614 675 200 652.614 200 625V200H350C377.614 200 400 222.386 400 250V625C400 652.614 422.386 675 450 675H550C577.614 675 600 652.614 600 625V200C600 89.5431 510.457 0 400 0H0Z'
-        fill='currentColor'
-      />
-    </svg>
+  <svg version='1.0' xmlns='http://www.w3.org/2000/svg' viewBox='200 260 680 680' {...props}>
+    <path
+    d='M295 270H580C710 270 780 340 780 435C780 495 750 540 690 560C765 580 810 635 810 720C810 830 730 900 580 900H295V270ZM435 395V515H555C600 515 635 490 635 455C635 420 600 395 555 395H435ZM435 605V775H575C630 775 665 745 665 690C665 635 630 605 575 605H435Z'
+    fill='currentColor' />
+  </svg>
   )
 }

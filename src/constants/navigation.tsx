@@ -76,7 +76,7 @@ export const FOOTER_GROUPS = [
       // i18n-check t('common.labels.projects')
       { href: '/projects', labelKey: 'common.labels.projects' },
       // i18n-check t('common.labels.links')
-      { href: 'https://nelsonlai.link', labelKey: 'common.labels.links' },
+      { href: 'https://links.bravía.com', labelKey: 'common.labels.links' },
     ],
   },
   {
