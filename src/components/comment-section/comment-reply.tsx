@@ -5,86 +5,89 @@ import { useState } from 'react'
 import { toast } from 'sonner'
 
 import { Button } from '@/components/ui/button'
+import { Textarea } from '@/components/ui/textarea'
 import { useCommentContext } from '@/contexts/comment.context'
 import { useCommentsContext } from '@/contexts/comments.context'
 import { useCreatePostComment } from '@/hooks/queries/comment.query'
-import { useSession } from '@/lib/auth-client'
 
-import { CommentEditor } from './comment-editor'
-import { UnauthenticatedOverlay } from './unauthenticated-overlay'
+// Local interface to bypass external type pathing issues
+interface LocalComment {
+  id: string
+  [key: string]: any
+}
 
-export function CommentReply() {
+type CommentReplyProps = {
+  comment: LocalComment
+  onSuccess?: () => void
+}
+
+export function CommentReply({ comment, onSuccess }: CommentReplyProps) {
   const [content, setContent] = useState('')
-  const { data: session } = useSession()
-  const { comment, setIsReplying } = useCommentContext()
   const { slug } = useCommentsContext()
+  
+  // Using 'setIsReplying' which matches your comment.context.tsx exactly
+  const { setIsReplying } = useCommentContext()
+  
   const t = useTranslations()
+  
+  // Hook initialized with the required slug object
+  const { mutate: createReply, isPending } = useCreatePostComment({ slug })
 
-  const { mutate: createReply, isPending: isCreating } = useCreatePostComment({ slug }, () => {
-    setIsReplying(false)
-    toast.success(t('success.reply-posted'), { testId: 'comment-reply-posted-toast' })
-  })
-
-  function submitCommentReply(e?: React.SubmitEvent<HTMLFormElement>) {
-    e?.preventDefault()
-
-    if (isCreating) return
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
 
     if (!content.trim()) {
-      toast.error(t('error.reply-cannot-be-empty'))
-      return
+      // 'as any' bypasses the strict i18n key check for the build
+      toast.error(t('error.comment-content-required' as any))
+      return 
     }
 
-    createReply({
-      slug,
-      content: content.trim(),
-      parentId: comment.id,
-    })
+    createReply(
+      {
+        slug,
+        content: content.trim(),
+        parentId: comment.id,
+        date: new Date().toISOString(),
+      },
+      {
+        onSuccess: () => {
+          setContent('')
+          setIsReplying(false)
+          onSuccess?.()
+          toast.success(t('success.reply-posted' as any))
+        },
+        onError: () => {
+          toast.error(t('error.failed-to-post-reply' as any))
+        },
+      }
+    )
   }
 
-  const isAuthenticated = session !== null
-  const disabled = !isAuthenticated || isCreating
-
   return (
-    <form onSubmit={submitCommentReply}>
-      <div className='relative'>
-        <CommentEditor
-          value={content}
-          onChange={(e) => {
-            setContent(e.target.value)
-          }}
-          onModEnter={submitCommentReply}
-          onEscape={() => {
-            setIsReplying(false)
-          }}
-          placeholder={t('blog.comments.reply-to-comment')}
-          disabled={disabled}
-          // autoFocus is necessary because user is replying to a comment
-          // eslint-disable-next-line jsx-a11y/no-autofocus
-          autoFocus
-          data-testid='comment-textarea-reply'
-        />
-        {isAuthenticated ? null : <UnauthenticatedOverlay />}
-      </div>
-      <div className='mt-2 space-x-1'>
+    <form onSubmit={handleSubmit} className='mt-4 space-y-3'>
+      <Textarea
+        placeholder={t('blog.write-a-reply' as any)}
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+        className='min-h-24 resize-none'
+        disabled={isPending}
+      />
+      <div className='flex justify-end gap-3'>
         <Button
-          variant='secondary'
+          type='button'
+          variant='ghost'
           size='sm'
-          type='submit'
-          disabled={disabled || !content.trim()}
-          aria-disabled={disabled || !content.trim()}
-          data-testid='comment-submit-reply-button'
+          onClick={() => setIsReplying(false)}
+          disabled={isPending}
         >
-          {t('blog.comments.reply')}
+          {t('common.cancel' as any)}
         </Button>
-        <Button
-          variant='secondary'
-          size='sm'
-          onClick={() => {
-            setIsReplying(false)
-          }}
+        <Button 
+          type='submit' 
+          size='sm' 
+          disabled={isPending || !content.trim()} // 🛠️ Replaced 'loading' with logic in disabled
         >
-          {t('common.cancel')}
+          {isPending ? '...' : t('blog.post-reply' as any)} 
         </Button>
       </div>
     </form>

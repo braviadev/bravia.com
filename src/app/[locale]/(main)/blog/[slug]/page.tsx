@@ -6,12 +6,16 @@ import { notFound } from 'next/navigation'
 import { setRequestLocale } from 'next-intl/server'
 import { Suspense, use } from 'react'
 
+// Blog Components
 import { BlogFooter } from '@/components/blog/blog-footer'
-import { BlogHeader } from '@/components/blog/blog-header'
+import BlogHeader from '@/components/blog/blog-header'
 import { LikeButton } from '@/components/blog/like-button'
-import { MobileTableOfContents } from '@/components/blog/mobile-table-of-contents'
-import { ProgressBar } from '@/components/blog/progress-bar'
+
+// 🛠️ The Fix: Import MobileTableOfContents from progress-bar.tsx 
+// and remove the non-existent ProgressBar.
+import { MobileTableOfContents } from '@/components/blog/progress-bar'
 import { TableOfContents } from '@/components/blog/table-of-contents'
+
 import { CommentSection } from '@/components/comment-section'
 import { JsonLd } from '@/components/json-ld'
 import { Mdx } from '@/components/mdx'
@@ -107,7 +111,8 @@ function Page(props: PageProps<'/[locale]/blog/[slug]'>) {
           </div>
         </aside>
       </div>
-      <ProgressBar />
+
+      {/* 🛠️ Removed <ProgressBar /> because the component doesn't exist */}
 
       {post.toc.length > 0 && <MobileTableOfContents toc={post.toc} />}
       <BlogFooter post={post} />

@@ -3,7 +3,7 @@ import type { Locale } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 
 import { AccountMobileNav } from '@/components/account/account-mobile-nav'
-import { AccountSidebar } from '@/components/account/account-sidebar'
+import AccountSidebar from '@/components/account/account-sidebar'
 import { MainLayout } from '@/components/main-layout'
 import { PageHeader } from '@/components/page-header'
 import { redirect } from '@/i18n/routing'

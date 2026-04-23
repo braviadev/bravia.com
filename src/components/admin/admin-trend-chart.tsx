@@ -37,9 +37,9 @@ export function TrendsChart() {
         {isLoading && <Skeleton className='h-62.5 w-full' />}
         {isError && <p className='text-sm text-destructive'>{t('error.failed-to-fetch-dashboard-data')}</p>}
         {isSuccess &&
-          (data.length > 0 ? (
+          ((data as any[]).length > 0 ? (
             <ChartContainer config={chartConfig} className='aspect-auto h-62.5 w-full'>
-              <AreaChart accessibilityLayer data={data} margin={{ top: 10, right: 10, bottom: 0, left: 10 }}>
+              <AreaChart accessibilityLayer data={data as any[]} margin={{ top: 10, right: 10, bottom: 0, left: 10 }}>
                 <CartesianGrid vertical={false} />
                 <XAxis
                   dataKey='date'

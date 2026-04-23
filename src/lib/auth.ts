@@ -30,13 +30,23 @@ function getSocialProviders(): SocialProviders {
 }
 
 export const auth = betterAuth({
-  baseURL: getBaseUrl(),
+  // 🛠️ FIX 1: Better-Auth needs the full API path as the baseURL to find routes correctly
+  baseURL: `${getBaseUrl()}/api/auth`, 
+  
   database: drizzleAdapter(db, {
     provider: 'pg',
     usePlural: true,
   }),
-  trustedOrigins: [getBaseUrl()],
+
+  // 🛠️ FIX 2: Explicitly trust your local environment to prevent 403 Forbidden errors
+  trustedOrigins: [
+    getBaseUrl(),
+    'http://localhost:3000',
+    'http://127.0.0.1:3000'
+  ],
+
   socialProviders: getSocialProviders(),
+
   user: {
     additionalFields: {
       role: { type: 'string', required: true, input: false, defaultValue: 'user' },

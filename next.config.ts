@@ -62,11 +62,11 @@ const config: NextConfig = {
 
   skipTrailingSlashRedirect: true,
 
-  rewrites() {
+  async rewrites() {
     return getPostHogProxyRewrites()
   },
 
-  redirects() {
+  async redirects() {
     return [
       {
         source: '/pc-specs',
@@ -91,7 +91,7 @@ const config: NextConfig = {
     ]
   },
 
-  headers() {
+  async headers() {
     return [
       {
         source: '/(.*)',
@@ -118,8 +118,5 @@ const config: NextConfig = {
   },
 }
 
-// 🚨 The Fix: Wrap the config with the essential plugins first
-const coreConfig = withContentCollections(withNextIntl(config))
-
-// ONLY wrap with PostHog if we are in production, bypassing the CLI bug in local dev
-export default IS_PRODUCTION ? withPostHog(coreConfig) : coreConfig
+// Wrap with all plugins and export
+export default withPostHog(withContentCollections(withNextIntl(config)))

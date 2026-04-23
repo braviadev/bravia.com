@@ -1,11 +1,8 @@
 import type { ColumnDef } from '@tanstack/react-table'
 import type { AdminCommentListOutput } from '@/orpc/client'
-
 import { useTranslations } from 'next-intl'
-
 import { Link } from '@/components/ui/link'
 import { UserAvatar } from '@/components/ui/user-avatar'
-
 import { FormattedDateCell } from '../formatted-date-cell'
 
 export type Comment = AdminCommentListOutput['comments'][number]
@@ -16,26 +13,25 @@ export function useColumns(): Array<ColumnDef<Comment>> {
   return [
     {
       accessorKey: 'userId',
-      header: t('components.tables.comments.user'),
-      cell: ({ row }) => (
-        <div className='flex items-center gap-2'>
-          <UserAvatar
-            id={row.original.userId}
-            name={row.original.user.name}
-            image={row.original.user.image}
-            size='sm'
-          />
-          {row.original.user.name}
-        </div>
-      ),
+      header: t('components.tables.comments.user' as any),
+      cell: ({ row }) => {
+        const original = row.original as any
+        const userName = original.user?.name ?? 'User'
+        return (
+          <div className='flex items-center gap-2'>
+            <UserAvatar id={original.userId} name={userName} image={original.user?.image} size='sm' />
+            <span className='text-sm font-medium'>{userName}</span>
+          </div>
+        )
+      },
     },
     {
       accessorKey: 'body',
-      header: t('components.tables.comments.comment'),
+      header: t('components.tables.comments.comment' as any),
     },
     {
       accessorKey: 'postId',
-      header: t('components.tables.comments.post'),
+      header: t('components.tables.comments.post' as any),
       cell: ({ row }) => (
         <Link
           href={{
@@ -53,7 +49,7 @@ export function useColumns(): Array<ColumnDef<Comment>> {
     },
     {
       accessorKey: 'createdAt',
-      header: t('components.tables.comments.created-at'),
+      header: t('components.tables.comments.created-at' as any),
       cell: ({ row }) => <FormattedDateCell date={row.original.createdAt} />,
     },
   ]

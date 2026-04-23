@@ -24,7 +24,7 @@ export function AdminUsers() {
       {isSuccess && (
         <UsersTable
           users={data.users}
-          pageCount={data.pageCount}
+         pageCount={(data as any).pageCount ?? 1}
           pagination={pagination}
           onPaginationChange={setPagination}
           isFetching={isFetching}

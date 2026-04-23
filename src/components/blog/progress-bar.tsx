@@ -1,12 +1,11 @@
 'use client'
 
 import type { TOC } from '@/mdx-plugins'
-
 import { AlignLeftIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 
-import { Button } from '@/components/ui/button'
+/*import { Button } from '@/components/ui/button'*/
 import { Link } from '@/components/ui/link'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { useRouter } from '@/i18n/routing'
@@ -23,14 +22,9 @@ export function MobileTableOfContents(props: MobileTableOfContentsProps) {
 
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
-      <PopoverTrigger
-        className='gap-2'
-        render={
-          <Button variant='secondary' className='fixed right-2 bottom-2 z-50 lg:hidden'>
-            <AlignLeftIcon data-icon='inline-start' /> {t('blog.on-this-page')}
-          </Button>
-        }
-      />
+      <PopoverTrigger className="fixed right-2 bottom-2 z-50 lg:hidden flex items-center gap-2 rounded-md bg-secondary px-4 py-2 text-sm font-medium hover:bg-secondary/80">
+        <AlignLeftIcon data-icon='inline-start' /> {t('blog.on-this-page')}
+      </PopoverTrigger>
       <PopoverContent align='end' side='top' className='px-0 py-2'>
         {toc.map((item) => {
           const { title, url, depth } = item

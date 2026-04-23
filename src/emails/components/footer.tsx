@@ -21,7 +21,7 @@ function Footer() {
         </Row>
       </Section>
       <Text className='mx-0 mt-6 mb-0 p-0 text-xs font-normal text-gray-500'>
-        © {new Date().getFullYear()} Bravia Developer. All rights reserved.
+        © {currentYear} bravía.com. All rights reserved.
       </Text>
     </>
   )

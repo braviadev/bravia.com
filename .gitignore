@@ -2,9 +2,12 @@
 node_modules/
 
 # Env files
+.env.production
 .env*.local
 .env.local
 .env
+.next/
+
 
 # Vercel
 .vercel/

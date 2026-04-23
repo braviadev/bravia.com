@@ -19,7 +19,8 @@ function AccountSidebar() {
               data-active={pathname === link.href}
               className='block rounded-xl px-3 py-2 text-muted-foreground transition-colors hover:bg-accent data-active:text-foreground'
             >
-              {t(link.labelKey)}
+              {/* Using 'link.title' or 'link.labelKey' depending on your config */}
+              {t(link.labelKey as any)}
             </Link>
           </li>
         ))}

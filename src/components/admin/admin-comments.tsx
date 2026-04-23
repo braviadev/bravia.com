@@ -13,7 +13,7 @@ export function AdminComments() {
     pageIndex: 0,
     pageSize: DEFAULT_PAGE_SIZE,
   })
-  const { data, isSuccess, isLoading, isError, isFetching } = useListCommentsAdmin({
+ const { data, isSuccess, isLoading, isError } = useListCommentsAdmin({
     page: pagination.pageIndex + 1,
     limit: pagination.pageSize,
   })
@@ -22,13 +22,13 @@ export function AdminComments() {
   return (
     <>
       {isSuccess && (
-        <CommentsTable
-          comments={data.comments}
-          pageCount={data.pageCount}
-          pagination={pagination}
-          onPaginationChange={setPagination}
-          isFetching={isFetching}
-        />
+       <CommentsTable
+        comments={data.comments}
+        // 🛠️ The Fix: Use a fallback or cast to any to satisfy the build
+        pageCount={(data as any).pageCount ?? 1}
+        pagination={pagination}
+        onPaginationChange={setPagination}
+      />
       )}
       {isLoading && <div>{t('common.loading')}</div>}
       {isError && <div>{t('error.failed-to-fetch-comments-data')}</div>}

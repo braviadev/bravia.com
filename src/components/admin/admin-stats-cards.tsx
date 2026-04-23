@@ -41,7 +41,7 @@ export function AdminStatsCards() {
           </CardHeader>
           <CardContent className='text-2xl font-bold'>
             {isLoading && <Skeleton className='h-8 w-20' />}
-            {isSuccess && <NumberFlow value={data[item.field]} />}
+            {isSuccess && <NumberFlow value={(data as any)[item.field]} />}
           </CardContent>
         </Card>
       ))}

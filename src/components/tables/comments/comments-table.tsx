@@ -1,28 +1,23 @@
+'use client'
+
 import type { OnChangeFn, PaginationState } from '@tanstack/react-table'
-import type { Comment } from './columns'
-
-import { flexRender, getCoreRowModel } from '@tanstack/react-table'
-
+import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { useReactTable } from '@/hooks/use-react-table'
-
 import { TablePagination } from '../table-pagination'
-import { useColumns } from './columns'
+
+// 🛠️ IMPORTANT: Only import from ./columns, do not import the table into itself
+import { type Comment, useColumns } from './columns' 
 
 type CommentsTableProps = {
   comments: Comment[]
   pageCount: number
   pagination: PaginationState
   onPaginationChange: OnChangeFn<PaginationState>
-  isFetching?: boolean
 }
 
-export function CommentsTable(props: CommentsTableProps) {
-  'use no memo'
-
-  const { comments, pageCount, pagination, onPaginationChange, isFetching = false } = props
+export function CommentsTable({ comments, pageCount, pagination, onPaginationChange }: CommentsTableProps) {
   const columns = useColumns()
-
+  
   const table = useReactTable({
     data: comments,
     columns,
@@ -34,40 +29,42 @@ export function CommentsTable(props: CommentsTableProps) {
   })
 
   return (
-    <div className='flex flex-col gap-4'>
-      <div className='overflow-hidden rounded-md border'>
+    <div className='space-y-4'>
+      <div className='rounded-md border'>
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
                   <TableHead key={header.id}>
-                    {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                    {flexRender(header.column.columnDef.header, header.getContext())}
                   </TableHead>
                 ))}
               </TableRow>
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows.length > 0 ? (
+            {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
+                <TableRow key={row.id}>
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                    <TableCell key={cell.id}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </TableCell>
                   ))}
                 </TableRow>
               ))
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className='h-24 text-center'>
-                  No comments.
+                  No results.
                 </TableCell>
               </TableRow>
             )}
           </TableBody>
         </Table>
       </div>
-      <TablePagination table={table} disabled={isFetching} />
+      <TablePagination table={table} />
     </div>
   )
 }

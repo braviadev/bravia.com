@@ -121,7 +121,7 @@ export function Comment(props: CommentProps) {
               </div>
             )}
 
-            {isReplying ? <CommentReply /> : <CommentActions />}
+            {isReplying ? <CommentReply comment={comment} /> : <CommentActions />}
           </div>
         </div>
       </div>

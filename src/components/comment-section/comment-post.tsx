@@ -39,9 +39,10 @@ export function CommentPost() {
       return
     }
 
-    createComment({
-      slug,
-      content: content.trim(),
+   createComment({
+    slug,
+    content: content.trim(),
+    date: new Date().toISOString(), // 🛠️ Added the missing required property
     })
   }
 
