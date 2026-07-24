@@ -1,15 +1,18 @@
 import type { SatoriOptions } from 'next/dist/compiled/@vercel/og/satori'
 
-import fs from 'node:fs/promises'
-import path from 'node:path'
-
 import { cache } from 'react'
 
-const getFont = cache(async (fontFileName: string) => {
-  const filePath = path.join(process.cwd(), 'public', 'fonts', fontFileName)
-  const fontBuffer = await fs.readFile(filePath)
-  return Uint8Array.from(fontBuffer).buffer
-})
+// Import fonts as raw ArrayBuffers directly so Turbopack bundles them automatically
+// @ts-expect-error - Next.js/Turbopack handles binary imports via asset tracing
+import geistRegular from '../../public/fonts/Geist-Regular.otf'
+// @ts-expect-error - Next.js/Turbopack handles binary imports via asset tracing
+import geistMedium from '../../public/fonts/Geist-Medium.otf'
+// @ts-expect-error - Next.js/Turbopack handles binary imports via asset tracing
+import geistSemiBold from '../../public/fonts/Geist-SemiBold.otf'
+
+const getRegularFont = cache(async () => geistRegular as unknown as ArrayBuffer)
+const getMediumFont = cache(async () => geistMedium as unknown as ArrayBuffer)
+const getSemiBoldFont = cache(async () => geistSemiBold as unknown as ArrayBuffer)
 
 const fetchGoogleFont = cache(async (font: string, text: string): Promise<ArrayBuffer> => {
   const cssURL = `https://fonts.googleapis.com/css2?family=${encodeURIComponent(font)}&text=${encodeURIComponent(text)}`
@@ -37,9 +40,9 @@ const fetchGoogleFont = cache(async (font: string, text: string): Promise<ArrayB
 export async function getOGImageFonts(title: string): Promise<SatoriOptions['fonts']> {
   const [regularFontData, mediumFontData, semiBoldFontData, notoSansTCData, notoSansSCData] =
     await Promise.all([
-      getFont('Geist-Regular.otf'),
-      getFont('Geist-Medium.otf'),
-      getFont('Geist-SemiBold.otf'),
+      getRegularFont(),
+      getMediumFont(),
+      getSemiBoldFont(),
       fetchGoogleFont('Noto Sans TC', title),
       fetchGoogleFont('Noto Sans SC', title),
     ])
