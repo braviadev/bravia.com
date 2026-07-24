@@ -50,7 +50,7 @@ if (env.CLOUDFLARE_R2_PUBLIC_URL) {
 }
 
 const config: NextConfig = {
-  // posthog-js must ONLY live in transpilePackages, not serverExternalPackages
+  // Fix: Only externalize server packages here. Do NOT include posthog-js in serverExternalPackages.
   serverExternalPackages: ['@posthog/core', 'posthog-node'],
   transpilePackages: ['posthog-js'],
 
