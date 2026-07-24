@@ -50,18 +50,9 @@ if (env.CLOUDFLARE_R2_PUBLIC_URL) {
 }
 
 const config: NextConfig = {
-  // Prevent Next.js bundler from trying to resolve internal PostHog subpaths on the server
-  serverExternalPackages: ['@posthog/core', 'posthog-node', 'posthog-js'],
+  // Only externalize server-side packages; keep posthog-js exclusively in transpilePackages
+  serverExternalPackages: ['@posthog/core', 'posthog-node'],
   transpilePackages: ['posthog-js'],
-
-  // Webpack alias to catch & bypass internal @posthog/core subpath resolution
-  webpack: (webpackConfig) => {
-    webpackConfig.resolve.alias = {
-      ...webpackConfig.resolve.alias,
-      '@posthog/core/process': false,
-    }
-    return webpackConfig
-  },
 
   // Allowed network origins for dev server
   allowedDevOrigins: ['172.26.80.1'],
