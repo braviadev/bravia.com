@@ -1,28 +1,32 @@
-import fs from 'node:fs/promises'
-import path from 'node:path'
+import { drizzle } from 'drizzle-orm/postgres-js'
+import postgres from 'postgres'
 
-import { consola } from 'consola'
+import { IS_PRODUCTION } from '@/constants/common'
+import { env } from '@/env'
 
-import { db } from './index'
-import { posts } from './schemas'
+import * as schema from './schemas'
 
-async function main() {
-  try {
-    const files = await fs.readdir(path.join(process.cwd(), 'src/content/blog/en'))
-
-    await Promise.all(
-      files.map(async (file) => {
-        const slug = file.replace('.mdx', '')
-        await db.insert(posts).values({ slug, views: 0 })
-      }),
-    )
-
-    consola.success('Data inserted successfully!')
-  } catch (error) {
-    consola.error('Error inserting data:\n', error)
-  } finally {
-    await db.$client.end()
-  }
+declare global {
+  var pgClient: ReturnType<typeof postgres> | undefined
 }
 
-await main()
+// Best Practice for Aiven/Serverless Postgres:
+// 1. Force SSL mode explicitly in options
+// 2. Set max pool connections for scripts
+// 3. Disable prepared statements for pooled connections
+const clientOptions: postgres.Options<{}> = {
+  ssl: 'require', // Enforces TLS connection to Aiven
+  max: 10,
+  prepare: false,
+}
+
+let client: ReturnType<typeof postgres>
+
+if (IS_PRODUCTION) {
+  client = postgres(env.DATABASE_URL, clientOptions)
+} else {
+  globalThis.pgClient ??= postgres(env.DATABASE_URL, clientOptions)
+  client = globalThis.pgClient
+}
+
+export const db = drizzle(client, { schema })
