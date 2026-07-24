@@ -47,6 +47,10 @@ if (env.CLOUDFLARE_R2_PUBLIC_URL) {
 }
 
 const config: NextConfig = {
+  // Fix PostHog ESM package subpath export issues during build
+  serverExternalPackages: ['@posthog/core', 'posthog-node'],
+  transpilePackages: ['posthog-js'],
+
   // Added your network IP to allow dev resources to load
   allowedDevOrigins: ['172.26.80.1'],
 

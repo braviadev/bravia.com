@@ -49,16 +49,16 @@
 
 # 🛠️ Tech Stack & System Architecture
 
-| Domain | Technologies Used |
-|----------|----------|
-| **Framework & Core** | Next.js 16 (App Router), TypeScript, Bun Runtime |
-| **Database & Cache** | Drizzle ORM, PostgreSQL, Redis (Upstash) |
-| **API Layer** | oRPC, Next.js Server Actions, t3-env Validation |
-| **Content Engine** | MDX, Shiki (Syntax Highlighting), Content Collections |
-| **Internationalization** | `next-intl` (Multi-locale Routing) |
-| **Auth & Security** | Better Auth, Upstash Rate Limiting |
-| **UI & Animation** | Base UI, Tailwind CSS, Motion (Framer Motion) |
-| **Testing & CI/CD** | Vitest, Playwright, ESLint, Prettier, Lefthook |
+| Domain                   | Technologies Used                                     |
+| ------------------------ | ----------------------------------------------------- |
+| **Framework & Core**     | Next.js 16 (App Router), TypeScript, Bun Runtime      |
+| **Database & Cache**     | Drizzle ORM, PostgreSQL, Redis (Upstash)              |
+| **API Layer**            | oRPC, Next.js Server Actions, t3-env Validation       |
+| **Content Engine**       | MDX, Shiki (Syntax Highlighting), Content Collections |
+| **Internationalization** | `next-intl` (Multi-locale Routing)                    |
+| **Auth & Security**      | Better Auth, Upstash Rate Limiting                    |
+| **UI & Animation**       | Base UI, Tailwind CSS, Motion (Framer Motion)         |
+| **Testing & CI/CD**      | Vitest, Playwright, ESLint, Prettier, Lefthook        |
 
 ---
 
@@ -182,14 +182,14 @@ bun email:dev
 
 ## 📊 Local Service Map
 
-| Service | Address | Purpose |
-|----------|----------|----------|
-| Next.js Frontend | `http://localhost:3000` | Local Web Server |
-| React Email | `http://localhost:3001` | Email Template Previewer |
-| Cosmos | `http://localhost:3002` | Component Playground |
-| PostgreSQL | `localhost:5432` | Relational Database |
-| Redis | `localhost:6379` | In-Memory Data Store |
-| Redis Serverless | `localhost:8079` | Upstash Emulator |
+| Service          | Address                 | Purpose                  |
+| ---------------- | ----------------------- | ------------------------ |
+| Next.js Frontend | `http://localhost:3000` | Local Web Server         |
+| React Email      | `http://localhost:3001` | Email Template Previewer |
+| Cosmos           | `http://localhost:3002` | Component Playground     |
+| PostgreSQL       | `localhost:5432`        | Relational Database      |
+| Redis            | `localhost:6379`        | In-Memory Data Store     |
+| Redis Serverless | `localhost:8079`        | Upstash Emulator         |
 
 ---
 
@@ -239,7 +239,7 @@ This project stands on the shoulders of the open-source community:
 
 **Olanrewaju Toyyib (Bravíaprime)**
 
-*Software Engineer & Academic Researcher*
+_Software Engineer & Academic Researcher_
 
 - 🌐 **Website:** https://braviaprime.com
 - 🐙 **GitHub:** https://github.com/braviaprime
