@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "analyze": "next experimental-analyze",
-    "build": "bun cosmos:export && next build",
+    "build": "next build",
+    "build:cosmos": "bun cosmos:export && next build",
     "build:mdx": "content-collections build",
     "check": "bun lint && bun typecheck && bun format:check && bun knip && bun check:i18n && bun lint:spell",
     "check:i18n": "i18n-check -s en -l ./src/i18n/messages -u ./src -f next-intl",
