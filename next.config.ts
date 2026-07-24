@@ -50,11 +50,10 @@ if (env.CLOUDFLARE_R2_PUBLIC_URL) {
 }
 
 const config: NextConfig = {
-  // Only externalize server-side packages; keep posthog-js exclusively in transpilePackages
+  // posthog-js must ONLY live in transpilePackages, not serverExternalPackages
   serverExternalPackages: ['@posthog/core', 'posthog-node'],
   transpilePackages: ['posthog-js'],
 
-  // Allowed network origins for dev server
   allowedDevOrigins: ['172.26.80.1'],
 
   reactCompiler: true,
@@ -128,5 +127,4 @@ const config: NextConfig = {
   },
 }
 
-// Wrap with all plugins and export
 export default withPostHog(withContentCollections(withNextIntl(config)))
