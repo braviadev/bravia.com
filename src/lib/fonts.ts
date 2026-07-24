@@ -6,7 +6,6 @@ import path from 'node:path'
 import { cache } from 'react'
 
 const getFont = cache(async (fontFileName: string) => {
-  // Use path.join with process.cwd() so it dynamically targets /public/fonts/
   const filePath = path.join(process.cwd(), 'public', 'fonts', fontFileName)
   const fontBuffer = await fs.readFile(filePath)
   return Uint8Array.from(fontBuffer).buffer
