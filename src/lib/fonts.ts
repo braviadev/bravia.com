@@ -7,17 +7,22 @@ const fetchGoogleFont = cache(
     try {
       const cssURL = `https://fonts.googleapis.com/css2?family=${encodeURIComponent(font)}:wght@${weight}&text=${encodeURIComponent(text)}`
 
+      // Using an older Safari User-Agent forces Google Fonts to return TTF/OTF instead of WOFF2
       const cssResponse = await fetch(cssURL, {
         headers: {
           'User-Agent':
-            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/603.3.8 (KHTML, like Gecko) Version/10.1.2 Safari/603.3.8',
         },
       })
 
       if (!cssResponse.ok) return null
 
       const css = await cssResponse.text()
-      const match = /src: url\((.+?)\)/.exec(css)
+
+      // Match opentype / truetype format URLs from Google Fonts CSS
+      const match =
+        /src: url\((.+?)\) format\('(?:opentype|truetype)'\)/.exec(css) ||
+        /src: url\((.+?)\)/.exec(css)
 
       if (!match?.[1]) return null
 
@@ -28,10 +33,10 @@ const fetchGoogleFont = cache(
 
       const buffer = await fontResponse.arrayBuffer()
 
-      // Validate header magic bytes (NOT HTML '<htm' or '<!DO')
+      // Verify magic bytes: Ensure it's true OTF/TTF (magic start OTTO or \x00\x01\x00\x00) and not HTML or wOF2
       const header = new Uint8Array(buffer.slice(0, 4))
       const magic = String.fromCharCode(...header)
-      if (magic.startsWith('<') || magic.startsWith('<!')) {
+      if (magic.startsWith('<') || magic === 'wOF2') {
         return null
       }
 
@@ -43,8 +48,7 @@ const fetchGoogleFont = cache(
 )
 
 export async function getOGImageFonts(title: string): Promise<SatoriOptions['fonts']> {
-  // Always include the fallback text characters so CJK font subsetting works
-  const fontText = title + 'GuestbookBlogProjects'
+  const fontText = title + 'GuestbookBlogProjectsDashboard'
 
   const [regularFontData, mediumFontData, semiBoldFontData, notoSansTCData, notoSansSCData] =
     await Promise.all([
