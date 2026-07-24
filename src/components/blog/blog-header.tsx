@@ -46,7 +46,7 @@ function BlogHeader(props: BlogHeaderProps) {
         <div className='grid grid-cols-2 text-sm max-md:gap-4 md:grid-cols-4'>
           <div className='space-y-1 md:mx-auto'>
             <div className='text-muted-foreground'>{t('blog.header.written-by')}</div>
-            <Link href='https://github.com/braviadev' className='flex items-center gap-2'>
+            <Link href='https://github.com/braviaprime' className='flex items-center gap-2'>
               <BlurImage
                 src='/images/avatar.png'
                 className='size-6 rounded-full'

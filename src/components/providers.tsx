@@ -1,7 +1,7 @@
 'use client'
 
 import { Provider as JotaiProvider } from 'jotai'
-import { ThemeProvider } from 'next-themes'
+// import { ThemeProvider } from 'next-themes'
 
 import { Toaster } from '@/components/ui/sonner'
 import { TooltipProvider } from '@/components/ui/tooltip'
@@ -18,7 +18,7 @@ export function Providers(props: ProvidesProps) {
   return (
     <JotaiProvider>
       <QueryProvider>
-        <ThemeProvider attribute='class' disableTransitionOnChange>
+        {/* <ThemeProvider attribute='class' disableTransitionOnChange> */}
           <TooltipProvider>
             {children}
             <Toaster
@@ -29,7 +29,7 @@ export function Providers(props: ProvidesProps) {
               expand
             />
           </TooltipProvider>
-        </ThemeProvider>
+        {/* </ThemeProvider> */}
       </QueryProvider>
     </JotaiProvider>
   )

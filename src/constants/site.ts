@@ -1,10 +1,10 @@
-export const SITE_GITHUB_URL = 'https://github.com/braviadev'
-export const SITE_FACEBOOK_URL = 'https://www.facebook.com/olanrewajutoyyiib'
-export const SITE_INSTAGRAM_URL = 'https://www.instagram.com/bravia.ot'
-export const SITE_X_URL = 'https://x.com/O_Toyyib'
-export const SITE_YOUTUBE_URL = 'https://youtube.com/@olanrewajutoyyib'
+export const SITE_GITHUB_URL = 'https://github.com/braviaprime'
+export const SITE_FACEBOOK_URL = 'https://www.facebook.com/toyyhiib'
+export const SITE_INSTAGRAM_URL = 'https://www.facebook.com/braviaprime'
+export const SITE_X_URL = 'https://x.com/Toyyhib'
+export const SITE_YOUTUBE_URL = 'https://youtube.com/@toyyhib'
 
-export const GITHUB_USERNAME = 'braviadev'
+export const GITHUB_USERNAME = 'braviaprime'
 
 export const MY_NAME = 'Olanrewaju Toyyib'
 

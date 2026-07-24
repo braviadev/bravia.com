@@ -40,7 +40,7 @@ export function Stats() {
   const data: Card[] = [
     {
       title: t('dashboard.stat.coding-hours'),
-      link: 'https://wakatime.com/@Braviadev',
+      link: 'https://wakatime.com/@braviaprime',
       value: wakatimeQuery.data?.hours,
       icon: <SiWakatime className='text-[#0061ff]' />,
       linkText: 'WakaTime',
@@ -52,7 +52,7 @@ export function Stats() {
     },
     {
       title: t('dashboard.stat.youtube-subscribers'),
-      link: 'https://www.youtube.com/@braviadev',
+      link: 'https://www.youtube.com/@braviaprime',
       value: youtubeQuery.data?.subscribers,
       icon: <SiYoutube className='text-[#ff0000]' />,
       linkText: 'YouTube',
@@ -63,7 +63,7 @@ export function Stats() {
     },
     {
       title: t('dashboard.stat.youtube-views'),
-      link: 'https://www.youtube.com/@braviadev',
+      link: 'https://www.youtube.com/@braviaprime',
       value: youtubeQuery.data?.views,
       icon: <SiYoutube className='text-[#ff0000]' />,
       linkText: 'YouTube',
@@ -74,7 +74,7 @@ export function Stats() {
     },
     {
       title: t('dashboard.stat.github-followers'),
-      link: 'https://github.com/braviadev',
+      link: 'https://github.com/braviaprime',
       value: githubQuery.data?.followers,
       icon: <SiGithub className='text-[#fee000]' />,
       linkText: 'GitHub',
@@ -85,7 +85,7 @@ export function Stats() {
     },
     {
       title: t('dashboard.stat.github-stars'),
-      link: 'https://github.com/braviadev',
+      link: 'https://github.com/braviaprime',
       value: githubQuery.data?.stars,
       icon: <StarIcon className='size-6 text-[#fee000]' />,
       linkText: 'GitHub',
@@ -96,7 +96,7 @@ export function Stats() {
     },
     {
       title: t('dashboard.stat.blog-total-views'),
-      link: 'https://bravía.com',
+      link: 'https://braviaprime.com',
       value: viewsQuery.data?.views,
       icon: <PencilIcon className='size-6 text-[#ff0f7b]' />,
       linkText: 'Blog',
@@ -107,7 +107,7 @@ export function Stats() {
     },
     {
       title: t('dashboard.stat.blog-total-likes'),
-      link: 'https://bravía.com',
+      link: 'https://braviaprime.com',
       value: likesQuery.data?.likes,
       icon: <PencilIcon className='size-6 text-[#ff0f7b]' />,
       linkText: 'Blog',

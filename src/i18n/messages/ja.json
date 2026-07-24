@@ -19,6 +19,7 @@
     "no-active-sessions": "アクティブなセッションがありません",
     "open-navigation-menu": "ナビゲーションメニューを開く",
     "profile": "プロフィール",
+    "settings": "設定",
     "revoke-session": "取り消す",
     "this-device": "このデバイス",
     "update-avatar": "アバターを更新"
@@ -205,7 +206,7 @@
   "dialog": {
     "sign-in": {
       "continue-with": "{provider} で続ける",
-      "description": "bravía.com に続けるには",
+      "description": "braviaprime.com に続けるには",
       "last-used": "最後に使用",
       "notice": "続けることで、<terms>利用規約</terms>と<privacy>プライバシーポリシー</privacy>に同意したことになります"
     }
@@ -271,7 +272,7 @@
       "fantastic": "最高な",
       "location-timezone": "香港 • UTC/GMT +8",
       "stunning": "圧倒的な",
-      "line-1": "Bravia です。フルスタックエンジニアとして",
+      "line-1": "Bravíaprime です。フルスタックエンジニアとして",
       "line-2-left": "制作している",
       "line-2-right": "ウェブサイトを",
       "line-3": "React で開発しています",

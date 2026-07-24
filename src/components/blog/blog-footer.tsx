@@ -16,10 +16,10 @@ export function BlogFooter(props: BlogFooterProps) {
   const t = useTranslations()
   const locale = useLocale()
 
+  const editURL = `https://github.com/braviaprime/braviaprime.com/tree/main/src/content/blog/${locale}/${post.slug}.mdx?plain=1`
 
-  const editURL = `https://github.com/braviadev/bravia.dev/tree/main/src/content/blog/${locale}/${post.slug}.mdx?plain=1`
-
-const formattedDate = useFormattedDate(post.modifiedTime)
+  // 🛠️ The Fix: Changed modifiedTime to lastModified
+  const formattedDate = useFormattedDate(post.lastModified)
 
   return (
     <div className='my-8 flex w-full items-center justify-between py-4 text-sm'>

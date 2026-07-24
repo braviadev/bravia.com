@@ -39,7 +39,7 @@ function ReplyEmailTemplate(props: ReplyEmailTemplateProps) {
       <Head>
         <GeistFont />
       </Head>
-      <Preview>New reply on the post "{postTitle}" on bravia.dev</Preview>
+      <Preview>New reply on the post "{postTitle}" on braviaprime.com</Preview>
       <Tailwind>
         <Body className='m-auto bg-white p-1'>
           <Container className='mx-auto w-full max-w-165 rounded-2xl border border-solid border-[#e5e5e5] bg-white p-8'>
@@ -83,7 +83,7 @@ function ReplyEmailTemplate(props: ReplyEmailTemplateProps) {
             <Text className='text-xs text-gray-500'>
               You received this because you enabled notifications for replies to your comments. If you wish to stop
               receiving these emails, please update your{' '}
-              <Link href='https://bravía.com/account/settings'>account settings</Link>. To stop receiving reply
+              <Link href='https://braviaprime.com/account/settings'>account settings</Link>. To stop receiving reply
               notifications for this specific comment, you can <Link href={unsubscribeUrl}>unsubscribe</Link>.
             </Text>
             <Footer />
@@ -98,7 +98,7 @@ ReplyEmailTemplate.PreviewProps = {
   reply:
     "Thank you for your kind words! I'm glad you found the article helpful. Let me know if you have any questions!",
   replierName: 'John Smith',
-  replierImage: 'https://bravia.dev/api/avatar/john-doe',
+  replierImage: 'https://braviaprime.com/api/avatar/john-doe',
   comment: 'This is exactly what I needed! The explanations are clear and concise. Thanks for sharing! 👏',
   date: 'March 2, 2026',
   replierIdentifier: 'comment=1&reply=1',

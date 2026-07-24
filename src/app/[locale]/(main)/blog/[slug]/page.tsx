@@ -64,6 +64,11 @@ function Page(props: PageProps<'/[locale]/blog/[slug]'>) {
   const baseUrl = getBaseUrl()
 
   if (!post) {
+    console.log('\n--- 🚨 DEBUGGING 404 🚨 ---')
+    console.log('1. URL is asking for -> Locale:', locale, '| Slug:', slug)
+    console.log('2. Posts actually in database:')
+    console.log(getAllPosts().map(p => ({ locale: p.locale, slug: p.slug })))
+    console.log('---------------------------\n')
     notFound()
   }
 

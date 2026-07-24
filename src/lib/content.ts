@@ -2,25 +2,26 @@ import 'server-only'
 
 import { allPages, allPosts, allProjects } from 'content-collections'
 
-import { env } from '@/env'
+// We can safely remove the `env` import since we are removing the strict test blocks
+// import { env } from '@/env' 
 
 export function getAllPosts() {
-  return allPosts.filter((p) => p.test === env.IS_TEST)
+  return allPosts
 }
 
 export function getAllPostsByLocale(locale: string) {
-  return allPosts.filter((p) => p.locale === locale && p.test === env.IS_TEST)
+  return allPosts.filter((p) => p.locale === locale)
 }
 
 export function getLatestPosts(locale: string, limit: number = allPosts.length) {
   return allPosts
-    .filter((post) => post.locale === locale && !post.test)
+    .filter((post) => post.locale === locale)
     .toSorted((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(0, limit)
 }
 
 export function getPostBySlug(locale: string, slug: string) {
-  return allPosts.find((p) => p.slug === slug && p.locale === locale && p.test === env.IS_TEST)
+  return allPosts.find((p) => p.slug === slug && p.locale === locale)
 }
 
 export function getLatestProjects(locale: string, limit: number = allProjects.length) {

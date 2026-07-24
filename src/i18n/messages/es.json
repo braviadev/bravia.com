@@ -19,6 +19,7 @@
     "no-active-sessions": "No hay sesiones activas",
     "open-navigation-menu": "Abrir menú de navegación",
     "profile": "Perfil",
+    "settings": "Configuración",
     "revoke-session": "Revocar",
     "this-device": "Este dispositivo",
     "update-avatar": "Actualizar avatar"
@@ -205,7 +206,7 @@
   "dialog": {
     "sign-in": {
       "continue-with": "Continuar con {provider}",
-      "description": "para continuar a bravía.com",
+      "description": "para continuar a braviaprime.com",
       "last-used": "Último usado",
       "notice": "Al continuar, aceptas nuestros <terms>Términos de servicio</terms> y <privacy>Política de privacidad</privacy>"
     }
@@ -255,7 +256,7 @@
       "connect": "Conectar",
       "fav-framework": "Framework favorito",
       "location": "Ubicación",
-      "location-value": "🇭🇰 Kwara State",
+      "location-value": "🇳🇬 Kwara State",
       "more": "Conoce más sobre mí",
       "stacks": "Tecnologías",
       "title": "Sobre mí"
@@ -271,7 +272,7 @@
       "fantastic": "Fantástico",
       "location-timezone": "Kwara State • UTC/GMT +8",
       "stunning": "Impresionante",
-      "line-1": "Soy Bravia, un Ingeniero Full Stack",
+      "line-1": "Soy Bravíaprime, un Ingeniero Full Stack",
       "line-2-left": "construyendo",
       "line-2-right": "sitios web",
       "line-3": "con React",

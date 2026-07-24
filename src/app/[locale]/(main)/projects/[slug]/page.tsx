@@ -34,11 +34,11 @@ export async function generateMetadata(props: PageProps<'/[locale]/projects/[slu
     return {}
   }
 
-  const { name, description } = project
+  const { title, description } = project
 
   return createMetadata({
     pathname: `/projects/${slug}`,
-    title: name,
+    title: title || 'Project',
     description,
     locale,
   })
@@ -57,13 +57,13 @@ function Page(props: PageProps<'/[locale]/projects/[slug]'>) {
     notFound()
   }
 
-  const { name, code, description, github, dateCreated } = project
+  const { title, code, description, github, dateCreated } = project
   const baseUrl = getBaseUrl()
 
   const jsonLd: WithContext<SoftwareSourceCode> = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareSourceCode',
-    name,
+    name: title || 'Project',
     description,
     url,
     codeRepository: github,
@@ -88,7 +88,7 @@ function Page(props: PageProps<'/[locale]/projects/[slug]'>) {
           src={`/images/projects/${slug}/cover.png`}
           width={1200}
           height={630}
-          alt={name}
+          alt={title || 'Project cover'}
           className='my-12 rounded-lg'
           lazy={false}
         />

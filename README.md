@@ -1,272 +1,260 @@
 <div align="center">
-  <a href="https://bravía.com">
+  <a href="https://braviaprime.com">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="public/images/dark-header.png">
-      <img alt="Project Cover" src="public/images/light-header.png">
+      <img alt="Project Banner" src="public/images/light-header.png" width="100%">
     </picture>
   </a>
 
-  <h1 align="center">
-    bravía.com
-  </h1>
+  <br />
+  <br />
 
-  <img src="https://img.shields.io/badge/Next.js-000000.svg?style=for-the-badge&logo=Next.js&labelColor=000" alt="Framework" />
-  <img src="https://img.shields.io/github/languages/top/braviadev/bravía.com?style=for-the-badge&labelColor=000" alt="Language" />
-  <img src="https://img.shields.io/github/license/braviadev/bravía.com?style=for-the-badge&labelColor=000" alt="License" />
+  <h1>braviaprime.com</h1>
+
+  <p>
+    <strong>A high-performance, i18n-native personal engineering platform & research hub.</strong>
+  </p>
+
+  <p>
+    <a href="https://braviaprime.com">Live Demo</a> •
+    <a href="#key-architectural-highlights">Architecture</a> •
+    <a href="#getting-started">Getting Started</a> •
+    <a href="#academic--engineering-relevance">Ph.D. Context</a>
+  </p>
+
+  <!-- Badges -->
+  <p>
+    <img src="https://img.shields.io/badge/Next.js_16-000000?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js" />
+    <img src="https://img.shields.io/badge/TypeScript_5-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+    <img src="https://img.shields.io/badge/Bun-000000?style=for-the-badge&logo=bun&logoColor=white" alt="Bun" />
+    <img src="https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind" />
+    <img src="https://img.shields.io/badge/Drizzle_ORM-C5F74F?style=for-the-badge&logo=drizzle&logoColor=black" alt="Drizzle" />
+    <img src="https://img.shields.io/github/license/braviaprime/braviaprime.com?style=for-the-badge&labelColor=111111" alt="License" />
+  </p>
 </div>
 
-Welcome to my personal blog and portfolio website! This repository contains a modern Next.js application where I share my thoughts, projects, and insights.
+---
 
-## Features
+# 📌 Executive Summary
 
-### Core Technologies
+`braviaprime.com` is a full-stack engineering portfolio and technical publishing platform built with **Next.js 16 (App Router & Turbopack)**. Designed with production-grade reliability, internationalization, and deterministic performance in mind, this project serves as both a digital presence and a sandbox for testing modern web infrastructure, distributed caching, and component architectures.
 
-- Next.js 16 with App Router
-- TypeScript with strict configuration
-- Tailwind CSS for styling
-- MDX for content
-- Drizzle ORM
-- I18n for internationalization support
+## Academic & Engineering Relevance
 
-### UI/UX
+- **High-Performance System Design:** Engineered to achieve near-100 Lighthouse scores across Performance, Accessibility, and SEO metrics.
+- **Strict Type Safety & Code Quality:** Pure TypeScript implementation with full schema validation (`t3-env`), automated quality gates (`Lefthook`), and unit/E2E test suites (`Vitest`, `Playwright`).
+- **Global Localization (i18n):** Multi-language routing and message management across English, Spanish, Japanese, Portuguese, and Chinese locales.
 
-- Base UI for accessible UI components
-- Responsive design
-- Light/Dark mode
-- Image zoom in blog posts
-- Shiki for code syntax highlighting
-- Motion for animations
-- Table of contents for blog posts
+---
 
-### Blog Features
+# 🛠️ Tech Stack & System Architecture
 
-- Comment system
-- Like functionality
-- Post view counter
-- Blog post search
-- RSS feed
-- Sitemap
+| Domain | Technologies Used |
+|----------|----------|
+| **Framework & Core** | Next.js 16 (App Router), TypeScript, Bun Runtime |
+| **Database & Cache** | Drizzle ORM, PostgreSQL, Redis (Upstash) |
+| **API Layer** | oRPC, Next.js Server Actions, t3-env Validation |
+| **Content Engine** | MDX, Shiki (Syntax Highlighting), Content Collections |
+| **Internationalization** | `next-intl` (Multi-locale Routing) |
+| **Auth & Security** | Better Auth, Upstash Rate Limiting |
+| **UI & Animation** | Base UI, Tailwind CSS, Motion (Framer Motion) |
+| **Testing & CI/CD** | Vitest, Playwright, ESLint, Prettier, Lefthook |
 
-### Performance & SEO
+---
 
-- Lighthouse score of nearly 100
-- SEO optimized with meta tags and JSON-LD
-- Dynamic open graph images using `next/og`
+# 🚀 Key Features
 
-### Development Experience
+## 📐 Modular Component Architecture & Design System
 
-- Vitest for unit/integration testing
-- Playwright for E2E testing
-- ESLint configuration
-- Prettier code formatting
-- Lefthook
-- Conventional commit
+- Built on top of accessible primitives (Base UI) paired with custom Tailwind design tokens.
+- Light & Dark theme support with automatic system-preference detection.
+- Interactive MDX components with live code blocks, image zoom, and dynamic Table of Contents generation.
 
-### Authentication & Data
+## 🌐 Distributed Data & Performance Optimization
 
-- Better Auth
-- Redis caching
-- Upstash for API rate limiting
-- t3-env for environment variables
-- Umami Analytics
+- **Caching Layer:** Redis caching for dynamic views, comment aggregation, and real-time Spotify API stats.
+- **Rate Limiting:** Distributed sliding-window rate limiting via Upstash to protect API routes.
+- **Edge SEO:** Dynamic Open Graph image generation (`next/og`), structured JSON-LD schemas, and automated RSS/Sitemap generation.
 
-### Email Templates
+## 💬 Real-Time Engagement & Admin Suite
 
-#### Comment Notification
+- **Interactive Comments & Likes:** Custom-built nested comment system with optimistic UI updates and like counters.
+- **Transactional Emails:** Responsive HTML email templates (`React Email`) for reply/comment notifications.
+- **System Monitoring:** Integrated Umami analytics for privacy-focused site metrics.
+
+---
+
+## 📧 Email Notifications Preview
 
 <div align="center">
-  <img alt="Comment notification template" src="public/images/comment-notification-email.png">
+  <table width="100%">
+    <tr>
+      <td align="center" width="50%">
+        <strong>Comment Notification</strong><br/><br/>
+        <img alt="Comment notification template" src="public/images/comment-notification-email.png" width="90%">
+      </td>
+      <td align="center" width="50%">
+        <strong>Reply Notification</strong><br/><br/>
+        <img alt="Reply notification template" src="public/images/reply-notification-email.png" width="90%">
+      </td>
+    </tr>
+  </table>
 </div>
 
-#### Reply Notification
+---
 
-<div align="center">
-  <img alt="Reply notification template" src="public/images/reply-notification-email.png">
-</div>
+# 📁 Repository Structure
 
-## Getting Started
-
-### Prerequisites
-
-- Node.js >= 24
-- bun >= 1
-- Docker
-- [Visual Studio Code](https://code.visualstudio.com/) with [recommended extensions](.vscode/extensions.json)
-- Optionally [React Developer Tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en)
-
-## Project Structure
-
-```
-bravía.com/
-├── public/           # Static assets (images, fonts, videos)
+```text
+braviaprime.com/
+├── public/                         # Optimized static assets and design resources
 ├── src/
-│   ├── app/          # Next.js app router pages
-│   ├── components/   # React components
-│   ├── constants/    # Application constants
-│   ├── content/      # MDX blog posts and content
-│   ├── contexts/     # React contexts
-│   ├── db/           # Database schema and migrations
-│   ├── emails/       # Email templates
-│   ├── hooks/        # Custom React hooks
-│   ├── i18n/         # Internationalization
-│   ├── lib/          # Utility libraries
-│   ├── mdx-plugins   # Custom Rehype and Remark plugins
-│   ├── orpc/         # oRPC API routes
-│   ├── styles/       # Global styles
-│   ├── tests/        # Unit and E2E tests
-│   └── utils/        # Utility functions
-├── docker-compose.yml
-└── package.json
+│   ├── app/                        # Next.js App Router ([locale] dynamic routing)
+│   ├── components/                 # Reusable, accessible UI components
+│   ├── constants/                  # Application constants
+│   ├── content/                    # Structured MDX content & dynamic collections
+│   ├── contexts/                   # React contexts
+│   ├── db/                         # PostgreSQL schemas, migrations (Drizzle ORM)
+│   ├── emails/                     # React Email templates
+│   ├── hooks/                      # Custom React hooks
+│   ├── i18n/                       # Routing & translation configuration
+│   ├── lib/                        # Utility libraries
+│   ├── mdx-plugins/                # Custom Rehype and Remark plugins
+│   ├── orpc/                       # Strongly typed API endpoints
+│   ├── styles/                     # Global styles
+│   ├── tests/                      # Unit (Vitest) & E2E (Playwright) test suites
+│   └── utils/                      # Utility functions
+├── docker-compose.yml              # Development container orchestration
+└── package.json                    # Dependency manifest & script definitions
 ```
 
-## Development
+---
 
-To run this project locally, you need to set up the development environment.
+# 💻 Local Development & Setup
 
-### Setup
+## Prerequisites
 
-1. Clone the repository:
+Ensure you have the following installed on your machine:
 
-```bash
-git clone https://github.com/braviadev/bravía.com
-```
+- **Node.js:** `>= 24.0.0`
+- **Bun:** `>= 1.0.0`
+- **Docker Engine & Compose**
+- **VS Code** (recommended)
 
-2. Navigate to the project directory:
+## Environment & Startup Sequence
 
-```bash
-cd bravía.com
-```
-
-3. Install dependencies using bun:
+### 1. Clone & Install Dependencies
 
 ```bash
+git clone https://github.com/braviaprime/braviaprime.com.git
+cd braviaprime.com
 bun install
 ```
 
-### Environment Setup
-
-1. Copy `.env.example` to `.env.local` and update the environment variables as needed.
+### 2. Configure Environment Variables
 
 ```bash
 cp .env.example .env.local
 ```
 
-2. Run required services using Docker:
+### 3. Start Local Database & Cache
 
 ```bash
 docker compose up -d
 ```
 
-3. Run the database migrations:
+### 4. Execute Migrations & Seed Data
 
 ```bash
 bun db:migrate
-```
-
-4. Seed the database:
-
-```bash
 bun db:seed
 ```
 
-5. Run the app:
+### 5. Launch Development Servers
 
 ```bash
-bun dev          # Run the development server
-# or
-bun email:dev    # Run the email preview server separately
+bun dev
+# Main Next.js App -> http://localhost:3000
+
+bun email:dev
+# React Email Server -> http://localhost:3001
 ```
 
-The services will be available at the following URLs:
+## 📊 Local Service Map
 
-| Service          | URL              |
-| ---------------- | ---------------- |
-| App              | `localhost:3000` |
-| React Email      | `localhost:3001` |
-| Cosmos           | `localhost:3002` |
-| Database         | `localhost:5432` |
-| Redis            | `localhost:6379` |
-| Redis serverless | `localhost:8079` |
-
-### Available Scripts
-
-```bash
-# Development
-bun dev               # Start development server
-bun email:dev         # Run email preview server
-bun cosmos            # Start Cosmos component playground
-
-# Build & Production
-bun run build         # Build for production (includes cosmos:export)
-bun start             # Start production server
-bun analyze           # Analyze bundle size
-
-# Quality & Testing
-bun check             # Run all quality checks (lint, typecheck, format, etc.)
-bun lint              # Run ESLint
-bun typecheck         # Run TypeScript type checking
-bun format            # Format code with Prettier
-bun knip              # Find unused dependencies/exports
-bun test:unit         # Run unit tests
-bun test:e2e          # Run Playwright E2E tests
-
-# Database
-bun db:migrate        # Run database migrations
-bun db:seed           # Seed the database
-bun db:push           # Push schema changes directly to DB
-bun db:reset          # Reset database
-bun db:studio         # Open Drizzle Studio
-```
-
-## Credits
-
-This project has been made possible thanks to the wonderful open-source community. Special thanks to:
-
-- [Timothy](https://www.timlrx.com/) for the [Tailwind nextjs starter blog template](https://github.com/timlrx/tailwind-nextjs-starter-blog).
-- [Eihab](https://www.eihabkhan.com/) for the UI design inspiration ([Figma](https://www.figma.com/community/file/1266863403759514317/geist-ui-kit-for-figma))
-
-This project also uses/adapts the following open-source projects:
-
-- Comment System - from [fuma-comment](https://github.com/fuma-nama/fuma-comment)
-- Rehype Plugins - from [fumadocs](https://github.com/fuma-nama/fumadocs)
-- UI components - from [shadcn/ui](https://github.com/shadcn-ui/ui)
-- Admin UI - from [shadcn-admin](https://github.com/satnaing/shadcn-admin)
-
-The following projects were referenced for inspiration:
-
-- [fumadocs](https://fumadocs.vercel.app/)
-- [leerob.io](https://leerob.io/)
-- [nerdfish.be](https://www.nerdfish.be/)
-- [nextra.site](https://nextra.site/)
-- [theodorusclarence.com](https://theodorusclarence.com/)
-- [ped.ro](https://ped.ro/)
-- [delba.dev](https://delba.dev/)
-- [joshwcomeau.com](https://www.joshwcomeau.com/)
-- [blog.maximeheckel.com](https://blog.maximeheckel.com/)
-- [zenorocha.com](https://zenorocha.com/)
-- [jahir.dev](https://jahir.dev/)
-- [anishde.dev](https://anishde.dev/)
-- [nikolovlazar.com](https://nikolovlazar.com/)
-- [samuelkraft.com](https://samuelkraft.com/)
-- [bentogrids.com](https://bentogrids.com/)
-- [ui.aceternity.com](https://ui.aceternity.com/)
-- [hover.dev](https://www.hover.dev/)
-- [vocs.dev](https://vocs.dev/)
-
-## Author
-
-- [@braviadev](https://github.com/braviadev)
-
-## Donation
-
-If you find this project helpful, consider supporting me by [sponsoring the project](https://github.com/sponsors/braviadev).
-
-## License
-
-This project is open source and available under the [MIT License](LICENSE).
+| Service | Address | Purpose |
+|----------|----------|----------|
+| Next.js Frontend | `http://localhost:3000` | Local Web Server |
+| React Email | `http://localhost:3001` | Email Template Previewer |
+| Cosmos | `http://localhost:3002` | Component Playground |
+| PostgreSQL | `localhost:5432` | Relational Database |
+| Redis | `localhost:6379` | In-Memory Data Store |
+| Redis Serverless | `localhost:8079` | Upstash Emulator |
 
 ---
 
-<p align="center">
-Made with ❤️ and passion in Nigeria
-</p>
+# 🧪 Quality Assurance & Available Scripts
+
+```bash
+# Development & Tools
+bun dev
+bun email:dev
+bun cosmos
+
+# Build & Production
+bun run build
+bun start
+bun analyze
+
+# Quality Control & Testing
+bun check
+bun lint
+bun typecheck
+bun format
+bun knip
+bun test:unit
+bun test:e2e
+
+# Database Operations
+bun db:migrate
+bun db:seed
+bun db:push
+bun db:reset
+bun db:studio
+```
+
+---
+
+# 🤝 Credits & Acknowledgments
+
+This project stands on the shoulders of the open-source community:
+
+- **Base Blog Template:** Inspired by [Tailwind Next.js Starter Blog](https://github.com/timlrx/tailwind-nextjs-starter-blog).
+- **Design Language:** Inspired by [Geist UI Kit](https://www.figma.com/community/file/1266863403759514317/geist-ui-kit-for-figma).
+- **Subsystem Architecture:** Comment engine adapted from [fuma-comment](https://github.com/fuma-nama/fuma-comment), Rehype plugins from [fumadocs](https://github.com/fuma-nama/fumadocs), and UI components from [shadcn/ui](https://github.com/shadcn-ui/ui).
+
+---
+
+# 👨‍💻 Author & Research Context
+
+**Olanrewaju Toyyib (Bravíaprime)**
+
+*Software Engineer & Academic Researcher*
+
+- 🌐 **Website:** https://braviaprime.com
+- 🐙 **GitHub:** https://github.com/braviaprime
+- 🎓 **Academic Target:** Prospective Ph.D. Candidate in Computer Science / Software Engineering at **Technical University of Munich (TUM), Germany**.
+
+---
+
+# 🤝 Sponsorship & Support
+
+If you find this project helpful or relevant to your research, consider sponsoring the repository:
+
+👉 https://github.com/sponsors/braviaprime
+
+---
+
+# 📄 License
+
+Distributed under the MIT License. See the LICENSE file for details.

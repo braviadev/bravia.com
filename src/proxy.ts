@@ -9,7 +9,7 @@ const IS_PREVIEW = env.VERCEL_ENV === 'preview'
 const POSTHOG_ORIGINS = getPostHogAllowedOrigins().join(' ')
 
 export function proxy(request: NextRequest) {
-  // 1. Fixed the 'bravía.com' to use the Punycode 'xn--brava-2sa.com' in script-src and connect-src
+  // 1. Fixed the 'braviaprime.com' to use the Punycode 'xn--brava-2sa.com' in script-src and connect-src
   const csp = `
     default-src 'none';
     script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.xn--brava-2sa.com https://*.posthog.com ${POSTHOG_ORIGINS} https://va.vercel-scripts.com ${IS_PREVIEW ? 'https://vercel.live' : ''};

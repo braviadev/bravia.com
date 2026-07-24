@@ -20,15 +20,15 @@ function AvatarSizes() {
     <DemoItem title='Sizes' orientation='vertical'>
       <div className='flex flex-wrap items-center gap-2'>
         <Avatar size='sm'>
-          <AvatarImage src='https://github.com/braviadev.png' alt='@braviadev' />
+          <AvatarImage src='https://github.com/braviaprime.png' alt='@braviaprime' />
           <AvatarFallback>NL</AvatarFallback>
         </Avatar>
         <Avatar>
-          <AvatarImage src='https://github.com/braviadev.png' alt='@braviadev' />
+          <AvatarImage src='https://github.com/braviaprime.png' alt='@braviaprime' />
           <AvatarFallback>NL</AvatarFallback>
         </Avatar>
         <Avatar size='lg'>
-          <AvatarImage src='https://github.com/braviadev.png' alt='@braviadev' />
+          <AvatarImage src='https://github.com/braviaprime.png' alt='@braviaprime' />
           <AvatarFallback>NL</AvatarFallback>
         </Avatar>
       </div>

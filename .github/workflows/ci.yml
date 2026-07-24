@@ -134,7 +134,7 @@ jobs:
 
       - name: Verify Postgres is ready
         run: |
-          until docker exec $(docker ps -qf "name=nelsonlaidev-postgres") pg_isready; do
+          until docker exec $(docker ps -qf "name=braviaprime-postgres") pg_isready; do
             echo "Waiting for database..."
             sleep 2
           done

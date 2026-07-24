@@ -18,7 +18,7 @@ export async function sendEmail(options: SendEmailOptions) {
   const resend = new Resend(env.RESEND_API_KEY)
 
   return resend.emails.send({
-    from: 'Olanrewaju Toyyib <me@bravía.com>',
+    from: 'Olanrewaju Toyyib <me@braviaprime.com>',
     to,
     subject,
     react,

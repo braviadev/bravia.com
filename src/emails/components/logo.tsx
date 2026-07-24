@@ -4,7 +4,7 @@ function Logo() {
   return (
     <Section className='mb-6'>
       <Img
-        src='bravía.com/images/avatar.png'
+        src='braviaprime.com/images/avatar.png'
         alt="Bravia Dper's Logo"
         width='48'
         height='48'

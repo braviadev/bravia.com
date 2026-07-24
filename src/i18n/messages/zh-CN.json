@@ -19,6 +19,7 @@
     "no-active-sessions": "没有活动会话",
     "open-navigation-menu": "打开导航菜单",
     "profile": "个人资料",
+    "settings": "设置",
     "revoke-session": "结束",
     "this-device": "此设备",
     "update-avatar": "更新头像"
@@ -205,7 +206,7 @@
   "dialog": {
     "sign-in": {
       "continue-with": "使用 {provider} 继续",
-      "description": "以继续使用 bravía.com",
+      "description": "以继续使用 braviaprime.com",
       "last-used": "上次使用",
       "notice": "继续即表示您同意我们的 <terms>服务条款</terms> 和 <privacy>隐私权政策</privacy>"
     }
@@ -271,7 +272,7 @@
       "fantastic": "极致出色",
       "location-timezone": "香港 • UTC/GMT +8",
       "stunning": "惊艳非凡",
-      "line-1": "我是 Bravia，一位全栈工程师",
+      "line-1": "我是 Bravíaprime，一位全栈工程师",
       "line-2-left": "制作",
       "line-2-right": "的网站",
       "line-3": "并使用 React 开发",

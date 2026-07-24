@@ -47,6 +47,9 @@ if (env.CLOUDFLARE_R2_PUBLIC_URL) {
 }
 
 const config: NextConfig = {
+  // Added your network IP to allow dev resources to load
+  allowedDevOrigins: ['172.26.80.1'],
+
   reactCompiler: true,
 
   productionBrowserSourceMaps: true,

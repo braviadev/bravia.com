@@ -19,6 +19,7 @@
     "no-active-sessions": "沒有使用中工作階段",
     "open-navigation-menu": "開啟導覽選單",
     "profile": "個人資料",
+    "settings": "設定",
     "revoke-session": "終止",
     "this-device": "此裝置",
     "update-avatar": "更新頭像"
@@ -205,7 +206,7 @@
   "dialog": {
     "sign-in": {
       "continue-with": "使用 {provider} 繼續",
-      "description": "以繼續使用 bravía.com",
+      "description": "以繼續使用 braviaprime.com",
       "last-used": "上次使用",
       "notice": "繼續即表示您同意我們的 <terms>服務條款</terms> 和 <privacy>隱私權政策</privacy>"
     }
@@ -229,7 +230,7 @@
     "need-logged-in-to-vote": "您必須登入才能投票評論",
     "not-found": "找不到頁面。",
     "now-playing-error": "無法獲取 Spotify 資料",
-    "reply-cannot-be-empty": "回覆不能為空",
+    "reply-cannot-be-empty": "回覆頁面不能為空",
     "sign-in-error": "登入失敗。請再試一次。",
     "sign-out-failed": "登出失敗，請再試一次。",
     "something-went-wrong": "發生了一些問題，請再試一次。",
@@ -271,7 +272,7 @@
       "fantastic": "極致出色",
       "location-timezone": "香港 • UTC/GMT +8",
       "stunning": "驚豔非凡",
-      "line-1": "我是 Bravia，一位全端工程師",
+      "line-1": "我是 Bravíaprime，一位全端工程師",
       "line-2-left": "製作",
       "line-2-right": "的網站",
       "line-3": "並使用 React 開發",

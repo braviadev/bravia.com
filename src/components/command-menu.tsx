@@ -140,7 +140,7 @@ export function CommandMenu() {
       title: t('command-menu.actions.source-code'),
       icon: <CodeIcon />,
       handleSelect: () => {
-        openExternalLink('https://github.com/braviadev/bravia.dev')
+        openExternalLink('https://github.com/braviaprime/braviaprime.com')
       },
     },
   ]

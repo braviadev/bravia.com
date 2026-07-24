@@ -116,7 +116,7 @@ const createComment = protectedProcedure
     const commenterName = user.name
     const commenterImage = user.image ?? getDefaultImage(user.id)
     const postTitle = post.title
-    const postUrl = `https://bravía.com/blog/${input.slug}`
+    const postUrl = `https://braviaprime.com/blog/${input.slug}`
 
     const comment = await context.db.transaction(async (tx) => {
       const [c] = await tx
@@ -198,7 +198,7 @@ const createComment = protectedProcedure
               date: input.date,
               postTitle,
               postUrl,
-              unsubscribeUrl: `https://bravía.com/unsubscribe?token=${token}`,
+              unsubscribeUrl: `https://braviaprime.com/unsubscribe?token=${token}`,
             }),
           })
         }

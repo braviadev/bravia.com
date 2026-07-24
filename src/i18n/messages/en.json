@@ -1,6 +1,6 @@
 {
   "about": {
-    "description": "Hi! I'm Olanrewaju Toyyib, a passionate web development student creating innovative projects with HTML, CSS, and JavaScript. Explore my portfolio, skills, and journey in building user-friendly apps. Let's connect!"
+    "description": "Hi, I'm Olanrewaju Toyyib. I bridge the gap between academic research, technical development, and impactful leadership. As a programmer, I build innovative, user-centric web applications using modern technologies. Beyond the code, I am an academic researcher advancing toward doctoral studies in Germany, and a speaker dedicated to fostering right-capacity leadership. Explore my portfolio to see how I combine technology, research, and leadership to drive real-world impact. Let's connect!"
   },
   "account": {
     "account-created": "Account created",
@@ -19,6 +19,7 @@
     "no-active-sessions": "No active sessions",
     "open-navigation-menu": "Open navigation menu",
     "profile": "Profile",
+    "settings": "Settings",
     "revoke-session": "Revoke",
     "this-device": "This device",
     "update-avatar": "Update avatar"
@@ -205,7 +206,7 @@
   "dialog": {
     "sign-in": {
       "continue-with": "Continue with {provider}",
-      "description": "to continue to bravía.com",
+      "description": "to continue to braviaprime.com",
       "last-used": "Last used",
       "notice": "By continuing, you agree to our <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>"
     }
@@ -255,7 +256,7 @@
       "connect": "Connect",
       "fav-framework": "Fav. framework",
       "location": "Location",
-      "location-value": "🇭🇰 Kwara State",
+      "location-value": "🇳🇬 Kwara State",
       "more": "Know more about me",
       "stacks": "Stacks",
       "title": "About Me"
@@ -266,15 +267,15 @@
       "title": "Any questions about Next.js?"
     },
     "hero": {
-      "amazing": "Amazing",
-      "attractive": "Attractive",
-      "fantastic": "Fantastic",
-      "location-timezone": "Kwara State • UTC/GMT +8",
-      "stunning": "Stunning",
-      "line-1": "I'm Bravia, a Full Stack Engineer",
-      "line-2-left": "building",
-      "line-2-right": "websites using",
-      "line-3": "React",
+      "amazing": "Developer",
+      "attractive": "Researcher",
+      "fantastic": "Leader",
+      "location-timezone": "Kwara State, Nigeria • UTC/GMT +1",
+      "stunning": "Innovator",
+      "line-1": "I'm Bravíaprime, a Software Engineer & AI Researcher",
+      "line-2-left": "Building Intelligent",
+      "line-2-right": "Systems Powered by",
+      "line-3": "AI & React",
       "image-alt": "Olanrewaju Toyyib's Logo"
     },
     "latest-articles": {

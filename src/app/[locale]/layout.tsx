@@ -2,6 +2,7 @@ import '@/styles/globals.css'
 
 import type { Viewport } from 'next'
 
+import { IS_PRODUCTION } from '@/constants/common'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Geist, Geist_Mono, Noto_Sans_SC, Noto_Sans_TC } from 'next/font/google'
 import { notFound } from 'next/navigation'
@@ -11,7 +12,6 @@ import { NuqsAdapter } from 'nuqs/adapters/next/app'
 
 import { Analytics } from '@/components/analytics'
 import { Hello } from '@/components/hello'
-import { PostHogUserSync } from '@/components/posthog-user-sync'
 import { Providers } from '@/components/providers'
 import { SignInDialog } from '@/components/sign-in-dialog'
 import { routing } from '@/i18n/routing'
@@ -71,7 +71,6 @@ async function Layout(props: LayoutProps<'/[locale]'>) {
         <NuqsAdapter>
           <Providers>
             <NextIntlClientProvider>
-              <PostHogUserSync />
               <Hello />
               {children}
               <Analytics />
@@ -79,7 +78,7 @@ async function Layout(props: LayoutProps<'/[locale]'>) {
             </NextIntlClientProvider>
           </Providers>
         </NuqsAdapter>
-        <SpeedInsights />
+          {IS_PRODUCTION && <SpeedInsights />}
       </body>
     </html>
   )

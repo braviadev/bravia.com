@@ -10,7 +10,7 @@ export function Hello() {
 
 If you're digging this code, check out my GitHub repo:
 
-https://github.com/braviadev/bravia.dev
+https://github.com/braviaprime/braviaprime.com
 
 and give it a star ⭐
 `,
