@@ -2,20 +2,8 @@ import type { SatoriOptions } from 'next/dist/compiled/@vercel/og/satori'
 
 import { cache } from 'react'
 
-// Import fonts as raw ArrayBuffers directly so Turbopack bundles them automatically
-// @ts-expect-error - Next.js/Turbopack handles binary imports via asset tracing
-import geistRegular from '../../public/fonts/Geist-Regular.otf'
-// @ts-expect-error - Next.js/Turbopack handles binary imports via asset tracing
-import geistMedium from '../../public/fonts/Geist-Medium.otf'
-// @ts-expect-error - Next.js/Turbopack handles binary imports via asset tracing
-import geistSemiBold from '../../public/fonts/Geist-SemiBold.otf'
-
-const getRegularFont = cache(async () => geistRegular as unknown as ArrayBuffer)
-const getMediumFont = cache(async () => geistMedium as unknown as ArrayBuffer)
-const getSemiBoldFont = cache(async () => geistSemiBold as unknown as ArrayBuffer)
-
-const fetchGoogleFont = cache(async (font: string, text: string): Promise<ArrayBuffer> => {
-  const cssURL = `https://fonts.googleapis.com/css2?family=${encodeURIComponent(font)}&text=${encodeURIComponent(text)}`
+const fetchGoogleFont = cache(async (font: string, text: string, weight = 400): Promise<ArrayBuffer> => {
+  const cssURL = `https://fonts.googleapis.com/css2?family=${encodeURIComponent(font)}:wght@${weight}&text=${encodeURIComponent(text)}`
 
   const cssResponse = await fetch(cssURL, {
     headers: {
@@ -26,10 +14,10 @@ const fetchGoogleFont = cache(async (font: string, text: string): Promise<ArrayB
 
   const css = await cssResponse.text()
 
-  const match = /src: url\((.+?)\) format\('(?:opentype|truetype)'\)/.exec(css)
+  const match = /src: url\((.+?)\) format\('(?:opentype|truetype|woff2)'\)/.exec(css) || /src: url\((.+?)\)/.exec(css)
 
   if (!match?.[1]) {
-    throw new Error('Failed to extract font URL from CSS')
+    throw new Error(`Failed to extract font URL for ${font}`)
   }
 
   const fontURL = match[1]
@@ -40,11 +28,11 @@ const fetchGoogleFont = cache(async (font: string, text: string): Promise<ArrayB
 export async function getOGImageFonts(title: string): Promise<SatoriOptions['fonts']> {
   const [regularFontData, mediumFontData, semiBoldFontData, notoSansTCData, notoSansSCData] =
     await Promise.all([
-      getRegularFont(),
-      getMediumFont(),
-      getSemiBoldFont(),
-      fetchGoogleFont('Noto Sans TC', title),
-      fetchGoogleFont('Noto Sans SC', title),
+      fetchGoogleFont('Geist', title, 400),
+      fetchGoogleFont('Geist', title, 500),
+      fetchGoogleFont('Geist', title, 600),
+      fetchGoogleFont('Noto Sans TC', title, 400),
+      fetchGoogleFont('Noto Sans SC', title, 400),
     ])
 
   return [
