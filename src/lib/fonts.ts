@@ -1,33 +1,20 @@
 import type { SatoriOptions } from 'next/dist/compiled/@vercel/og/satori'
 
-import fs from 'node:fs/promises'
-import path from 'node:path'
-
 import { cache } from 'react'
 
-function getFontPath(fontName: string) {
-  return path.join(process.cwd(), 'public', 'fonts', fontName)
-}
-
 const getRegularFont = cache(async () => {
-  const response = await fs.readFile(getFontPath('Geist-Regular.otf'))
-  const font = Uint8Array.from(response).buffer
-
-  return font
+  const fontUrl = new URL('../../public/fonts/Geist-Regular.otf', import.meta.url)
+  return await fetch(fontUrl).then((res) => res.arrayBuffer())
 })
 
 const getMediumFont = cache(async () => {
-  const response = await fs.readFile(getFontPath('Geist-Medium.otf'))
-  const font = Uint8Array.from(response).buffer
-
-  return font
+  const fontUrl = new URL('../../public/fonts/Geist-Medium.otf', import.meta.url)
+  return await fetch(fontUrl).then((res) => res.arrayBuffer())
 })
 
 const getSemiBoldFont = cache(async () => {
-  const response = await fs.readFile(getFontPath('Geist-SemiBold.otf'))
-  const font = Uint8Array.from(response).buffer
-
-  return font
+  const fontUrl = new URL('../../public/fonts/Geist-SemiBold.otf', import.meta.url)
+  return await fetch(fontUrl).then((res) => res.arrayBuffer())
 })
 
 const fetchGoogleFont = cache(async (font: string, text: string): Promise<ArrayBuffer> => {
@@ -50,19 +37,18 @@ const fetchGoogleFont = cache(async (font: string, text: string): Promise<ArrayB
 
   const fontURL = match[1]
   const fontResponse = await fetch(fontURL)
-  const fontData = await fontResponse.arrayBuffer()
-
-  return fontData
+  return await fontResponse.arrayBuffer()
 })
 
 export async function getOGImageFonts(title: string): Promise<SatoriOptions['fonts']> {
-  const [regularFontData, mediumFontData, semiBoldFontData, notoSansTCData, notoSansSCData] = await Promise.all([
-    getRegularFont(),
-    getMediumFont(),
-    getSemiBoldFont(),
-    fetchGoogleFont('Noto Sans TC', title),
-    fetchGoogleFont('Noto Sans SC', title),
-  ])
+  const [regularFontData, mediumFontData, semiBoldFontData, notoSansTCData, notoSansSCData] =
+    await Promise.all([
+      getRegularFont(),
+      getMediumFont(),
+      getSemiBoldFont(),
+      fetchGoogleFont('Noto Sans TC', title),
+      fetchGoogleFont('Noto Sans SC', title),
+    ])
 
   return [
     {
