@@ -7,7 +7,7 @@ import { env } from '@/env'
 import { getPostHogProxyRewrites } from '@/lib/posthog-config'
 import { withPostHog } from '@/lib/posthog-next'
 
-import { IS_PRODUCTION } from './src/constants/common'
+import { IS_PRODUCTION } from '@/constants/common'
 
 const withNextIntl = createNextIntlPlugin()
 
@@ -38,20 +38,23 @@ if (!IS_PRODUCTION) {
 }
 
 if (env.CLOUDFLARE_R2_PUBLIC_URL) {
-  const { hostname } = new URL(env.CLOUDFLARE_R2_PUBLIC_URL)
-
-  remotePatterns.push({
-    protocol: 'https',
-    hostname,
-  })
+  try {
+    const { hostname } = new URL(env.CLOUDFLARE_R2_PUBLIC_URL)
+    remotePatterns.push({
+      protocol: 'https',
+      hostname,
+    })
+  } catch (error) {
+    console.warn('Invalid CLOUDFLARE_R2_PUBLIC_URL provided in env:', error)
+  }
 }
 
 const config: NextConfig = {
-  // Fix PostHog ESM package subpath export issues during build
+  // Prevent Next.js bundler from trying to resolve internal PostHog subpaths on the server
   serverExternalPackages: ['@posthog/core', 'posthog-node'],
   transpilePackages: ['posthog-js'],
 
-  // Added your network IP to allow dev resources to load
+  // Allowed network origins for dev server
   allowedDevOrigins: ['172.26.80.1'],
 
   reactCompiler: true,
@@ -59,7 +62,7 @@ const config: NextConfig = {
   productionBrowserSourceMaps: true,
 
   typescript: {
-    ignoreBuildErrors: env.CI,
+    ignoreBuildErrors: !!env.CI,
   },
 
   images: {
