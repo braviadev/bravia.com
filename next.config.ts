@@ -5,6 +5,7 @@ import createNextIntlPlugin from 'next-intl/plugin'
 
 import { env } from '@/env'
 import { getPostHogProxyRewrites } from '@/lib/posthog-config'
+import { withPostHog } from '@/lib/posthog-next'
 
 import { IS_PRODUCTION } from '@/constants/common'
 
@@ -49,7 +50,8 @@ if (env.CLOUDFLARE_R2_PUBLIC_URL) {
 }
 
 const config: NextConfig = {
-  serverExternalPackages: ['@posthog/core', 'posthog-node'],
+  // Prevent Next.js bundler from trying to resolve internal PostHog subpaths on the server
+  serverExternalPackages: ['@posthog/core', 'posthog-node', 'posthog-js'],
   transpilePackages: ['posthog-js'],
 
   // Webpack alias to catch & bypass internal @posthog/core subpath resolution
@@ -61,6 +63,7 @@ const config: NextConfig = {
     return webpackConfig
   },
 
+  // Allowed network origins for dev server
   allowedDevOrigins: ['172.26.80.1'],
 
   reactCompiler: true,
@@ -134,4 +137,5 @@ const config: NextConfig = {
   },
 }
 
-export default withContentCollections(withNextIntl(config))
+// Wrap with all plugins and export
+export default withPostHog(withContentCollections(withNextIntl(config)))
