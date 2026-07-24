@@ -5,7 +5,6 @@ import createNextIntlPlugin from 'next-intl/plugin'
 
 import { env } from '@/env'
 import { getPostHogProxyRewrites } from '@/lib/posthog-config'
-import { withPostHog } from '@/lib/posthog-next'
 
 import { IS_PRODUCTION } from '@/constants/common'
 
@@ -51,7 +50,7 @@ if (env.CLOUDFLARE_R2_PUBLIC_URL) {
 
 const config: NextConfig = {
   // Prevent Next.js bundler from trying to resolve internal PostHog subpaths on the server
-  serverExternalPackages: ['@posthog/core', 'posthog-node'],
+  serverExternalPackages: ['@posthog/core', 'posthog-node', 'posthog-js'],
   transpilePackages: ['posthog-js'],
 
   // Allowed network origins for dev server
@@ -128,5 +127,5 @@ const config: NextConfig = {
   },
 }
 
-// Wrap with all plugins and export
-export default withPostHog(withContentCollections(withNextIntl(config)))
+// Export without withPostHog wrapper to bypass ESM export resolution bug
+export default withContentCollections(withNextIntl(config))
