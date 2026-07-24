@@ -1,20 +1,15 @@
 import type { SatoriOptions } from 'next/dist/compiled/@vercel/og/satori'
 
+import fs from 'node:fs/promises'
+import path from 'node:path'
+
 import { cache } from 'react'
 
-const getRegularFont = cache(async () => {
-  const fontUrl = new URL('../../public/fonts/Geist-Regular.otf', import.meta.url)
-  return await fetch(fontUrl).then((res) => res.arrayBuffer())
-})
-
-const getMediumFont = cache(async () => {
-  const fontUrl = new URL('../../public/fonts/Geist-Medium.otf', import.meta.url)
-  return await fetch(fontUrl).then((res) => res.arrayBuffer())
-})
-
-const getSemiBoldFont = cache(async () => {
-  const fontUrl = new URL('../../public/fonts/Geist-SemiBold.otf', import.meta.url)
-  return await fetch(fontUrl).then((res) => res.arrayBuffer())
+const getFont = cache(async (fontFileName: string) => {
+  // Use path.join with process.cwd() so it dynamically targets /public/fonts/
+  const filePath = path.join(process.cwd(), 'public', 'fonts', fontFileName)
+  const fontBuffer = await fs.readFile(filePath)
+  return Uint8Array.from(fontBuffer).buffer
 })
 
 const fetchGoogleFont = cache(async (font: string, text: string): Promise<ArrayBuffer> => {
@@ -43,9 +38,9 @@ const fetchGoogleFont = cache(async (font: string, text: string): Promise<ArrayB
 export async function getOGImageFonts(title: string): Promise<SatoriOptions['fonts']> {
   const [regularFontData, mediumFontData, semiBoldFontData, notoSansTCData, notoSansSCData] =
     await Promise.all([
-      getRegularFont(),
-      getMediumFont(),
-      getSemiBoldFont(),
+      getFont('Geist-Regular.otf'),
+      getFont('Geist-Medium.otf'),
+      getFont('Geist-SemiBold.otf'),
       fetchGoogleFont('Noto Sans TC', title),
       fetchGoogleFont('Noto Sans SC', title),
     ])
