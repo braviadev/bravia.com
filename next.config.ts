@@ -49,11 +49,18 @@ if (env.CLOUDFLARE_R2_PUBLIC_URL) {
 }
 
 const config: NextConfig = {
-  // Prevent Next.js bundler from trying to resolve internal PostHog subpaths on the server
-  serverExternalPackages: ['@posthog/core', 'posthog-node', 'posthog-js'],
+  serverExternalPackages: ['@posthog/core', 'posthog-node'],
   transpilePackages: ['posthog-js'],
 
-  // Allowed network origins for dev server
+  // Webpack alias to catch & bypass internal @posthog/core subpath resolution
+  webpack: (webpackConfig) => {
+    webpackConfig.resolve.alias = {
+      ...webpackConfig.resolve.alias,
+      '@posthog/core/process': false,
+    }
+    return webpackConfig
+  },
+
   allowedDevOrigins: ['172.26.80.1'],
 
   reactCompiler: true,
@@ -127,5 +134,4 @@ const config: NextConfig = {
   },
 }
 
-// Export without withPostHog wrapper to bypass ESM export resolution bug
 export default withContentCollections(withNextIntl(config))
