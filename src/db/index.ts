@@ -12,8 +12,8 @@ const isProd = process.env.NODE_ENV === 'production'
 const connectionString = env.DATABASE_URL
 
 const connectionOptions: postgres.Options<{}> = {
-  max: isProd ? 10 : 1,        
-  // 🚨 Change this back to rejectUnauthorized: false
+  // 🚨 CRUCIAL FIX: Force 1 connection per Vercel instance
+  max: 1,        
   ssl: isProd ? { rejectUnauthorized: false } : false, 
   prepare: false,                     
   idle_timeout: 20,
