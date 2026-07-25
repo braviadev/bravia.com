@@ -26,13 +26,8 @@ const countView = publicProcedure
 
     const [post] = await context.db.select({ views: posts.views }).from(posts).where(eq(posts.slug, input.slug))
 
-    if (!post) {
-      throw new ORPCError('NOT_FOUND', {
-        message: 'Post not found',
-      })
-    }
-
-    const { views } = post
+    // 🛠️ THE FIX: Gracefully fallback to 0 instead of throwing an error
+    const views = post?.views ?? 0
 
     await cache.posts.views.set(input.slug, views)
 
