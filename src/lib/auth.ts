@@ -38,9 +38,11 @@ export const auth = betterAuth({
     usePlural: true,
   }),
 
-  // 🛠️ FIX 2: Explicitly trust your local environment to prevent 403 Forbidden errors
+  // 🛠️ FIX 2: Explicitly trust your production domains AND local environment
   trustedOrigins: [
     getBaseUrl(),
+    'https://braviaprime.com',
+    'https://www.braviaprime.com',
     'http://localhost:3000',
     'http://127.0.0.1:3000'
   ],
