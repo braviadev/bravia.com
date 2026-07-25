@@ -7,11 +7,11 @@ const fetchGoogleFont = cache(
     try {
       const cssURL = `https://fonts.googleapis.com/css2?family=${encodeURIComponent(font)}:wght@${weight}&text=${encodeURIComponent(text)}`
 
-      // Using an older Safari User-Agent forces Google Fonts to return TTF/OTF instead of WOFF2
+      // 🚨 Use an ancient Safari User-Agent to strictly force Google Fonts to return TTF
       const cssResponse = await fetch(cssURL, {
         headers: {
           'User-Agent':
-            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/603.3.8 (KHTML, like Gecko) Version/10.1.2 Safari/603.3.8',
+            'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; de-at) AppleWebKit/533.21.1 (KHTML, like Gecko) Version/5.0.5 Safari/533.21.1',
         },
       })
 
@@ -19,12 +19,13 @@ const fetchGoogleFont = cache(
 
       const css = await cssResponse.text()
 
-      // Match opentype / truetype format URLs from Google Fonts CSS
-      const match =
-        /src: url\((.+?)\) format\('(?:opentype|truetype)'\)/.exec(css) ||
-        /src: url\((.+?)\)/.exec(css)
+      // 🚨 Strictly capture ONLY truetype or opentype URLs (No loose fallbacks)
+      const match = /src:\s*url\(['"]?([^'"]+)['"]?\)\s*format\(['"]?(truetype|opentype)['"]?\)/.exec(css)
 
-      if (!match?.[1]) return null
+      if (!match?.[1]) {
+        console.warn(`Could not extract TTF font URL for ${font}`)
+        return null
+      }
 
       const fontURL = match[1]
       const fontResponse = await fetch(fontURL)
@@ -33,15 +34,18 @@ const fetchGoogleFont = cache(
 
       const buffer = await fontResponse.arrayBuffer()
 
-      // Verify magic bytes: Ensure it's true OTF/TTF (magic start OTTO or \x00\x01\x00\x00) and not HTML or wOF2
+      // Final safety check to completely prevent Satori 'wOF2' crashes
       const header = new Uint8Array(buffer.slice(0, 4))
       const magic = String.fromCharCode(...header)
-      if (magic.startsWith('<') || magic === 'wOF2') {
+      
+      if (magic === 'wOF2') {
+        console.warn(`Google Fonts returned unsupported format (${magic}) for ${font}`)
         return null
       }
 
       return buffer
-    } catch {
+    } catch (error) {
+      console.error(`Failed to fetch font ${font}:`, error)
       return null
     }
   },
