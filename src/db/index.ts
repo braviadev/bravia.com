@@ -1,28 +1,30 @@
 import { drizzle } from 'drizzle-orm/postgres-js'
 import postgres from 'postgres'
 
-import { IS_PRODUCTION } from '@/constants/common'
 import { env } from '@/env'
-
 import * as schema from './schemas'
 
 declare global {
-  var pgClient: ReturnType<typeof postgres> | undefined
+  var pgClient: postgres.Sql | undefined
 }
 
-// Client configuration for Aiven PostgreSQL
-const clientOptions: postgres.Options<{}> = {
-  ssl: { rejectUnauthorized: false }, // Enforces SSL and bypasses self-signed cert checks on Aiven
-  prepare: false, // Prevents prepared statement errors across serverless invocations
+// 🚨 Use native Node environment check (Vercel automatically sets this to 'production')
+const isProd = process.env.NODE_ENV === 'production'
+const connectionString = env.DATABASE_URL
+
+const connectionOptions: postgres.Options<{}> = {
+  max: isProd ? 10 : 1,        
+  // 🚨 Vercel gets 'require', your local PC gets 'false'
+  ssl: isProd ? 'require' : false, 
+  prepare: false,                     
+  idle_timeout: 20,
+  connect_timeout: 30,                
 }
 
-let client: ReturnType<typeof postgres>
+const client = globalThis.pgClient || postgres(connectionString, connectionOptions)
 
-if (IS_PRODUCTION) {
-  client = postgres(env.DATABASE_URL, clientOptions)
-} else {
-  globalThis.pgClient ??= postgres(env.DATABASE_URL, clientOptions)
-  client = globalThis.pgClient
+if (!isProd) {
+  globalThis.pgClient = client
 }
 
 export const db = drizzle(client, { schema })
