@@ -42,10 +42,8 @@ const countLike = publicProcedure
             .where(eq(posts.slug, input.slug))
             .then((rows) => {
               const row = rows[0]
-              if (!row) {
-                throw new ORPCError('NOT_FOUND', { message: 'Post not found' })
-              }
-              return row.likes
+              // 🛠️ THE FIX: Return 0 instead of throwing an error for new posts
+              return row?.likes ?? 0
             })
         : Promise.resolve(cachedLikes),
       cachedUserLikes === null
