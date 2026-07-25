@@ -8,14 +8,13 @@ declare global {
   var pgClient: postgres.Sql | undefined
 }
 
-// 🚨 Use native Node environment check (Vercel automatically sets this to 'production')
 const isProd = process.env.NODE_ENV === 'production'
 const connectionString = env.DATABASE_URL
 
 const connectionOptions: postgres.Options<{}> = {
   max: isProd ? 10 : 1,        
-  // 🚨 Vercel gets 'require', your local PC gets 'false'
-  ssl: isProd ? 'require' : false, 
+  // 🚨 Change this back to rejectUnauthorized: false
+  ssl: isProd ? { rejectUnauthorized: false } : false, 
   prepare: false,                     
   idle_timeout: 20,
   connect_timeout: 30,                
